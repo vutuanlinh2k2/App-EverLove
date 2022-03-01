@@ -1,31 +1,30 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const HomeBanner = (props) => {
-  const { numOfDays } = props;
+import { screenWidth } from "../../constants/styles";
+
+const DateCounter1 = (props) => {
   return (
-    <View style={styles.banner}>
+    <View style={styles.dateCounter}>
       <Image
         style={styles.image}
         source={require("../../assets/heart-2.png")}
       />
       <View style={styles.textContainer}>
-
-    <Text style={styles.text}>{numOfDays}</Text>
-    <Text style={styles.text}>ngày yêu</Text>
+        <Text style={styles.text}>200</Text>
+        <Text style={styles.text}>ngày yêu</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  banner: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 250,
+  dateCounter: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: screenWidth - 150,
     paddingVertical: 5,
     backgroundColor: "#F9D7D7",
-    // marginHorizontal: 4,
     marginBottom: 12.5,
     borderRadius: 25,
     shadowColor: "black",
@@ -37,13 +36,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textContainer: {
-    position: 'absolute',
+    position: "absolute",
   },
   text: {
     fontFamily: "nunito-black",
     textAlign: "center",
     color: "white",
-    fontSize: 22
+    fontSize: 22,
   },
   image: {
     height: "100%",
@@ -51,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeBanner;
+export default DateCounter1;

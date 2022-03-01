@@ -9,8 +9,8 @@ const HeadingText = (props) => {
 const styles = StyleSheet.create({
   heading: {
     fontFamily: "nunito-bold",
-    fontSize: 18,
-    marginBottom: 7.5
+    fontSize: 19,
+    // marginBottom: 7.5
   },
 });
 

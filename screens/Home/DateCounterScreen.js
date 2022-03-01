@@ -2,12 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import { dateCounterScreenTitle } from "../../constants/screenTitles";
+import BodyWrapper from "../../components/UI/BodyWrapper";
 
 const DateCounterScreen = (props) => {
   return (
-    <View style={styles.screen}>
+    <BodyWrapper>
       <Text>DateCounterScreen</Text>
-    </View>
+    </BodyWrapper>
   );
 };
 

@@ -15,7 +15,7 @@ const MemoriesScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    title: memoryScreenTitle,
+    title: '',
   };
 };
 
