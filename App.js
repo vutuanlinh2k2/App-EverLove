@@ -7,8 +7,9 @@ import AppNavigator from "./navigation/AppNavigator";
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+    'fredoka-bold': require('./assets/fonts/Fredoka-Bold.ttf'),
+    'fredoka': require('./assets/fonts/Fredoka-Regular.ttf'),
+    'fredoka-semibold': require('./assets/fonts/Fredoka-SemiBold.ttf'),
   });
 };
 

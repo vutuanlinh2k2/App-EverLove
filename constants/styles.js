@@ -1,0 +1,1 @@
+export const appPaddingHorizontal = 20;
