@@ -7,7 +7,7 @@ const BodyWrapper = (props) => {
   const { children } = props;
   return (
     <View style={styles.body}>
-      <ScrollView>{children}</ScrollView>
+      <ScrollView style={styles.view}>{children}</ScrollView>
     </View>
   );
 };
@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingHorizontal: appPaddingHorizontal,
   },
+  view: {
+    overflow: "visible",
+  }
 });
 
 export default BodyWrapper;

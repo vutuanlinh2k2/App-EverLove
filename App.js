@@ -7,9 +7,9 @@ import AppNavigator from "./navigation/AppNavigator";
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    'fredoka-bold': require('./assets/fonts/Fredoka-Bold.ttf'),
-    'fredoka': require('./assets/fonts/Fredoka-Regular.ttf'),
-    'fredoka-semibold': require('./assets/fonts/Fredoka-SemiBold.ttf'),
+    'nunito-black': require('./assets/fonts/Nunito-Black.ttf'),
+    'nunito': require('./assets/fonts/Nunito-Regular.ttf'),
+    'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
   });
 };
 

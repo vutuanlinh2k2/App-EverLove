@@ -17,7 +17,7 @@ const MainNavigator = () => {
         headerShown: false,
         tabBarActiveTintColor: primaryColor,
         tabBarLabelStyle: {
-          fontFamily: "fredoka",
+          fontFamily: "nunito",
         },
       }}
     >

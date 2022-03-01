@@ -3,6 +3,6 @@ export const stackNavigatorDefaultOptions = {
     shadowColor: "transparent",
   },
   headerTitleStyle: {
-    fontFamily: "fredoka-bold",
+    fontFamily: "nunito-black",
   },
 };
