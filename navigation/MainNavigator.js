@@ -10,6 +10,7 @@ import MemoriesNavigator from "./MemoriesNavigator";
 const MainBottomTabNavigator = createBottomTabNavigator();
 
 const MainNavigator = () => {
+
   return (
     <MainBottomTabNavigator.Navigator
       initialRouteName="Home"

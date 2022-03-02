@@ -6,25 +6,20 @@ import { primaryColor } from "../../constants/colors";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import HeaderTitle from "../../components/UI/HeaderTitle";
 import HeadingText from "../../components/UI/HeadingText";
-import DateCounterCarousel from '../../components/Home/DateCounterCarousel';
+import HomeCarousel from "../../components/Home/Home/HomeCarousel";
 
 const HomeScreen = (props) => {
   const { navigation } = props;
+  const carouselItemPressHandler = (index) => {
+    navigation.navigate("DateCounter", {
+      carouselIndex: index,
+    });
+  };
   return (
     <BodyWrapper>
       <HeaderTitle title={homeScreenTitle} />
-      <View style={styles.heading}>
-        <HeadingText text={"Đếm ngày yêu"} />
-        <Text
-          style={styles.text}
-          onPress={() => {
-            navigation.navigate("DateCounter");
-          }}
-        >
-          Xem thêm
-        </Text>
-      </View>
-      <DateCounterCarousel />
+      <HeadingText text={"Đếm ngày yêu"} />
+      <HomeCarousel onPressItem={carouselItemPressHandler} />
       <HeadingText text={"Kỉ niệm"} />
     </BodyWrapper>
   );
@@ -36,17 +31,6 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({
-  heading: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 5,
-  },
-  text: {
-    color: primaryColor,
-    fontFamily: 'nunito'
-  },
-});
+const styles = StyleSheet.create({});
 
 export default HomeScreen;

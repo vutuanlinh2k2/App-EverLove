@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: "nunito-bold",
     fontSize: 19,
-    // marginBottom: 7.5
+    marginBottom: 5
   },
 });
 

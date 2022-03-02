@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+// import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import { stackNavigatorDefaultOptions } from "../constants/navigation";
 import HomeScreen, {

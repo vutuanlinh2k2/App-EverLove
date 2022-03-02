@@ -1,11 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import { screenWidth } from "../../constants/styles";
-
-const DateCounter1 = (props) => {
+const Heart = (props) => {
   return (
-    <View style={styles.dateCounter}>
+    <>
       <Image
         style={styles.image}
         source={require("../../assets/heart-2.png")}
@@ -14,27 +12,11 @@ const DateCounter1 = (props) => {
         <Text style={styles.text}>200</Text>
         <Text style={styles.text}>ngày yêu</Text>
       </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  dateCounter: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: screenWidth - 150,
-    paddingVertical: 5,
-    backgroundColor: "#F9D7D7",
-    marginBottom: 12.5,
-    borderRadius: 25,
-    shadowColor: "black",
-    shadowOffset: {
-      width: -1,
-      height: 4,
-    },
-    shadowOpacity: 0.2,
-    elevation: 5,
-  },
   textContainer: {
     position: "absolute",
   },
@@ -50,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DateCounter1;
+export default Heart;

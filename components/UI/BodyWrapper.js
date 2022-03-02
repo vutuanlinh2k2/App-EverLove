@@ -7,7 +7,9 @@ const BodyWrapper = (props) => {
   const { children } = props;
   return (
     <View style={styles.body}>
-      <ScrollView style={styles.view}>{children}</ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.view}>
+        {children}
+      </ScrollView>
     </View>
   );
 };
