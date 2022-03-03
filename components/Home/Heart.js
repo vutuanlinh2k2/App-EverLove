@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
 const Heart = (props) => {
+  const { fontSize } = props;
+  const textStyles = getDynamicStyles(fontSize).text;
   return (
     <>
       <Image
@@ -9,8 +11,8 @@ const Heart = (props) => {
         source={require("../../assets/heart-2.png")}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.text}>200</Text>
-        <Text style={styles.text}>ngày yêu</Text>
+        <Text style={textStyles}>200</Text>
+        <Text style={textStyles}>ngày yêu</Text>
       </View>
     </>
   );
@@ -31,5 +33,16 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
 });
+
+const getDynamicStyles = (fontSize) => {
+  return StyleSheet.create({
+    text: {
+      fontFamily: "nunito-black",
+      textAlign: "center",
+      color: "white",
+      fontSize,
+    },
+  });
+};
 
 export default Heart;

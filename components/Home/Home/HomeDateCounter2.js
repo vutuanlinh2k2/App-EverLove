@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { screenWidth } from "../../../constants/styles";
+import { screenWidth, availableWidth } from "../../../constants/styles";
 import { accentColor } from "../../../constants/colors";
 import DateItem from "../DateItem";
 
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    height: screenWidth - 150,
+    height: screenWidth - 200,
+    width: availableWidth,
     backgroundColor: accentColor,
     marginBottom: 12.5,
     borderRadius: 25,

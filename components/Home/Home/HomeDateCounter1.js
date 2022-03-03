@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { screenWidth } from "../../../constants/styles";
+import { screenWidth, availableWidth } from "../../../constants/styles";
 import { accentColor } from "../../../constants/colors";
 import Heart from "../Heart";
 
@@ -12,7 +12,7 @@ const HomeDateCounter1 = (props) => {
       style={styles.dateCounter}
       onPress={() => {props.onPress(0)}}
     >
-      <Heart />
+      <Heart fontSize={14} />
     </TouchableOpacity>
   );
 };
@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 5,
-    height: screenWidth - 150,
+    height: screenWidth - 200,
+    width: availableWidth,
     backgroundColor: accentColor,
     marginBottom: 12.5,
     borderRadius: 25,

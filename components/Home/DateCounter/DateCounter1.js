@@ -7,7 +7,7 @@ import Heart from '../Heart';
 const DateCounter1 = (props) => {
   return (
     <View style={styles.dateCounter}>
-      <Heart />
+      <Heart fontSize={22} />
     </View>
   );
 };

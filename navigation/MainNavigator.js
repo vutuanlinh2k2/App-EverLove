@@ -3,14 +3,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import { memoryScreenTitle } from "../constants/screenTitles";
-import { primaryColor } from "../constants/colors";
+import { primaryColor, backgroundColor } from "../constants/colors";
 import HomeNavigator from "./HomeNavigator";
 import MemoriesNavigator from "./MemoriesNavigator";
 
 const MainBottomTabNavigator = createBottomTabNavigator();
 
 const MainNavigator = () => {
-
   return (
     <MainBottomTabNavigator.Navigator
       initialRouteName="Home"
@@ -19,6 +18,9 @@ const MainNavigator = () => {
         tabBarActiveTintColor: primaryColor,
         tabBarLabelStyle: {
           fontFamily: "nunito",
+        },
+        tabBarStyle: {
+          backgroundColor: backgroundColor,
         },
       }}
     >

@@ -1,16 +1,38 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
+
+import { primaryColor } from "../../constants/colors";
 
 const HeadingText = (props) => {
-  const { text } = props;
-  return <Text style={styles.heading}>{text}</Text>;
+  const { headerText, actionText, action } = props;
+  return (
+    <View
+      style={{
+        ...styles.headerContainer,
+        justifyContent: actionText ? "space-between" : "start",
+      }}
+    >
+      <Text style={styles.heading}>{headerText}</Text>
+      <Text style={styles.action} onPress={action}>
+        {actionText}
+      </Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 5,
+  },
   heading: {
     fontFamily: "nunito-bold",
     fontSize: 19,
-    marginBottom: 5
+  },
+  action: {
+    fontFamily: "nunito",
+    color: primaryColor,
   },
 });
 
