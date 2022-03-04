@@ -39,8 +39,7 @@ const HomeCarousel = (props) => {
 };
 
 const styles = StyleSheet.create({
-  carouselContainer: {
-  },
+  carouselContainer: {},
 });
 
 export default HomeCarousel;

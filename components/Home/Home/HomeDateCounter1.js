@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { screenWidth, availableWidth } from "../../../constants/styles";
+import { screenWidth, availableWidth, shadowDefault } from "../../../constants/styles";
 import { accentColor } from "../../../constants/colors";
 import Heart from "../Heart";
 
@@ -25,15 +25,8 @@ const styles = StyleSheet.create({
     height: screenWidth - 200,
     width: availableWidth,
     backgroundColor: accentColor,
-    marginBottom: 12.5,
     borderRadius: 25,
-    shadowColor: "black",
-    shadowOffset: {
-      width: -1,
-      height: 4,
-    },
-    shadowOpacity: 0.2,
-    elevation: 5,
+    ...shadowDefault
   },
 });
 

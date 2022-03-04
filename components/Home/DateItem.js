@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import { primaryColor } from "../../constants/colors";
+import { shadowDefault } from "../../constants/styles";
 
 const DateItem = (props) => {
   const { type, value } = props;
@@ -30,14 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   dateValueContainer: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
+    ...shadowDefault
   },
   gradient: {
     width: "100%",

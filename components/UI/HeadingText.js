@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   heading: {
-    fontFamily: "nunito-bold",
+    fontFamily: "nunito-black",
     fontSize: 19,
   },
   action: {
