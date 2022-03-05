@@ -5,12 +5,16 @@ import { appPaddingHorizontal } from "../../constants/styles";
 import { backgroundColor } from "../../constants/colors";
 
 const BodyWrapper = (props) => {
-  const { children } = props;
+  const { children, scrollable } = props;
   return (
     <View style={styles.body}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.view}>
-        {children}
-      </ScrollView>
+      {scrollable ? (
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.view}>
+          {children}
+        </ScrollView>
+      ) : (
+        <View style={styles.view}>{children}</View>
+      )}
     </View>
   );
 };

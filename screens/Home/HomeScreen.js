@@ -30,14 +30,14 @@ const HomeScreen = (props) => {
     navigation.navigate("Memories");
   };
   return (
-    <BodyWrapper>
+    <BodyWrapper scrollable>
       <HeaderTitle title={homeScreenTitle} logo />
       <HeadingText headerText={"Đếm ngày yêu"} />
       <HomeCarousel onPressItem={dateCounterPressHandler} />
       <Divider />
       <HeadingText
         headerText={"Kỉ niệm"}
-        actionText={"Xem thêm"}
+        actionText={"Xem tất cả"}
         action={navigateMemoriesScreen}
       />
       <MemoriesCarousel onNavigateMemoriesScreen={navigateMemoriesScreen} />

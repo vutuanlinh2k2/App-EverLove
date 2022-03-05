@@ -12,7 +12,7 @@ const MainBottomTabNavigator = createBottomTabNavigator();
 const MainNavigator = () => {
   return (
     <MainBottomTabNavigator.Navigator
-      initialRouteName="Home"
+      initialRouteName="Memories"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: primaryColor,

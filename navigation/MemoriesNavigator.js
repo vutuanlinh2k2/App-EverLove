@@ -3,8 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { stackNavigatorDefaultOptions } from "../constants/navigation";
 import MemoriesScreen, {
-  screenOptions as memoryScreenOptions,
+  screenOptions as memoriesScreenOptions,
 } from "../screens/Memories/MemoriesScreen";
+import MemoryDetailScreen, {
+  screenOptions as memoryDetailScreenOptions,
+} from "../screens/Memories/MemoryDetailScreen";
 
 const MemoriesStackNavigator = createStackNavigator();
 
@@ -19,7 +22,12 @@ const HomeNavigator = () => {
       <MemoriesStackNavigator.Screen
         name="MemoriesMain"
         component={MemoriesScreen}
-        options={memoryScreenOptions}
+        options={memoriesScreenOptions}
+      />
+      <MemoriesStackNavigator.Screen
+        name="MemoryDetail"
+        component={MemoryDetailScreen}
+        options={memoryDetailScreenOptions}
       />
     </MemoriesStackNavigator.Navigator>
   );

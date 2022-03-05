@@ -9,9 +9,8 @@ const styles = StyleSheet.create({
   divider: {
     width: "100%",
     height: 1,
-
     backgroundColor: "#eee",
-    marginVertical: 12.5
+    marginVertical: 15
   },
 });
 
