@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import { memoryScreenTitle } from "../../constants/screenTitles";
 import BodyWrapper from "../../components/UI/BodyWrapper";
@@ -10,18 +10,21 @@ const memoriesInfo = [
   {
     id: 1,
     date: "05/03",
+    title: 'Valentines',
     description:
       "Gubergren voluptua duo lorem eos duo ea diam et amet. Voluptua vero accusam duo aliquyam sed consetetur, erat invidunt stet.",
   },
   {
     id: 2,
     date: "14/02",
+    title: 'Valentines',
     description:
       "Gubergren voluptua duo lorem eos duo ea diam et amet. Voluptua vero accusam duo aliquyam sed consetetur, erat invidunt stet.",
   },
   {
     id: 3,
     date: "21/01",
+    title: 'Valentines',
     description:
       "Gubergren voluptua duo lorem eos duo ea diam et amet. Voluptua vero accusam duo aliquyam sed consetetur, erat invidunt stet.",
   },
@@ -49,15 +52,22 @@ const MemoriesScreen = (props) => {
 
   return (
     <BodyWrapper>
-      <HeaderTitle title={memoryScreenTitle} />
       <FlatList
+        ListHeaderComponent={<HeaderTitle title={memoryScreenTitle} />}
         data={memoriesInfo}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        style={styles.memoryList}
       />
     </BodyWrapper>
   );
 };
+
+const styles = StyleSheet.create({
+  memoryList: {
+    overflow: 'visible',
+  }
+})
 
 export const screenOptions = (navData) => {
   return {

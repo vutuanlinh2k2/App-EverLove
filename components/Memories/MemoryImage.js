@@ -4,7 +4,7 @@ import { Image } from "react-native";
 import { availableWidth } from "../../constants/styles";
 
 const mediumWidth = availableWidth / 2 - 5;
-const smallWidth = availableWidth / 4 - 5;
+const smallWidth = (availableWidth - 42.5) / 3;
 
 const MemoryImage = (props) => {
   const { size, imageUrl } = props;

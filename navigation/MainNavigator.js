@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { memoryScreenTitle } from "../constants/screenTitles";
 import { primaryColor, backgroundColor } from "../constants/colors";
 import HomeNavigator from "./HomeNavigator";
-import MemoriesNavigator from "./MemoriesNavigator";
+import MemoriesNavigator from "./Memories/MemoriesNavigator";
 
 const MainBottomTabNavigator = createBottomTabNavigator();
 
@@ -15,6 +15,7 @@ const MainNavigator = () => {
       initialRouteName="Memories"
       screenOptions={{
         headerShown: false,
+        tabBarShowLabel: false,
         tabBarActiveTintColor: primaryColor,
         tabBarLabelStyle: {
           fontFamily: "nunito",
@@ -40,7 +41,7 @@ const MainNavigator = () => {
         options={{
           title: memoryScreenTitle,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="albums" size={size} color={color} />
+            <Ionicons name="image" size={size} color={color} />
           ),
         }}
       />
