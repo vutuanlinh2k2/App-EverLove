@@ -1,73 +1,78 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 
-import { availableWidth, shadowDefault } from "../../constants/styles";
-import { primaryColor, accentColor } from "../../constants/colors";
-import HeadingText from "../UI/HeadingText";
+import { primaryColor } from "../../constants/colors";
+import { availableWidth } from "../../constants/styles";
 import Divider from "../UI/Divider";
-import MemoryDescription from "./MemoryDescription";
-import MemoryDate from "./MemoryDate";
-import MemoryImage from "./MemoryImage";
+
+const renderCarouselItem = ({ item, _ }) => {
+  return <Image style={styles.image} source={{ uri: item }} />;
+};
 
 const MemoryItem = (props) => {
-  const { onGoDetail, date, description, imagesUrl, title } = props;
+  const { imageUrls, description } = props;
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+  const imagesSection =
+    imageUrls.length > 1 ? (
+      <>
+        <Carousel
+          data={imageUrls}
+          renderItem={renderCarouselItem}
+          sliderWidth={availableWidth}
+          itemWidth={availableWidth + 15}
+          onSnapToItem={(index) => {
+            setCurrentCarouselIndex(index);
+          }}
+          useScrollView={true}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+        />
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Pagination
+            dotsLength={imageUrls.length}
+            activeDotIndex={currentCarouselIndex}
+            containerStyle={styles.pagination}
+            inactiveDotOpacity={0.6}
+            dotStyle={styles.dot}
+          />
+        </View>
+      </>
+    ) : (
+      <Image style={styles.image} source={{ uri: imageUrls[0] }} />
+    );
+
   return (
     <View style={styles.memoryItem}>
-      <View style={styles.memoryHeader}>
-        <HeadingText headerText={title} />
-        <MemoryDate date={date} />
+      {imagesSection}
+      <View>
+        <Text style={styles.memoryDescription}>{description}</Text>
       </View>
-      <View style={styles.memoryBody}>
-        <MemoryDescription description={description} isShorten={true} />
-        <View style={styles.imagesContainer}>
-          <MemoryImage
-            size="small"
-            imageUrl="https://images.unsplash.com/photo-1541089404510-5c9a779841fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          />
-          <MemoryImage
-            size="small"
-            imageUrl="https://images.unsplash.com/photo-1541089404510-5c9a779841fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          />
-          <MemoryImage
-            size="small"
-            imageUrl="https://images.unsplash.com/photo-1541089404510-5c9a779841fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          />
-          <View style={styles.smallImages}>
-            <View style={styles.imagesRow}></View>
-            <View style={styles.imagesRow}></View>
-          </View>
-        </View>
-      </View>
-      {/* <Button title="Xem chi tiết" style={styles.button} color={primaryColor} /> */}
-      {/* <Divider /> */}
+      <Divider />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   memoryItem: {
-    backgroundColor: accentColor,
+    marginVertical: 7.5,
+  },
+  image: {
+    width: availableWidth,
+    aspectRatio: 1,
     borderRadius: 25,
-    marginBottom: 15,
-    overflow: "hidden",
-    ...shadowDefault,
   },
-  memoryHeader: {
-    padding: 12.5,
-    paddingBottom: 5,
-
+  pagination: {
+    paddingVertical: 10,
   },
-  memoryBody: {
-    backgroundColor: "white",
-    padding: 12.5,
+  dot: {
+    backgroundColor: primaryColor,
   },
-  imagesContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    // backgroundColor: 'red'
+  memoryDescription: {
+    fontFamily: "nunito",
+    fontSize: 13,
+    marginTop: 10,
+    color: "#445d6e",
   },
 });
 

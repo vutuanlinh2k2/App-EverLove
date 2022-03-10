@@ -2,6 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { primaryColor, backgroundColor } from "../../constants/colors";
+import MemoriesItems from '../../screens/Memories/MemoriesItemsScreen';
 import MemoriesDayScreen from "../../screens/Memories/MemoriesDayScreen";
 import MemoriesMonthScreen from "../../screens/Memories/MemoriesMonthScreen";
 import MemoriesYearScreen from "../../screens/Memories/MemoriesYearScreen";
@@ -47,6 +48,11 @@ const MemoriesMainNavigator = () => {
         }
       }}
     >
+      <MemoriesMaterialTopTabNavigator.Screen
+        name="MemoriesAll"
+        component={MemoriesItems}
+        options={{title: 'Tất cả'}}
+      />
       <MemoriesMaterialTopTabNavigator.Screen
         name="MemoriesDayMain"
         component={MemoriesDayScreen}
