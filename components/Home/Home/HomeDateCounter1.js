@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     width: availableWidth,
     backgroundColor: accentColor,
-    borderRadius: 25,
+    borderRadius: 15,
     aspectRatio: 3 / 2,
     ...shadowDefault,
   },

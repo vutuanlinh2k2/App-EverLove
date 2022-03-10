@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginVertical: 7.5,
     backgroundColor: accentColor,
     padding: 10,
-    borderRadius: 25,
+    borderRadius: 15,
   },
   roundedImage: {
     width: imageWidth,

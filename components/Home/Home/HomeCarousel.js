@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { View, StyleSheet } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
-import { availableWidth } from "../../../constants/styles";
+import { availableWidth, appCarouselItemWidth } from "../../../constants/styles";
 import DateCounter1 from "./HomeDateCounter1";
 import DateCounter2 from "./HomeDateCounter2";
 
@@ -27,7 +27,7 @@ const HomeCarousel = (props) => {
         data={carouselItems}
         renderItem={renderItem}
         sliderWidth={availableWidth}
-        itemWidth={availableWidth + 15}
+        itemWidth={appCarouselItemWidth}
         activeSlideAlignment="start"
         containerCustomStyle={{ overflow: "visible" }}
         useScrollView={true}

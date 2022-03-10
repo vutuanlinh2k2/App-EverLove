@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     height: screenWidth - 200,
     width: availableWidth,
     backgroundColor: accentColor,
-    borderRadius: 25,
+    borderRadius: 15,
     ...shadowDefault
   },
 });

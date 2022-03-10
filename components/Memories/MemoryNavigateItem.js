@@ -38,7 +38,7 @@ const MemoryNavigateItem = (props) => {
 
 const styles = StyleSheet.create({
   imageContainer: {
-    borderRadius: 25,
+    borderRadius: 15,
     overflow: "hidden",
     marginTop: 10,
     marginBottom: 5,

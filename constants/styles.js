@@ -7,6 +7,8 @@ export const screenHeight = Dimensions.get("window").height;
 
 export const availableWidth = screenWidth - 2 * appPaddingHorizontal;
 
+export const appCarouselItemWidth = availableWidth + 12.5;
+
 export const shadowDefault = {
     shadowColor: "black",
     shadowOffset: {

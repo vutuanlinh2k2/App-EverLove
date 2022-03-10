@@ -1,42 +1,42 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
+import React from "react";
+import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import Carousel from "react-native-snap-carousel";
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import { primaryColor } from "../../constants/colors";
-import { availableWidth } from "../../constants/styles";
+import { availableWidth, appCarouselItemWidth } from "../../constants/styles";
 import Divider from "../UI/Divider";
 
-const renderCarouselItem = ({ item, _ }) => {
-  return <Image style={styles.image} source={{ uri: item }} />;
-};
+const iconSize = 24;
 
 const MemoryItem = (props) => {
-  const { imageUrls, description } = props;
-  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+  const { imageUrls, description, date, title } = props;
+  const renderItem = ({ item: imageUrl, index }) => {
+    return (
+      <View style={styles.imagesContainer}>
+        <ImageBackground style={styles.image} source={{ uri: imageUrl }}>
+          <Text style={styles.imageIndex}>{`${index + 1}/${
+            imageUrls.length
+          }`}</Text>
+        </ImageBackground>
+      </View>
+    );
+  };
   const imagesSection =
     imageUrls.length > 1 ? (
       <>
         <Carousel
+          layout={"default"}
           data={imageUrls}
-          renderItem={renderCarouselItem}
+          renderItem={renderItem}
           sliderWidth={availableWidth}
-          itemWidth={availableWidth + 15}
-          onSnapToItem={(index) => {
-            setCurrentCarouselIndex(index);
-          }}
-          useScrollView={true}
+          itemWidth={appCarouselItemWidth}
+          activeSlideAlignment="start"
+          containerCustomStyle={{ overflow: "visible" }}
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
         />
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Pagination
-            dotsLength={imageUrls.length}
-            activeDotIndex={currentCarouselIndex}
-            containerStyle={styles.pagination}
-            inactiveDotOpacity={0.6}
-            dotStyle={styles.dot}
-          />
-        </View>
       </>
     ) : (
       <Image style={styles.image} source={{ uri: imageUrls[0] }} />
@@ -44,10 +44,23 @@ const MemoryItem = (props) => {
 
   return (
     <View style={styles.memoryItem}>
-      {imagesSection}
-      <View>
-        <Text style={styles.memoryDescription}>{description}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <View style={styles.titleUnderline} />
+      <View style={styles.infoSection}>
+        <View style={styles.date}>
+          <FontAwesome5
+            name="calendar-day"
+            size={iconSize}
+            color={primaryColor}
+          />
+          <Text style={styles.dateText}>{date}</Text>
+        </View>
+        <View style={styles.actions}>
+        <Feather name="more-horizontal" size={iconSize} color={primaryColor} />
+        </View>
       </View>
+      <Text style={styles.memoryDescription}>{description}</Text>
+      {imagesSection}
       <Divider />
     </View>
   );
@@ -55,23 +68,61 @@ const MemoryItem = (props) => {
 
 const styles = StyleSheet.create({
   memoryItem: {
+    marginTop: 2.5,
+  },
+  title: {
+    fontFamily: "nunito-black",
+    fontSize: 20,
+    marginBottom: 2.5,
+  },
+  titleUnderline: {
+    height: 5,
+    width: "25%",
+    backgroundColor: primaryColor,
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  infoSection: {
     marginVertical: 7.5,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  date: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  dateText: {
+    fontFamily: "nunito-bold",
+    color: "#445d6e",
+    marginLeft: 7.5,
+  },
+  actions: {
+    flexDirection: "row",
+  },
+  actionIcon: {
+    marginLeft: 10,
+  },
+  imagesContainer: {
+    width: availableWidth,
+    borderRadius: 15,
+    overflow: "hidden",
   },
   image: {
     width: availableWidth,
     aspectRatio: 1,
-    borderRadius: 25,
+    borderRadius: 15,
   },
-  pagination: {
-    paddingVertical: 10,
-  },
-  dot: {
-    backgroundColor: primaryColor,
+  imageIndex: {
+    color: "white",
+    fontFamily: "nunito-bold",
+    marginTop: 10,
+    marginLeft: 10,
   },
   memoryDescription: {
     fontFamily: "nunito",
     fontSize: 13,
-    marginTop: 10,
+    marginBottom: 10,
     color: "#445d6e",
   },
 });

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
-import { availableWidth } from "../../../constants/styles";
+import { availableWidth, appCarouselItemWidth } from "../../../constants/styles";
 import { accentColor } from "../../../constants/colors";
 
 const itemWidth = availableWidth / 2 - 5;
@@ -52,7 +52,7 @@ const MemoriesCarousel = (props) => {
         data={carouselItems}
         renderItem={renderItem}
         sliderWidth={availableWidth}
-        itemWidth={availableWidth + 15}
+        itemWidth={appCarouselItemWidth}
         activeSlideAlignment="start"
         containerCustomStyle={{ overflow: "visible" }}
         useScrollView={true}

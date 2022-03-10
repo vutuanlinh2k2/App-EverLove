@@ -12,7 +12,7 @@ const MemoriesMaterialTopTabNavigator = createMaterialTopTabNavigator();
 const MemoriesMainNavigator = () => {
   return (
     <MemoriesMaterialTopTabNavigator.Navigator
-      initialRouteName="MemoriesDayMain"
+      initialRouteName="MemoriesAll"
       style={{backgroundColor: backgroundColor}}
       screenOptions={{
         swipeEnabled: false,
