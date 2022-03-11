@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
 import BodyWrapper from "../../components/UI/BodyWrapper";
-import MemoryItem from "../../components/Memories/MemoryItem";
+import MemoryItem from "../../components/Memories/MemoryItem/MemoryItem";
 
 const memoryInfo = [
   {

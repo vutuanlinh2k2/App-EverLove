@@ -9,7 +9,7 @@ const HeadingText = (props) => {
     <View
       style={{
         ...styles.headerContainer,
-        justifyContent: actionText ? "space-between" : "start",
+        justifyContent: actionText ? "space-between" : "flex-start",
       }}
     >
       <Text style={styles.heading}>{headerText}</Text>

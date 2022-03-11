@@ -11,7 +11,6 @@ import MemoriesMonthScreen, {
   screenOptions as memoriesMonthScreenOptions,
 } from "../../screens/Memories/MemoriesMonthScreen";
 import MemoriesYearScreen from "../../screens/Memories/MemoriesYearScreen";
-import MemoryDetailScreen from '../../screens/Memories/MemoryDetailScreen';
 import MemoriesItemScreen from '../../screens/Memories/MemoriesItemsScreen';
 
 const MemoriesStackNavigator = createStackNavigator();
@@ -46,10 +45,6 @@ const MemoriesNavigator = () => {
       <MemoriesStackNavigator.Screen
         name="MemoriesItems"
         component={MemoriesItemScreen}
-      />
-      <MemoriesStackNavigator.Screen
-        name="MemoriesDetail"
-        component={MemoryDetailScreen}
       />
     </MemoriesStackNavigator.Navigator>
   );

@@ -4,7 +4,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { memoryScreenTitle } from "../../constants/screenTitles";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import HeaderTitle from "../../components/UI/HeaderTitle";
-import MemoryItem from "../../components/Memories/MemoryItem";
+import MemoryItem from "../../components/Memories/MemoryItem/MemoryItem";
 
 const memoriesInfo = [
   {

@@ -39,16 +39,12 @@ const MemoriesDayScreen = (props) => {
   const { navigation, route } = props;
   const { year, month } = route.params ?? { year: 2022, month: 11 };
 
-  const navigateScreen = (numOfPosts, day, month, year) => {
-    if (numOfPosts === 1) {
-      navigation.navigate("MemoriesDetail"), { day, month, year };
-    } else {
-      navigation.navigate("MemoriesItems"), { day, month, year };
-    }
+  const navigateScreen = (day, month, year) => {
+    navigation.navigate("MemoriesItems"), { day, month, year };
   };
 
   const renderItem = ({ item }) => {
-      const {day, imageUrl, numOfPosts, numOfImages } = item;
+    const { day, imageUrl, numOfPosts, numOfImages } = item;
     return (
       <MemoryNavigateItem
         isDayItem
@@ -57,7 +53,7 @@ const MemoriesDayScreen = (props) => {
         numOfPosts={numOfPosts}
         numOfImages={numOfImages}
         onPress={() => {
-            navigateScreen(numOfPosts, day, month, year);
+          navigateScreen(day, month, year);
         }}
       />
     );

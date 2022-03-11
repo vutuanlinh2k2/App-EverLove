@@ -1,11 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 
 import { memoryScreenTitle } from "../constants/screenTitles";
 import { primaryColor, backgroundColor } from "../constants/colors";
 import HomeNavigator from "./HomeNavigator";
 import MemoriesNavigator from "./Memories/MemoriesNavigator";
+import AddMemoryScreen, {
+  screenOptions as addMemoryScreenOptions,
+} from "../screens/AddMemoryScreen";
 
 const MainBottomTabNavigator = createBottomTabNavigator();
 
@@ -31,7 +34,16 @@ const MainNavigator = () => {
         options={{
           title: "Trang chủ",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Feather name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <MainBottomTabNavigator.Screen
+        name="AddMemory"
+        component={AddMemoryScreen}
+        options={{
+          tabBarIcon: ({ size }) => (
+            <Ionicons name="add-circle-sharp" size={45} color={primaryColor} />
           ),
         }}
       />
@@ -41,7 +53,7 @@ const MainNavigator = () => {
         options={{
           title: memoryScreenTitle,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="image" size={size} color={color} />
+            <MaterialIcons name="event" size={size} color={color} />
           ),
         }}
       />

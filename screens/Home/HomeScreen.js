@@ -27,7 +27,12 @@ const HomeScreen = (props) => {
     });
   };
   const navigateMemoriesScreen = () => {
-    navigation.navigate("Memories");
+    navigation.navigate("Memories", { 
+      screen: 'MemoriesMain',
+      params: {
+        screen: 'MemoriesAll'
+      }
+    });
   };
   return (
     <BodyWrapper scrollable>
