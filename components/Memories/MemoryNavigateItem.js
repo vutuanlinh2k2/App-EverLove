@@ -14,7 +14,7 @@ const MemoryNavigateItem = (props) => {
   return (
     <TouchableOpacity
       style={styles.imageContainer}
-      activeOpacity={0.5}
+      activeOpacity={0.6}
       onPress={onPress}
     >
       <ImageBackground style={styles.image} source={{ uri: imageUrl }}>

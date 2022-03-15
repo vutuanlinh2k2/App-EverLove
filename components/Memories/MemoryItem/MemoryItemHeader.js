@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import { primaryColor } from "../../../constants/colors";
+import { primaryColor, commonTextColor } from "../../../constants/colors";
 
 const iconSize = 24;
 
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontFamily: "nunito-bold",
-    color: "#445d6e",
+    color: commonTextColor,
     marginLeft: 7.5,
   },
   actions: {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import { primaryColor } from "../../../constants/colors";
+import { primaryColor, commonTextColor } from "../../../constants/colors";
 
 const limitedCharacter = 100;
 
@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
     fontFamily: "nunito",
     fontSize: 13,
     marginBottom: 2.5,
-    color: "#445d6e",
+    color: commonTextColor,
   },
   action: {
     fontFamily: "nunito",
     fontSize: 13,
     marginBottom: 10,
-    color: "#445d6e",
+    color: commonTextColor,
     color: primaryColor,
   },
 });

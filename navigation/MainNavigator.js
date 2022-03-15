@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialIcons, Feather } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 
 import { memoryScreenTitle } from "../constants/screenTitles";
 import { primaryColor, backgroundColor } from "../constants/colors";
