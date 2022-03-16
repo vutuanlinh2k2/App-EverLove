@@ -19,11 +19,11 @@ const AuthScreen = (props) => {
       }}
     >
       <View style={styles.screen}>
-        <View>
+        <View style={{width: '100%'}}>
           <AuthHeader />
           <AuthInputs isSignup={isSignup} />
-          {isSignup && <Text style={styles.forgotPassword}>Quên mật khẩu?</Text>}
-          <View style={styles.lineText}>
+          {!isSignup && <Text style={styles.forgotPassword}>Quên mật khẩu?</Text>}
+          {/* <View style={styles.lineText}>
             <View style={styles.line} />
             <Text style={styles.text}>hoặc</Text>
             <View style={styles.line} />
@@ -32,23 +32,23 @@ const AuthScreen = (props) => {
             name="google"
             color="#de4d41"
             backgroundColor="#f5e7ea"
-            title={isSignup ? "Đăng nhập bằng Google" : "Đăng ký bằng Google"}
+            title={!isSignup ? "Đăng nhập bằng Google" : "Đăng ký bằng Google"}
             onPress={() => {}}
           />
           <SocialAuthButton
             name="facebook"
             color="#4867aa"
             backgroundColor="#e6eaf4"
-            title={isSignup ? "Đăng nhập bằng Facebook" : "Đăng ký bằng Facebook"}
+            title={!isSignup ? "Đăng nhập bằng Facebook" : "Đăng ký bằng Facebook"}
             onPress={() => {}}
-          />
+          /> */}
 
-          {isSignup ? <Text style={styles.signupText}>
+          {!isSignup ? <Text style={styles.signupText}>
             Chưa có tài khoản?{" "}
             <Text
               style={{ color: primaryColor }}
               onPress={() => {
-                setIsSignup(false);
+                setIsSignup(true);
               }}
             >
               Đăng kí
@@ -58,7 +58,7 @@ const AuthScreen = (props) => {
             <Text
               style={{ color: primaryColor }}
               onPress={() => {
-                setIsSignup(true);
+                setIsSignup(false);
               }}
             >
               Đăng nhập

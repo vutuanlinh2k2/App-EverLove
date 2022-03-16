@@ -6,12 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import { Feather } from "@expo/vector-icons";
 import * as yup from "yup";
 
 import { primaryColor, commonTextColor } from "../../constants/colors";
 import { screenHeight, shadowDefault } from "../../constants/styles";
+import { signUp, logIn } from "../../store/actions/auth";
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -26,12 +28,17 @@ const loginValidationSchema = yup.object().shape({
 
 const AuthInputs = (props) => {
   const { isSignup } = props;
+  const dispatch = useDispatch();
   return (
     <View style={styles.inputsContainer}>
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={
+          isSignup
+            ? (values) => dispatch(signUp(values.email, values.password))
+            : (values) => dispatch(logIn(values.email, values.password))
+        }
       >
         {({
           handleChange,
@@ -85,7 +92,7 @@ const AuthInputs = (props) => {
               onPress={!isValid ? () => {} : handleSubmit}
             >
               <Text style={styles.buttonText}>
-                {isSignup ? "Đăng nhập" : "Đăng ký"}
+                {!isSignup ? "Đăng nhập" : "Đăng ký"}
               </Text>
             </TouchableOpacity>
           </>

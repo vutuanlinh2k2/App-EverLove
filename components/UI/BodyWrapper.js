@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: backgroundColor,
     paddingHorizontal: appPaddingHorizontal,
-    marginBottom: 15
   },
   view: {
     overflow: "visible",
