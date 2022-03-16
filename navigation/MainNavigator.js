@@ -15,7 +15,7 @@ const MainBottomTabNavigator = createBottomTabNavigator();
 const MainNavigator = () => {
   return (
     <MainBottomTabNavigator.Navigator
-      initialRouteName="Memories"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
