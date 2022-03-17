@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { stackNavigatorDefaultOptions } from "../../constants/navigation";
+import { navigatorHeaderDefaultOptions } from "../../constants/navigation";
 import { memoryScreenTitle } from "../../constants/screenTitles";
 import MemoriesMainNavigator from "./MemoriesMainNavigator";
 import MemoriesDayScreen, {
@@ -11,7 +11,7 @@ import MemoriesMonthScreen, {
   screenOptions as memoriesMonthScreenOptions,
 } from "../../screens/Memories/MemoriesMonthScreen";
 import MemoriesYearScreen from "../../screens/Memories/MemoriesYearScreen";
-import MemoriesItemScreen from '../../screens/Memories/MemoriesItemsScreen';
+import MemoriesItemScreen from "../../screens/Memories/MemoriesItemsScreen";
 
 const MemoriesStackNavigator = createStackNavigator();
 
@@ -20,7 +20,7 @@ const MemoriesNavigator = () => {
     <MemoriesStackNavigator.Navigator
       initialRouteName="MemoriesMain"
       screenOptions={{
-        ...stackNavigatorDefaultOptions,
+        ...navigatorHeaderDefaultOptions,
         title: memoryScreenTitle,
       }}
     >

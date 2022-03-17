@@ -20,3 +20,5 @@ export const shadowDefault = {
     
     elevation: 6,
 };
+
+export const iconBottomSize = 27.5;

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import { accentColor } from "../../../constants/colors";
+import { accentColor } from "../../constants/colors";
 
 const PersonInfo = (props) => {
   const { name, imageUrl } = props;

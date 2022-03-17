@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import { screenWidth } from "../../../constants/styles";
-import Heart from '../Heart';
+import { screenWidth } from "../../constants/styles";
+import Heart from '../UI/Heart';
 
 const DateCounter1 = (props) => {
   return (

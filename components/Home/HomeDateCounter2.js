@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { screenWidth, availableWidth, shadowDefault } from "../../../constants/styles";
-import { accentColor } from "../../../constants/colors";
-import DateItem from "../DateItem";
+import { screenWidth, availableWidth, shadowDefault } from "../../constants/styles";
+import { accentColor } from "../../constants/colors";
+import DateItem from "../UI/DateItem";
 
 const HomeDateCounter2 = (props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.6}
       style={styles.dateCounter}
-      onPress={() => {props.onPress(1)}}
+      onPress={() => {props.onPress()}}
     >
       <DateItem type={"Năm"} value={2} />
       <DateItem type={"Tháng"} value={5} />

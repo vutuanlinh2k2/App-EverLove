@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 
-import { accentColor } from "../../../constants/colors";
-import { shadowDefault } from "../../../constants/styles";
+import { accentColor } from "../../constants/colors";
+import { shadowDefault } from "../../constants/styles";
 
 const imageWidth = 65;
 

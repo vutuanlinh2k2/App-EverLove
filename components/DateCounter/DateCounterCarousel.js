@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 
-import { screenWidth, appPaddingHorizontal } from "../../../constants/styles";
-import { primaryColor } from "../../../constants/colors";
+import { screenWidth, appPaddingHorizontal } from "../../constants/styles";
+import { primaryColor } from "../../constants/colors";
 import DateCounter1 from "./DateCounter1";
 import DateCounter2 from "./DateCounter2";
 
@@ -17,8 +17,8 @@ const renderItem = ({ item, _ }) => {
 };
 
 const DateCounterCarousel = (props) => {
-  const { initialIndex } = props;
-  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(initialIndex);
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+
   return (
     <View style={styles.dateCounter}>
       <Carousel
@@ -28,7 +28,7 @@ const DateCounterCarousel = (props) => {
         sliderWidth={screenWidth - 2 * appPaddingHorizontal}
         itemWidth={screenWidth - 2 * appPaddingHorizontal}
         useScrollView={true}
-        firstItem={initialIndex}
+        firstItem={0}
         onSnapToItem={(index) => {
           setCurrentCarouselIndex(index);
         }}

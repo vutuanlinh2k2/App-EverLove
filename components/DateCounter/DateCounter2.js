@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import { screenWidth } from "../../../constants/styles";
-import DateItem from "../DateItem";
+import { screenWidth } from "../../constants/styles";
+import DateItem from "../UI/DateItem";
 
 const DateCounter2 = (props) => {
   return (

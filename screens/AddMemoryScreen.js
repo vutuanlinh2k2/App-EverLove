@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from "@expo/vector-icons";
+
+import { primaryColor } from "../constants/colors";
 
 const AddMemoryScreen = (props) => {
   return (
@@ -12,8 +14,9 @@ const AddMemoryScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    tabBarIcon: ({ color, size }) => (
-        <Ionicons name="add-circle-sharp" size={24} color="black" />
+    headerShown: false,
+    tabBarIcon: () => (
+      <Ionicons name="add-circle-sharp" size={50} color={primaryColor} />
     ),
   };
 };

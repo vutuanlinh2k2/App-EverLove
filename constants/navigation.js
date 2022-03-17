@@ -1,11 +1,11 @@
 import { primaryColor, backgroundColor } from "./colors";
 
-export const stackNavigatorDefaultOptions = {
-  headerBackTitleVisible: false,
+export const navigatorHeaderDefaultOptions = {
+  // headerBackTitleVisible: false,
   headerTintColor: primaryColor,
   headerStyle: {
     shadowColor: "transparent",
-    backgroundColor: backgroundColor
+    backgroundColor: backgroundColor,
   },
   headerTitleStyle: {
     fontFamily: "nunito-black",

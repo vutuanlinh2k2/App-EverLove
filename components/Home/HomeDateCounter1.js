@@ -5,9 +5,9 @@ import {
   screenWidth,
   availableWidth,
   shadowDefault,
-} from "../../../constants/styles";
-import { accentColor } from "../../../constants/colors";
-import Heart from "../Heart";
+} from "../../constants/styles";
+import { accentColor } from "../../constants/colors";
+import Heart from "../UI/Heart";
 
 const HomeDateCounter1 = (props) => {
   return (
@@ -15,7 +15,7 @@ const HomeDateCounter1 = (props) => {
       activeOpacity={0.6}
       style={styles.dateCounter}
       onPress={() => {
-        props.onPress(0);
+        props.onPress();
       }}
     >
       <Heart fontSize={14} />
