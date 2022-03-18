@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
+import { getDate } from "../../../utils/memories";
 import MemoryItemHeader from "./MemoryItemHeader";
 import MemoryItemDescription from "./MemoryItemDescription";
 import MemoryItemImages from "./MemoryItemImages";
@@ -9,7 +10,9 @@ import MemoryItemActionsModal from "./MemoryItemActionsModal";
 
 const MemoryItem = (props) => {
   const [isOpenActions, setIsOpenActions] = useState(false);
-  const { imageUrls, description, date, title } = props;
+  const { imageUrls, description, title, day, month, year } = props;
+
+  const date = getDate(day, month, year);
 
   const openActionsHandler = () => {
     setIsOpenActions(true);

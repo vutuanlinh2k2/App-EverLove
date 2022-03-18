@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   memoryDescription: {
     fontFamily: "nunito",
     fontSize: 13,
-    marginBottom: 2.5,
+    marginBottom: 5,
     color: commonTextColor,
   },
   action: {

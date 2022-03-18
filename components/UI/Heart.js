@@ -1,26 +1,43 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+
+import { useDateCounterHeart } from "../../hooks/useDateCounter";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Heart = (props) => {
   const { fontSize } = props;
+  const dateCounter = useDateCounterHeart();
   const textStyles = getDynamicStyles(fontSize).text;
-  return (
-    <>
-      <Image
+
+  if (!dateCounter) {
+    return (
+      <ImageBackground
         style={styles.image}
         source={require("../../assets/heart-2.png")}
-      />
-      <View style={styles.textContainer}>
-        <Text style={textStyles}>200</Text>
-        <Text style={textStyles}>ngày yêu</Text>
-      </View>
+      >
+        <LoadingIndicator white />
+      </ImageBackground>
+    );
+  }
+
+  return (
+    <>
+      <ImageBackground
+        style={styles.image}
+        source={require("../../assets/heart-2.png")}
+      >
+        <View style={styles.textContainer}>
+          <Text style={textStyles}>{dateCounter}</Text>
+          <Text style={textStyles}>ngày yêu</Text>
+        </View>
+      </ImageBackground>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   textContainer: {
-    position: "absolute",
+    // position: "absolute",
   },
   text: {
     fontFamily: "nunito-black",
@@ -31,6 +48,8 @@ const styles = StyleSheet.create({
   image: {
     height: "100%",
     aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
