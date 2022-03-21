@@ -1,14 +1,15 @@
 import React from "react";
 import { FlatList } from "react-native";
 
+import { useMemoriesItemByYear } from "../../hooks/useMemoriesItem";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryNavigateItem from "../../components/Memories/MemoryNavigateItem";
-import { useMonthMemoriesItem } from "../../hooks/useMemoriesItem";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
 
-const MemoriesMonthScreen = (props) => {
-  const { navigation } = props;
-  const monthMemoriesList = useMonthMemoriesItem();
+const MemoriesFilterByYearScreen = (props) => {
+  const { route } = props;
+  const year = route.params.year;
+  const monthMemoriesList = useMemoriesItemByYear(year);
 
   if (!monthMemoriesList) {
     return (
@@ -18,11 +19,7 @@ const MemoriesMonthScreen = (props) => {
     );
   }
 
-  const onGoToDay = (month, year) => {
-    navigation.navigate("MemoriesFilterMonth", { month, year });
-  };
   const renderItem = ({ item }) => {
-    const [itemMonth, itemYear] = item.month.split("/");
     return (
       <MemoryNavigateItem
         title={item.month}
@@ -30,7 +27,8 @@ const MemoriesMonthScreen = (props) => {
         numOfPosts={item.numOfPosts}
         numOfImages={item.numOfImages}
         onPress={() => {
-          onGoToDay(itemMonth, itemYear);
+          const year = item.month.split("/")[1];
+          onGoToDay(item.month, year);
         }}
       />
     );
@@ -46,4 +44,12 @@ const MemoriesMonthScreen = (props) => {
     </BodyWrapper>
   );
 };
-export default MemoriesMonthScreen;
+
+export const screenOptions = (navData) => {
+  const { year } = navData.route.params;
+  return {
+    title: `${year}`,
+  };
+};
+
+export default MemoriesFilterByYearScreen;

@@ -4,14 +4,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { navigatorHeaderDefaultOptions } from "../../constants/navigation";
 import { memoryScreenTitle } from "../../constants/screenTitles";
 import MemoriesMainNavigator from "./MemoriesMainNavigator";
-import MemoriesDayScreen, {
-  screenOptions as memoriesDayScreenOptions,
-} from "../../screens/Memories/MemoriesDayScreen";
-import MemoriesMonthScreen, {
-  screenOptions as memoriesMonthScreenOptions,
-} from "../../screens/Memories/MemoriesMonthScreen";
-import MemoriesYearScreen from "../../screens/Memories/MemoriesYearScreen";
-import MemoriesItemScreen from "../../screens/Memories/MemoriesItemsScreen";
+import MemoriesFilterByDayScreen, {
+  screenOptions as memoriesFilterByDayScreenOptions,
+} from "../../screens/Memories/MemoriesFilterByDayScreen";
+import MemoriesFilterByMonthScreen, {
+  screenOptions as memoriesFilterByMonthScreenOptions,
+} from "../../screens/Memories/MemoriesFilterByMonthScreen";
+import MemoriesFilterByYearScreen, {
+  screenOptions as memoriesFilterByYearScreenOptions,
+} from "../../screens/Memories/MemoriesFilterByYearScreen";
 
 const MemoriesStackNavigator = createStackNavigator();
 
@@ -29,22 +30,19 @@ const MemoriesNavigator = () => {
         component={MemoriesMainNavigator}
       />
       <MemoriesStackNavigator.Screen
-        name="MemoriesDay"
-        component={MemoriesDayScreen}
-        options={memoriesDayScreenOptions}
+        name="MemoriesFilterDay"
+        component={MemoriesFilterByDayScreen}
+        options={memoriesFilterByDayScreenOptions}
       />
       <MemoriesStackNavigator.Screen
-        name="MemoriesMonth"
-        component={MemoriesMonthScreen}
-        options={memoriesMonthScreenOptions}
+        name="MemoriesFilterMonth"
+        component={MemoriesFilterByMonthScreen}
+        options={memoriesFilterByMonthScreenOptions}
       />
       <MemoriesStackNavigator.Screen
-        name="MemoriesYear"
-        component={MemoriesYearScreen}
-      />
-      <MemoriesStackNavigator.Screen
-        name="MemoriesItems"
-        component={MemoriesItemScreen}
+        name="MemoriesFilterYear"
+        component={MemoriesFilterByYearScreen}
+        options={memoriesFilterByYearScreenOptions}
       />
     </MemoriesStackNavigator.Navigator>
   );

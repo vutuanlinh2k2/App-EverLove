@@ -10,7 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.0",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/bottom-tabs": "^6.x",
     "@react-navigation/drawer": "^6.x",
     "@react-navigation/material-bottom-tabs": "^6.1.1",
