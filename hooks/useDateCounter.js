@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { useSelector } from "react-redux";
 
-import { getLoveDateCount } from "../utils/dateCounter";
+import { getLoveDateCount, getZodiac } from "../utils/dateCounter";
 
 export const useDateCounterHeart = () => {
   const [dateCounter, setDateCounter] = useState();
@@ -21,4 +21,50 @@ export const useDateCounterHeart = () => {
   }, []);
 
   return dateCounter;
+};
+
+export const useGetCoupleInfo = () => {
+  const [coupleInfo, setCoupleInfo] = useState();
+  const userId = useSelector((state) => state.auth.userId);
+
+  useEffect(() => {
+    const unSubscriber = db
+      .collection(`users`)
+      .doc(userId)
+      .onSnapshot((querySnapshot) => {
+        const {
+          birthDay,
+          gender,
+          image,
+          name,
+          nickname,
+          partnerBirthday,
+          partnerGender,
+          partnerImage,
+          partnerName,
+          partnerNickname,
+        } = querySnapshot.data();
+
+        const { day, month } = birthDay;
+        const { day: partnerDay, month: partnerMonth } = partnerBirthday;
+        const zodiac = getZodiac(parseInt(day), parseInt(month));
+        const partnerZodiac = getZodiac(
+          parseInt(partnerDay),
+          parseInt(partnerMonth)
+        );
+
+        setCoupleInfo({
+          gender,
+          image,
+          name: nickname ?? name,
+          zodiac,
+          partnerGender,
+          partnerImage,
+          partnerName: partnerNickname ?? partnerName,
+          partnerZodiac,
+        });
+      });
+    return unSubscriber;
+  }, []);
+  return coupleInfo;
 };

@@ -1,28 +1,74 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { accentColor } from "../../constants/colors";
+import { accentColor, primaryColor } from "../../constants/colors";
+import { useGetCoupleInfo } from "../../hooks/useDateCounter";
+import Zodiac from './Zodiac';
+import LoadingIndicator from "../UI/LoadingIndicator";
 
 const PersonInfo = (props) => {
-  const { name, imageUrl } = props;
+  const { name, imageUrl, gender, zodiac } = props;
+  const imageDefault =
+    gender === "male"
+      ? require("../../assets/boy.png")
+      : require("../../assets/girl.png");
   return (
     <View style={styles.personInfo}>
-      <Image style={styles.image} source={{ uri: imageUrl }} />
+      <Image
+        style={styles.image}
+        source={imageUrl ? { uri: imageUrl } : imageDefault}
+      />
       <Text style={styles.personName}>{name}</Text>
+      <View style={styles.extraInfo}>
+        <View style={styles.personGender}>
+          <MaterialCommunityIcons
+            name={gender === "male" ? "gender-male" : "gender-female"}
+            size={18}
+            color={primaryColor}
+          />
+        </View>
+        <Zodiac zodiac={zodiac} />
+      </View>
     </View>
   );
 };
 
 const CoupleInfo = (props) => {
+  const coupleInfo = useGetCoupleInfo();
+
+  if (!coupleInfo) {
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <LoadingIndicator />
+      </View>
+    );
+  }
+
+  const {
+    name,
+    gender,
+    image,
+    zodiac,
+    partnerGender,
+    partnerImage,
+    partnerName,
+    partnerZodiac,
+  } = coupleInfo;
+
   return (
     <View style={styles.coupleInfo}>
       <PersonInfo
-        name="Hoàng"
-        imageUrl="https://images.unsplash.com/photo-1518577915332-c2a19f149a75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"
+        name={name}
+        imageUrl={image}
+        gender={gender}
+        zodiac={zodiac}
       />
       <PersonInfo
-        name="Đậu"
-        imageUrl="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+        name={partnerName}
+        imageUrl={partnerImage}
+        gender={partnerGender}
+        zodiac={partnerZodiac}
       />
     </View>
   );
@@ -45,7 +91,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "nunito-bold",
     marginTop: 7.5,
-    fontSize: 17.5,
+  },
+  extraInfo: {
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  personGender: {
+    backgroundColor: "#eee",
+    padding: 3,
+    width: 30,
+    aspectRatio: 1,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 5,
   },
 });
 
