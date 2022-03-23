@@ -1,21 +1,33 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-import { screenWidth, availableWidth, shadowDefault } from "../../constants/styles";
+import { useDateCounterDetail } from "../../hooks/useDateCounter";
+import {
+  screenWidth,
+  availableWidth,
+  shadowDefault,
+} from "../../constants/styles";
 import { accentColor } from "../../constants/colors";
 import DateItem from "../UI/DateItem";
 
 const HomeDateCounter2 = (props) => {
+  const dateCounterData = useDateCounterDetail();
+  if (!dateCounterData) {
+    return <></>;
+  }
+  const { day, week, month, year } = dateCounterData;
   return (
     <TouchableOpacity
       activeOpacity={0.6}
       style={styles.dateCounter}
-      onPress={() => {props.onPress()}}
+      onPress={() => {
+        props.onPress();
+      }}
     >
-      <DateItem type={"Năm"} value={2} />
-      <DateItem type={"Tháng"} value={5} />
-      <DateItem type={"Tuần"} value={13} />
-      <DateItem type={"Ngày"} value={2} />
+      <DateItem type={"Năm"} value={year} />
+      <DateItem type={"Tháng"} value={month} />
+      <DateItem type={"Tuần"} value={week} />
+      <DateItem type={"Ngày"} value={day} />
     </TouchableOpacity>
   );
 };
@@ -32,7 +44,16 @@ const styles = StyleSheet.create({
     width: availableWidth,
     backgroundColor: accentColor,
     borderRadius: 15,
-    ...shadowDefault
+    ...shadowDefault,
+  },
+  container: {
+    flex: 1,
+    height: screenWidth - 200,
+    backgroundColor: accentColor,
+    borderRadius: 15,
+    ...shadowDefault,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

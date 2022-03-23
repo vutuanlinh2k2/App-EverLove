@@ -9,6 +9,7 @@ import {
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const SET_DID_TRY_AUTO_LOGIN = "SET_DID_TRY_AUTO_LOGIN";
+export const LOGOUT = "LOGOUT";
 
 export const authenticate = (userId) => {
   return async (dispatch) => {
@@ -65,6 +66,11 @@ export const logIn = (email, password) => {
         ]);
       });
   };
+};
+
+export const logOut = () => {
+  AsyncStorage.removeItem("userData");
+  return { type: LOGOUT };
 };
 
 const saveDataToStorage = (userId) => {

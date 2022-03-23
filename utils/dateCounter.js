@@ -1,3 +1,6 @@
+import moment from "moment";
+import "moment-precise-range-plugin";
+
 export const getLoveDateCount = (day, month, year) => {
   const formattedLoveDate = `${month}/${day}/${year}`;
   const loveDate = new Date(formattedLoveDate);
@@ -5,6 +8,22 @@ export const getLoveDateCount = (day, month, year) => {
   const timeDifference = currentDate.getTime() - loveDate.getTime();
   const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
   return daysDifference;
+};
+
+export const getDetailLoveDate = (day, month, year) => {
+  const now = moment();
+  const formattedLoveDate = `${year}-${month}-${day} 00:00:00`;
+  const loveDate = moment(formattedLoveDate, "YYYY-MM-DD HH:mm:ss");
+  const diff = moment.preciseDiff(now, loveDate, true);
+  const { years, months, days } = diff;
+  const daysLove = days % 7 
+  const weeksLove = (days - daysLove) / 7;
+  return {
+    year: years,
+    month: months,
+    week: weeksLove,
+    day: daysLove
+  };
 };
 
 export const getZodiac = (day, month) => {

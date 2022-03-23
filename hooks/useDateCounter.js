@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { useSelector } from "react-redux";
 
-import { getLoveDateCount, getZodiac } from "../utils/dateCounter";
+import { getLoveDateCount, getZodiac, getDetailLoveDate } from "../utils/dateCounter";
 
 export const useDateCounterHeart = () => {
   const [dateCounter, setDateCounter] = useState();
@@ -15,6 +15,25 @@ export const useDateCounterHeart = () => {
       .onSnapshot((querySnapshot) => {
         const { day, month, year } = querySnapshot.data().loveDate;
         const dateLove = getLoveDateCount(day, month, year);
+        setDateCounter(dateLove);
+      });
+    return unSubscriber;
+  }, []);
+
+  return dateCounter;
+};
+
+export const useDateCounterDetail = () => {
+  const [dateCounter, setDateCounter] = useState();
+  const userId = useSelector((state) => state.auth.userId);
+
+  useEffect(() => {
+    const unSubscriber = db
+      .collection(`users`)
+      .doc(userId)
+      .onSnapshot((querySnapshot) => {
+        const { day, month, year } = querySnapshot.data().loveDate;
+        const dateLove = getDetailLoveDate(day, month, year);
         setDateCounter(dateLove);
       });
     return unSubscriber;
