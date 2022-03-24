@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { primaryColor, backgroundColor } from "../constants/colors";
+import { primaryColor, backgroundColor, greyColor } from "../constants/colors";
 import { appPaddingHorizontal, screenHeight } from "../constants/styles";
 import AuthHeader from "../components/Auth/AuthHeader";
 import AuthInputs from "../components/Auth/AuthInputs";
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   line: {
     flex: 1,
     height: 1,
-    backgroundColor: "#eee",
+    backgroundColor: greyColor,
   },
   text: {
     marginHorizontal: 10,

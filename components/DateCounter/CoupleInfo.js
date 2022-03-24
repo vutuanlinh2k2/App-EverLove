@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { accentColor, primaryColor } from "../../constants/colors";
+import { accentColor, primaryColor, greyColor } from "../../constants/colors";
 import { useGetCoupleInfo } from "../../hooks/useDateCounter";
 import Zodiac from './Zodiac';
 import LoadingIndicator from "../UI/LoadingIndicator";
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   personGender: {
-    backgroundColor: "#eee",
+    backgroundColor: greyColor,
     padding: 3,
     width: 30,
     aspectRatio: 1,

@@ -10,7 +10,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import { primaryColor } from "../../../constants/colors";
+import { primaryColor, greyColor } from "../../../constants/colors";
 
 const ActionItem = (props) => {
   const { IconComponent, iconName, action, title } = props;
@@ -71,7 +71,7 @@ const MemoryItemActionsModal = (props) => {
 };
 
 const itemModalDefaultStyles = {
-  backgroundColor: "#eee",
+  backgroundColor: greyColor,
   paddingVertical: 15,
   borderRadius: 15,
   flexDirection: "row",

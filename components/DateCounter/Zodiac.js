@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { primaryColor } from "../../constants/colors";
+import { primaryColor, greyColor } from "../../constants/colors";
 
 const Zodiac = (props) => {
   const { zodiac } = props;
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   zodiacContainer: {
     height: 30,
     borderRadius: 15,
-    backgroundColor: "#eee",
+    backgroundColor: greyColor,
     paddingTop: 3,
     paddingHorizontal: 7.5,
     flexDirection: "row",

@@ -16,7 +16,7 @@ export const screenOptions = (navData) => {
   return {
     headerShown: false,
     tabBarIcon: () => (
-      <Ionicons name="add-circle-sharp" size={50} color={primaryColor} />
+      <Ionicons name="add-circle-sharp" size={45} color={primaryColor} />
     ),
   };
 };

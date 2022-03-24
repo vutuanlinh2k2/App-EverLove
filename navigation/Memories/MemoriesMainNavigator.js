@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { primaryColor, backgroundColor } from "../../constants/colors";
+import { primaryColor, backgroundColor, greyColor } from "../../constants/colors";
 import MemoriesItems from '../../screens/Memories/MemoriesItemsScreen';
 import MemoriesDayScreen from "../../screens/Memories/MemoriesDayScreen";
 import MemoriesMonthScreen from "../../screens/Memories/MemoriesMonthScreen";
@@ -26,7 +26,7 @@ const MemoriesMainNavigator = () => {
           borderRadius: 25,
           overflow: 'hidden',
           height: 40,
-          borderColor: '#eee',
+          borderColor: greyColor,
           borderWidth: 1,
         },
         tabBarIndicatorStyle: {
@@ -43,7 +43,7 @@ const MemoriesMainNavigator = () => {
           height: '100%',
         },
         tabBarItemStyle: {
-          borderColor: '#eee',
+          borderColor: greyColor,
           borderWidth: 0.5,
         }
       }}
