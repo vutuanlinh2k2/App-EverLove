@@ -9,13 +9,16 @@ import PlanChoicesScreen from "../screens/PlanChoicesScreen";
 
 const AppNavigator = () => {
   const isAuth = useSelector((state) => !!state.auth.userId);
+  const userId = useSelector((state) => state.auth.userId);
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
+  const userInfoExisted = useSelector((state) => state.auth.userInfoExisted);
 
   return (
     <NavigationContainer>
       {!isAuth && !didTryAutoLogin && <StartUpScreen />}
-      {!isAuth && didTryAutoLogin && <PlanChoicesScreen />}
-      {isAuth && <MainNavigator />}
+      {!isAuth && didTryAutoLogin && <AuthScreen />}
+      {isAuth && !userInfoExisted && <PlanChoicesScreen />}
+      {isAuth && userInfoExisted && <MainNavigator />}
     </NavigationContainer>
   );
 };

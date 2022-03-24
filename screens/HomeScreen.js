@@ -21,9 +21,6 @@ const AppLogo = () => {
 
 const HomeScreen = (props) => {
   const { navigation } = props;
-  const dateCounterPressHandler = () => {
-    navigation.navigate("DateCounter");
-  };
   const navigateMemoriesScreen = () => {
     navigation.navigate("Memories", {
       screen: "MemoriesMain",
@@ -36,7 +33,7 @@ const HomeScreen = (props) => {
     <BodyWrapper scrollable>
       <HeaderTitle title={homeScreenTitle} logo />
       <HeadingText headerText={"Đếm ngày yêu"} />
-      <HomeCarousel onPressItem={dateCounterPressHandler} />
+      {/* <HomeCarousel onPressItem={dateCounterPressHandler} /> */}
       <Divider />
       <HeadingText
         headerText={"Kỉ niệm"}

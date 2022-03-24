@@ -8,12 +8,16 @@ import ReduxThunk from "redux-thunk";
 
 import AppNavigator from "./navigation/AppNavigator";
 import authReducer from "./store/reducers/auth";
+import userInfoReducer from "./store/reducers/userInfo";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  userInfo: userInfoReducer,
 });
 
-LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release.']);
+LogBox.ignoreLogs([
+  "AsyncStorage has been extracted from react-native core and will be removed in a future release.",
+]);
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

@@ -6,10 +6,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backgroundColor, primaryColor } from "../constants/colors";
 import { screenWidth } from "../constants/styles";
 import { setDidTryAutoLogIn, authenticate } from "../store/actions/auth";
+import { getUserInfo } from "../store/actions/userInfo";
 
 const StartUpScreen = (props) => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     const tryLogin = async () => {
       const userData = await AsyncStorage.getItem("userData");
@@ -18,12 +18,17 @@ const StartUpScreen = (props) => {
         return;
       }
       const transformedData = JSON.parse(userData);
-      const { userId } = transformedData;
+      const { userId, ...userInfo } = transformedData;
       if (!userId) {
         dispatch(setDidTryAutoLogIn());
         return;
       }
-      dispatch(authenticate(userId));
+      if (userInfo === {}) {
+        dispatch(authenticate(userId, false));
+      } else {
+        dispatch(authenticate(userId, true));
+        dispatch(getUserInfo(userInfo));
+      }
     };
     tryLogin();
   }, []);
