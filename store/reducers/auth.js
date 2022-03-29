@@ -1,4 +1,9 @@
-import { AUTHENTICATE, SET_DID_TRY_AUTO_LOGIN, LOGOUT } from "../actions/auth";
+import {
+  AUTHENTICATE,
+  SET_DID_TRY_AUTO_LOGIN,
+  LOGOUT,
+  SET_USER_INFO,
+} from "../actions/auth";
 
 const initialState = {
   userId: null,
@@ -10,10 +15,14 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case AUTHENTICATE:
       return {
-        // ...state,
         userId: action.userId,
         didTryAutoLogin: true,
         userInfoExisted: action.userInfoExisted,
+      };
+    case SET_USER_INFO:
+      return {
+        ...state,
+        userInfoExisted: true,
       };
     case SET_DID_TRY_AUTO_LOGIN:
       return {

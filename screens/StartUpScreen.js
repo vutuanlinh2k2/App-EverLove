@@ -23,11 +23,11 @@ const StartUpScreen = (props) => {
         dispatch(setDidTryAutoLogIn());
         return;
       }
-      if (userInfo === {}) {
+      if (Object.keys(userInfo).length === 0) {
         dispatch(authenticate(userId, false));
       } else {
         dispatch(authenticate(userId, true));
-        dispatch(getUserInfo(userInfo));
+        dispatch(getUserInfo(userId));
       }
     };
     tryLogin();

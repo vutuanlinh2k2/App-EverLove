@@ -11,6 +11,7 @@ import { getUserInfo } from "../../firebase/userInfo";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const SET_DID_TRY_AUTO_LOGIN = "SET_DID_TRY_AUTO_LOGIN";
 export const LOGOUT = "LOGOUT";
+export const SET_USER_INFO = "SET_USER_INFO";
 
 export const authenticate = (userId, userInfoExisted) => {
   return async (dispatch) => {
@@ -24,6 +25,10 @@ export const authenticate = (userId, userInfoExisted) => {
 
 export const setDidTryAutoLogIn = () => {
   return { type: SET_DID_TRY_AUTO_LOGIN };
+};
+
+export const setUserInfo = () => {
+  return { type: SET_USER_INFO };
 };
 
 export const signUp = (email, password) => {
