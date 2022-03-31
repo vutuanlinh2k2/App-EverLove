@@ -21,19 +21,20 @@ const loginValidationSchema = yup.object().shape({
   name: yup
     .string()
     .min(3, ({ min }) => `Tên của bạn phải có ít nhất ${min} kí tự.`)
-    .max(30, ({ max }) => `Tên của bạn phải ít hơn ${max} kí tự.`)
-    .required("Hãy nhập tên của bạn !!!"),
+    .max(30, ({ max }) => `Tên của bạn phải có ít hơn ${max + 1} kí tự.`)
+    .required("Hãy nhập tên của bạn !"),
   nickname: yup
     .string()
-    .max(15, ({ max }) => `Biệt danh của bạn phải ít hơn ${max} kí tự.`),
+    .max(15, ({ max }) => `Biệt danh của bạn phải có ít hơn ${max + 1} kí tự.`),
 });
 
 const GetUserInfo = (props) => {
+  const { onGoToNextItem } = props;
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [trySubmit, setTrySubmit] = useState(false);
   const [birthdayInput, setBirthdayInput] = useState();
   const [gender, setGender] = useState();
-  const { onGoToNextItem } = props;
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -56,7 +57,6 @@ const GetUserInfo = (props) => {
     <View style={styles.screen}>
       {/* <View style={styles.header}> */}
       <Formik
-        style={{ backgroundColor: "red" }}
         validationSchema={loginValidationSchema}
         initialValues={{ name: "", nickname: "" }}
         onSubmit={(values) => {
@@ -68,6 +68,7 @@ const GetUserInfo = (props) => {
               month,
               year,
             },
+            gender,
           });
           onGoToNextItem();
         }}
@@ -88,14 +89,16 @@ const GetUserInfo = (props) => {
                 <View
                   style={[
                     styles.inputContainer,
-                    trySubmit && errors.name ? styles.errorInput : {},
+                    (trySubmit && !touched.name) ||
+                    (errors.name && touched.name)
+                      ? styles.errorInput
+                      : {},
                   ]}
                 >
                   <Text style={styles.inputName}>Tên của bạn*</Text>
                   <TextInput
                     name="name"
                     placeholder="abc"
-                    placeholderTextColor="#ccc"
                     selectionColor={primaryColor}
                     style={styles.textInput}
                     onChangeText={handleChange("name")}
@@ -117,7 +120,6 @@ const GetUserInfo = (props) => {
                   <TextInput
                     name="nickname"
                     placeholder="abc"
-                    placeholderTextColor="#ccc"
                     selectionColor={primaryColor}
                     style={styles.textInput}
                     onChangeText={handleChange("nickname")}
@@ -147,7 +149,6 @@ const GetUserInfo = (props) => {
                   <TextInput
                     name="birthday"
                     placeholder="dd/mm/yyyy"
-                    placeholderTextColor="#ccc"
                     selectionColor={primaryColor}
                     style={styles.textInput}
                     onBlur={handleBlur("birthday")}
@@ -188,7 +189,9 @@ const GetUserInfo = (props) => {
             </View>
             <ContinueButton
               onPress={
-                !isValid || !birthdayInput ? trySubmitHandler : handleSubmit
+                !isValid || !birthdayInput || !gender
+                  ? trySubmitHandler
+                  : handleSubmit
               }
             />
           </View>

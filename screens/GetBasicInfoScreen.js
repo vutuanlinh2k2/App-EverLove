@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { backgroundColor } from "../constants/colors";
+import { backgroundColor, primaryColor } from "../constants/colors";
 import { screenWidth } from "../constants/styles";
 import GetImages from "../components/GetBasicInfo/GetImages";
 import GetLoveDate from "../components/GetBasicInfo/GetLoveDate";
@@ -15,8 +15,10 @@ const renderItem = ({ item, _ }) => {
   return item.content;
 };
 
+const initialSlide = 0;
+
 const GetBasicInfoScreen = (props) => {
-  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [carouselIndex, setCarouselIndex] = useState(initialSlide);
   const carouselRef = useRef();
 
   const goToNextItem = () => {
@@ -65,7 +67,7 @@ const GetBasicInfoScreen = (props) => {
         sliderWidth={screenWidth}
         itemWidth={screenWidth}
         useScrollView={true}
-        firstItem={0}
+        firstItem={initialSlide}
         containerCustomStyle={styles.itemContainer}
         inactiveSlideScale={1}
         scrollEnabled={false}
@@ -78,8 +80,9 @@ const GetBasicInfoScreen = (props) => {
           dotsLength={carouselItems.length}
           activeDotIndex={carouselIndex}
           containerStyle={styles.pagination}
-          inactiveDotOpacity={0.6}
           dotStyle={styles.dot}
+          inactiveDotScale={1}
+          inactiveDotOpacity={0.3}
         />
       </View>
     </SafeAreaView>
@@ -96,6 +99,12 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: "visible",
   },
+  dot: {
+    backgroundColor: primaryColor,
+    width: 8,
+    height: 8,
+    borderRadius: 4
+  }
 });
 
 export default GetBasicInfoScreen;

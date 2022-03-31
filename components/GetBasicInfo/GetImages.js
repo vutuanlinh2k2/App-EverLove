@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import ContinueButton from "./UI/ContinueButton";
-import GoBackButton from "./GoBackButton";
+import GoBackButton from "./UI/GoBackButton";
 
 const GetImages = (props) => {
   const { goBackItem, onGoToNextItem } = props;

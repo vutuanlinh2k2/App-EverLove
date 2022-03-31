@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     height: screenHeight / 15,
     borderRadius: 15,
     backgroundColor: primaryColor,
-    marginTop: 20,
+    // marginTop: 20,
     // marginHorizontal: appPaddingHorizontal
   },
   buttonText: {

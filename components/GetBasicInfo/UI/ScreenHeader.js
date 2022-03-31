@@ -17,7 +17,7 @@ const ScreenHeader = (props) => {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginBottom: 25,
+    marginBottom: 15,
   },
   titleText: {
     marginBottom: 5,

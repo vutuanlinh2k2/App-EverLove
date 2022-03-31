@@ -6,7 +6,7 @@ import {
   accentColor,
   commonTextColor,
   greyColor,
-} from "../../constants/colors";
+} from "../../../constants/colors";
 
 const PlanChoiceItem = (props) => {
   const { title, price, features, isSelected, onPress } = props;
@@ -37,7 +37,7 @@ const PlanChoiceItem = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: 5,
     borderRadius: 15,
     padding: 10,
     borderWidth: 2,
