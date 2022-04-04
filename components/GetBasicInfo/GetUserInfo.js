@@ -29,7 +29,7 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const GetUserInfo = (props) => {
-  const { onGoToNextItem } = props;
+  const { onSubmit } = props;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [trySubmit, setTrySubmit] = useState(false);
@@ -61,7 +61,7 @@ const GetUserInfo = (props) => {
         initialValues={{ name: "", nickname: "" }}
         onSubmit={(values) => {
           const [day, month, year] = birthdayInput.split("-");
-          console.log({
+          const userInfo = {
             ...values,
             birthday: {
               day,
@@ -69,8 +69,8 @@ const GetUserInfo = (props) => {
               year,
             },
             gender,
-          });
-          onGoToNextItem();
+          };
+          onSubmit(userInfo);
         }}
       >
         {({
@@ -172,20 +172,24 @@ const GetUserInfo = (props) => {
                     }}
                   >
                     <RNPickerSelect
-                      textInputProps={{
-                        style: { color: commonTextColor },
+                      style={{
+                        inputIOS: { color: commonTextColor },
+                        inputAndroid: { color: commonTextColor },
                       }}
                       onValueChange={(value) => setGender(value)}
                       placeholder={{ label: "Chọn giới tính", value: null }}
                       items={[
-                        { label: "Nữ", value: "female" },
+                        {
+                          label: "Nữ",
+                          value: "female",
+                        },
                         { label: "Nam", value: "male" },
                       ]}
                     />
                   </View>
                 </View>
               </View>
-              <MoreInfoText />
+              <MoreInfoText text="* Bạn có thể thay đổi các thông tin này sau." />
             </View>
             <ContinueButton
               onPress={

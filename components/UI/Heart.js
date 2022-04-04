@@ -1,24 +1,27 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { useSelector } from "react-redux";
 
-import { useDateCounterHeart } from "../../hooks/useDateCounter";
-import LoadingIndicator from "./LoadingIndicator";
+// import { useDateCounterHeart } from "../../hooks/useDateCounter";
+import { getLoveDateCount } from "../../utils/dateCounter";
+// import LoadingIndicator from "./LoadingIndicator";
 
 const Heart = (props) => {
   const { fontSize } = props;
-  const dateCounter = useDateCounterHeart();
+  const loveDate = useSelector((state) => state.userInfo.loveDate);
+  const dateCounter = getLoveDateCount(loveDate);
   const textStyles = getDynamicStyles(fontSize).text;
 
-  if (!dateCounter) {
-    return (
-      <ImageBackground
-        style={styles.image}
-        source={require("../../assets/heart-2.png")}
-      >
-        <LoadingIndicator white />
-      </ImageBackground>
-    );
-  }
+  // if (!dateCounter) {
+  //   return (
+  //     <ImageBackground
+  //       style={styles.image}
+  //       source={require("../../assets/heart-2.png")}
+  //     >
+  //       <LoadingIndicator white />
+  //     </ImageBackground>
+  //   );
+  // }
 
   return (
     <>

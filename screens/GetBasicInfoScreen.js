@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useDispatch } from "react-redux";
 
 import { backgroundColor, primaryColor } from "../constants/colors";
 import { screenWidth } from "../constants/styles";
@@ -19,40 +19,78 @@ const initialSlide = 0;
 
 const GetBasicInfoScreen = (props) => {
   const [carouselIndex, setCarouselIndex] = useState(initialSlide);
+
   const carouselRef = useRef();
+  const userInfoRef = useRef();
+  const partnerInfoRef = useRef();
+  const imagesRef = useRef();
+  const loveDateRef = useRef();
+
+  const dispatch = useDispatch();
 
   const goToNextItem = () => {
     carouselRef.current.snapToNext();
-    // setCarouselIndex(prevValue => prevValue + 1);
   };
 
   const goBackItem = () => {
     carouselRef.current.snapToPrev();
-    // setCarouselIndex(prevValue => prevValue + 1);
+  };
+
+  const getUserInfoHandler = (info) => {
+    userInfoRef.current = info;
+    goToNextItem();
+  };
+
+  const getPartnerInfoHandler = (info) => {
+    partnerInfoRef.current = info;
+    goToNextItem();
+  };
+
+  const getImagesHandler = (images) => {
+    imagesRef.current = images;
+    goToNextItem();
+  };
+
+  const getLoveDate = (date) => {
+    loveDateRef.current = date;
+    goToNextItem();
+  };
+
+  const startAppHandler = (isVIP) => {
+    const userInfo = {
+      ...userInfoRef.current,
+      ...partnerInfoRef.current,
+      ...imagesRef.current,
+      ...loveDateRef.current,
+      isVIP,
+    };
+    
   };
 
   const carouselItems = useMemo(
     () => [
-      { content: <GetUserInfo onGoToNextItem={goToNextItem} /> },
+      { content: <GetUserInfo onSubmit={getUserInfoHandler} /> },
       {
         content: (
           <GetPartnerInfo
-            onGoToNextItem={goToNextItem}
+            onSubmit={getPartnerInfoHandler}
             goBackItem={goBackItem}
           />
         ),
       },
       {
         content: (
-          <GetImages onGoToNextItem={goToNextItem} goBackItem={goBackItem} />
+          <GetImages onSubmit={getImagesHandler} goBackItem={goBackItem} />
         ),
       },
       {
+        content: <GetLoveDate onSubmit={getLoveDate} goBackItem={goBackItem} />,
+      },
+      {
         content: (
-          <GetLoveDate onGoToNextItem={goToNextItem} goBackItem={goBackItem} />
+          <PlanChoices goBackItem={goBackItem} onStartApp={startAppHandler} />
         ),
       },
-      { content: <PlanChoices goBackItem={goBackItem} /> },
     ],
     [GetUserInfo, GetPartnerInfo, GetImages, GetLoveDate, PlanChoices]
   );
@@ -103,8 +141,8 @@ const styles = StyleSheet.create({
     backgroundColor: primaryColor,
     width: 8,
     height: 8,
-    borderRadius: 4
-  }
+    borderRadius: 4,
+  },
 });
 
 export default GetBasicInfoScreen;

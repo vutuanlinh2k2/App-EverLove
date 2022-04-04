@@ -17,7 +17,7 @@ import MoreInfoText from "./UI/MoreInfotext";
 import GoBackButton from "./UI/GoBackButton";
 
 const GetLoveDate = (props) => {
-  const { goBackItem, onGoToNextItem } = props;
+  const { goBackItem, onSubmit } = props;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [trySubmit, setTrySubmit] = useState(false);
@@ -41,14 +41,7 @@ const GetLoveDate = (props) => {
       return;
     }
     const [day, month, year] = loveDate.split("-");
-    console.log({
-      loveDate: {
-        day,
-        month,
-        year,
-      },
-    });
-    onGoToNextItem();
+    onSubmit({ loveDate: { day, month, year } });
   };
 
   return (
@@ -82,7 +75,7 @@ const GetLoveDate = (props) => {
                 editable={false}
               />
             </View>
-            <MoreInfoText />
+            <MoreInfoText text="* Bạn có thể thay đổi thông tin này sau." />
           </View>
         </View>
         <View>

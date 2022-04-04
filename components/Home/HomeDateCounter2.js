@@ -1,7 +1,9 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import { useSelector } from "react-redux";
 
-import { useDateCounterDetail } from "../../hooks/useDateCounter";
+import { getDetailLoveDate } from "../../utils/dateCounter";
+// import { useDateCounterDetail } from "../../hooks/useDateCounter";
 import {
   screenWidth,
   availableWidth,
@@ -11,10 +13,11 @@ import { accentColor } from "../../constants/colors";
 import DateItem from "../UI/DateItem";
 
 const HomeDateCounter2 = (props) => {
-  const dateCounterData = useDateCounterDetail();
-  if (!dateCounterData) {
-    return <></>;
-  }
+  const loveDate = useSelector((state) => state.userInfo.loveDate);
+  const dateCounterData = getDetailLoveDate(loveDate);
+  // if (!dateCounterData) {
+  //   return <></>;
+  // }
   const { day, week, month, year } = dateCounterData;
   return (
     <TouchableOpacity

@@ -30,7 +30,7 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const GetPartnerInfo = (props) => {
-  const { goBackItem, onGoToNextItem } = props;
+  const { goBackItem, onSubmit } = props;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [trySubmit, setTrySubmit] = useState(false);
@@ -62,7 +62,7 @@ const GetPartnerInfo = (props) => {
         initialValues={{ partnerName: "", partnerNickname: "" }}
         onSubmit={(values) => {
           const [day, month, year] = birthdayInput.split("-");
-          console.log({
+          const partnerInfo = {
             ...values,
             partnerBirthday: {
               day,
@@ -70,8 +70,8 @@ const GetPartnerInfo = (props) => {
               year,
             },
             partnerGender: gender,
-          });
-          onGoToNextItem();
+          };
+          onSubmit(partnerInfo);
         }}
       >
         {({
@@ -175,8 +175,9 @@ const GetPartnerInfo = (props) => {
                     }}
                   >
                     <RNPickerSelect
-                      textInputProps={{
-                        style: { color: commonTextColor },
+                      style={{
+                        inputIOS: { color: commonTextColor },
+                        inputAndroid: { color: commonTextColor },
                       }}
                       onValueChange={(value) => setGender(value)}
                       placeholder={{ label: "Chọn giới tính", value: null }}
@@ -188,7 +189,7 @@ const GetPartnerInfo = (props) => {
                   </View>
                 </View>
               </View>
-              <MoreInfoText />
+              <MoreInfoText text="* Bạn có thể thay đổi các thông tin này sau." />
             </View>
             <View>
             <GoBackButton onPress={goBackItem} />

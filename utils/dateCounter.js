@@ -1,7 +1,8 @@
 import moment from "moment";
 import "moment-precise-range-plugin";
 
-export const getLoveDateCount = (day, month, year) => {
+export const getLoveDateCount = (dateInput) => {
+  const { day, month, year } = dateInput;
   const formattedLoveDate = `${month}/${day}/${year}`;
   const loveDate = new Date(formattedLoveDate);
   const currentDate = new Date();
@@ -10,19 +11,20 @@ export const getLoveDateCount = (day, month, year) => {
   return daysDifference;
 };
 
-export const getDetailLoveDate = (day, month, year) => {
+export const getDetailLoveDate = (dateInput) => {
+  const { day, month, year } = dateInput;
   const now = moment();
   const formattedLoveDate = `${year}-${month}-${day} 00:00:00`;
   const loveDate = moment(formattedLoveDate, "YYYY-MM-DD HH:mm:ss");
   const diff = moment.preciseDiff(now, loveDate, true);
   const { years, months, days } = diff;
-  const daysLove = days % 7 
+  const daysLove = days % 7;
   const weeksLove = (days - daysLove) / 7;
   return {
     year: years,
     month: months,
     week: weeksLove,
-    day: daysLove
+    day: daysLove,
   };
 };
 

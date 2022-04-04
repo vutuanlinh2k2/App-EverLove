@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import GoBackButton from "./UI/GoBackButton";
 import { primaryColor, backgroundColor } from "../../constants/colors";
@@ -18,7 +13,7 @@ import PlanChoiceItem from "./UI/PlanChoiceItem";
 import ScreenHeader from "./UI/ScreenHeader";
 
 const PlanChoices = (props) => {
-  const { goBackItem } = props;
+  const { goBackItem, onStartApp } = props;
   const [selectedPlan, setSelectedPlan] = useState(0);
 
   return (
@@ -48,7 +43,10 @@ const PlanChoices = (props) => {
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.button}
-          onPress={() => {}}
+          onPress={() => {
+            const isVIP = selectedPlan === 0 ? false : true;
+            onStartApp(isVIP);
+          }}
         >
           <Text style={styles.buttonText}>Bắt đầu</Text>
         </TouchableOpacity>
