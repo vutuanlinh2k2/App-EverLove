@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import { accentColor, primaryColor, greyColor } from "../../constants/colors";
-import { useGetCoupleInfo } from "../../hooks/useDateCounter";
-import Zodiac from './Zodiac';
-import LoadingIndicator from "../UI/LoadingIndicator";
+// import { useGetCoupleInfo } from "../../hooks/useDateCounter";
+import Zodiac from "./Zodiac";
+// import LoadingIndicator from "../UI/LoadingIndicator";
 
 const PersonInfo = (props) => {
   const { name, imageUrl, gender, zodiac } = props;
@@ -35,37 +36,40 @@ const PersonInfo = (props) => {
 };
 
 const CoupleInfo = (props) => {
-  const coupleInfo = useGetCoupleInfo();
+  // const coupleInfo = useGetCoupleInfo();
+  const userInfo = useSelector((state) => state.userInfo);
 
-  if (!coupleInfo) {
-    return (
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <LoadingIndicator />
-      </View>
-    );
-  }
+  // if (!coupleInfo) {
+  //   return (
+  //     <View style={{ justifyContent: "center", alignItems: "center" }}>
+  //       <LoadingIndicator />
+  //     </View>
+  //   );
+  // }
 
   const {
     name,
+    nickname,
     gender,
     image,
     zodiac,
     partnerGender,
     partnerImage,
     partnerName,
+    partnerNickname,
     partnerZodiac,
-  } = coupleInfo;
+  } = userInfo;
 
   return (
     <View style={styles.coupleInfo}>
       <PersonInfo
-        name={name}
+        name={nickname === "" ? name : nickname}
         imageUrl={image}
         gender={gender}
         zodiac={zodiac}
       />
       <PersonInfo
-        name={partnerName}
+        name={partnerNickname === "" ? partnerName: partnerNickname}
         imageUrl={partnerImage}
         gender={partnerGender}
         zodiac={partnerZodiac}

@@ -10,7 +10,7 @@ import {
   appPaddingHorizontal,
   availableWidth,
 } from "../../constants/styles";
-import { convertBirthday as convertDay } from "../../utils/getBasicInfo";
+import { convertDay } from "../../utils/getBasicInfo";
 import ContinueButton from "./UI/ContinueButton";
 import ScreenHeader from "./UI/ScreenHeader";
 import MoreInfoText from "./UI/MoreInfotext";

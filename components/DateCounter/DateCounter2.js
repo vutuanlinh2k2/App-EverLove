@@ -2,15 +2,12 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 
 import { screenWidth } from "../../constants/styles";
-import DateItem from "../UI/DateItem";
+import DateItems from "../UI/DateItems";
 
 const DateCounter2 = (props) => {
   return (
     <View style={styles.screen}>
-      <DateItem type={"Năm"} value={2} />
-      <DateItem type={"Tháng"} value={5} />
-      <DateItem type={"Tuần"} value={13} />
-      <DateItem type={"Ngày"} value={2} />
+      <DateItems />
     </View>
   );
 };

@@ -71,8 +71,8 @@ const ImageItem = (props) => {
 };
 
 const GetImages = (props) => {
-  const [userImage, setUserImage] = useState();
-  const [partnerImage, setPartnerImage] = useState();
+  const [userImage, setUserImage] = useState(null);
+  const [partnerImage, setPartnerImage] = useState(null);
   const { goBackItem, onSubmit } = props;
 
   const onSubmitImages = () => {

@@ -12,7 +12,7 @@ import {
   appPaddingHorizontal,
   availableWidth,
 } from "../../constants/styles";
-import { convertBirthday } from "../../utils/getBasicInfo";
+import { convertDay, getZodiac } from "../../utils/getBasicInfo";
 import ContinueButton from "./UI/ContinueButton";
 import ScreenHeader from "./UI/ScreenHeader";
 import MoreInfoText from "./UI/MoreInfotext";
@@ -26,7 +26,10 @@ const loginValidationSchema = yup.object().shape({
     .required("Hãy nhập tên của người ấy !"),
   partnerNickname: yup
     .string()
-    .max(15, ({ max }) => `Biệt danh của người ấy phải có ít hơn ${max + 1} kí tự.`),
+    .max(
+      15,
+      ({ max }) => `Biệt danh của người ấy phải có ít hơn ${max + 1} kí tự.`
+    ),
 });
 
 const GetPartnerInfo = (props) => {
@@ -46,7 +49,7 @@ const GetPartnerInfo = (props) => {
   };
 
   const handleConfirm = (date) => {
-    setBirthdayInput(convertBirthday(date));
+    setBirthdayInput(convertDay(date));
     hideDatePicker();
   };
 
@@ -62,6 +65,7 @@ const GetPartnerInfo = (props) => {
         initialValues={{ partnerName: "", partnerNickname: "" }}
         onSubmit={(values) => {
           const [day, month, year] = birthdayInput.split("-");
+          const partnerZodiac = getZodiac(parseInt(day), parseInt(month));
           const partnerInfo = {
             ...values,
             partnerBirthday: {
@@ -70,6 +74,7 @@ const GetPartnerInfo = (props) => {
               year,
             },
             partnerGender: gender,
+            partnerZodiac,
           };
           onSubmit(partnerInfo);
         }}
@@ -192,7 +197,7 @@ const GetPartnerInfo = (props) => {
               <MoreInfoText text="* Bạn có thể thay đổi các thông tin này sau." />
             </View>
             <View>
-            <GoBackButton onPress={goBackItem} />
+              <GoBackButton onPress={goBackItem} />
               <ContinueButton
                 onPress={
                   !isValid || !birthdayInput || !gender
@@ -200,7 +205,6 @@ const GetPartnerInfo = (props) => {
                     : handleSubmit
                 }
               />
-          
             </View>
           </View>
         )}

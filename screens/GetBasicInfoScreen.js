@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { backgroundColor, primaryColor } from "../constants/colors";
 import { screenWidth } from "../constants/styles";
+import { setUserInfo } from "../store/actions/userInfo";
 import GetImages from "../components/GetBasicInfo/GetImages";
 import GetLoveDate from "../components/GetBasicInfo/GetLoveDate";
 import GetPartnerInfo from "../components/GetBasicInfo/GetPartnerInfo";
@@ -64,7 +65,7 @@ const GetBasicInfoScreen = (props) => {
       ...loveDateRef.current,
       isVIP,
     };
-    
+    dispatch(setUserInfo(userInfo));
   };
 
   const carouselItems = useMemo(

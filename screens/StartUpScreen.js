@@ -12,23 +12,24 @@ const StartUpScreen = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const tryLogin = async () => {
-      const userData = await AsyncStorage.getItem("userData");
-      if (!userData) {
-        dispatch(setDidTryAutoLogIn());
-        return;
-      }
-      const transformedData = JSON.parse(userData);
-      const { userId, ...userInfo } = transformedData;
+      const userId = await AsyncStorage.getItem("userId");
+      const userInfo = await AsyncStorage.getItem("userInfo");
       if (!userId) {
         dispatch(setDidTryAutoLogIn());
         return;
       }
-      if (Object.keys(userInfo).length === 0) {
-        dispatch(authenticate(userId, false));
-      } else {
-        dispatch(authenticate(userId, true));
-        dispatch(getUserInfo(userId));
+      const transformedId = JSON.parse(userId);
+      if (!transformedId) {
+        dispatch(setDidTryAutoLogIn());
+        return;
       }
+
+      const transformedInfo = JSON.parse(userInfo);
+      if (transformedInfo) {
+        dispatch(getUserInfo(transformedInfo));
+      }
+
+      dispatch(authenticate(userId));
     };
     tryLogin();
   }, []);

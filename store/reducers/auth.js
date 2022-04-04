@@ -2,13 +2,11 @@ import {
   AUTHENTICATE,
   SET_DID_TRY_AUTO_LOGIN,
   LOGOUT,
-  SET_USER_INFO,
 } from "../actions/auth";
 
 const initialState = {
   userId: null,
   didTryAutoLogin: false,
-  userInfoExisted: false,
 };
 
 export default (state = initialState, action) => {
@@ -17,12 +15,6 @@ export default (state = initialState, action) => {
       return {
         userId: action.userId,
         didTryAutoLogin: true,
-        userInfoExisted: action.userInfoExisted,
-      };
-    case SET_USER_INFO:
-      return {
-        ...state,
-        userInfoExisted: true,
       };
     case SET_DID_TRY_AUTO_LOGIN:
       return {

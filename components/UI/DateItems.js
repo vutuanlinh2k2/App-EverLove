@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
+import { getDetailLoveDate } from "../../utils/dateCounter";
 import { primaryColor } from "../../constants/colors";
 import { shadowDefault } from "../../constants/styles";
 
@@ -19,6 +21,22 @@ const DateItem = (props) => {
   );
 };
 
+const DateItems = () => {
+  const loveDate = useSelector((state) => state.userInfo.loveDate);
+  const dateCounterData = getDetailLoveDate(loveDate);
+
+  const { day, week, month, year } = dateCounterData;
+
+  return (
+    <>
+      <DateItem type={"Năm"} value={year} />
+      <DateItem type={"Tháng"} value={month} />
+      <DateItem type={"Tuần"} value={week} />
+      <DateItem type={"Ngày"} value={day} />
+    </>
+  );
+};
+
 const styles = StyleSheet.create({
   dateItem: {
     width: "21%",
@@ -28,10 +46,10 @@ const styles = StyleSheet.create({
     fontFamily: "nunito-bold",
     textAlign: "center",
     marginBottom: 2.5,
-    fontSize: 12
+    fontSize: 12,
   },
   dateValueContainer: {
-    ...shadowDefault
+    ...shadowDefault,
   },
   gradient: {
     width: "100%",
@@ -39,7 +57,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: primaryColor
+    backgroundColor: primaryColor,
   },
   dateValue: {
     fontFamily: "nunito",
@@ -49,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DateItem;
+export default DateItems;

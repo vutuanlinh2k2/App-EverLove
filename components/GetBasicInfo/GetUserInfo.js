@@ -12,7 +12,7 @@ import {
   appPaddingHorizontal,
   availableWidth,
 } from "../../constants/styles";
-import { convertBirthday } from "../../utils/getBasicInfo";
+import { convertDay, getZodiac } from "../../utils/getBasicInfo";
 import ContinueButton from "./UI/ContinueButton";
 import ScreenHeader from "./UI/ScreenHeader";
 import MoreInfoText from "./UI/MoreInfotext";
@@ -45,7 +45,7 @@ const GetUserInfo = (props) => {
   };
 
   const handleConfirm = (date) => {
-    setBirthdayInput(convertBirthday(date));
+    setBirthdayInput(convertDay(date));
     hideDatePicker();
   };
 
@@ -61,6 +61,7 @@ const GetUserInfo = (props) => {
         initialValues={{ name: "", nickname: "" }}
         onSubmit={(values) => {
           const [day, month, year] = birthdayInput.split("-");
+          const zodiac = getZodiac(parseInt(day), parseInt(month));
           const userInfo = {
             ...values,
             birthday: {
@@ -69,6 +70,7 @@ const GetUserInfo = (props) => {
               year,
             },
             gender,
+            zodiac,
           };
           onSubmit(userInfo);
         }}

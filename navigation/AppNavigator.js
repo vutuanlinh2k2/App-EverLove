@@ -10,7 +10,7 @@ import GetBasicInfoScreen from "../screens/GetBasicInfoScreen";
 const AppNavigator = () => {
   const isAuth = useSelector((state) => !!state.auth.userId);
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
-  const userInfoExisted = useSelector((state) => state.auth.userInfoExisted);
+  const userInfoExisted = useSelector((state) => !!state.userInfo.name);
 
   return (
     <NavigationContainer>
