@@ -1,48 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
-import { accentColor } from "../../constants/colors";
-import { shadowDefault } from "../../constants/styles";
+import { commonTextColor } from "../../constants/colors";
+import { screenWidth } from "../../constants/styles";
+import useUpcomingEvents from "../../hooks/useUpcomingEvents";
 
-const imageWidth = 65;
+const imageWidth = screenWidth / 7;
+const imageMatching = {
+  birthday: require("../../assets/birthday.jpeg"),
+  anniversary: require("../../assets/balloons.jpeg"),
+  christmas: require("../../assets/christmas.jpeg"),
+  genderDay: require("../../assets/genderDay.jpeg"),
+  newYear: require("../../assets/newYear.jpeg"),
+  valentines: require("../../assets/valentines.jpeg"),
+};
 
 const EventItem = (props) => {
-  const { holidayTitle, daysLeft, anniversaryDays } = props;
-  const dateTitle = holidayTitle
-    ? holidayTitle
-    : `${parseInt(anniversaryDays)} ngày bên nhau`;
-  const roundedContent = holidayTitle ? (
-    <Image
-      style={styles.roundedImage}
-      source={{
-        uri: "https://images.unsplash.com/photo-1545685556-33cd7e3415df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
-      }}
-    />
-  ) : (
-    <ImageBackground
-      source={{
-        uri: "https://images.unsplash.com/photo-1499470117579-6e87c00de75e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80",
-      }}
-      style={styles.roundedImageBackground}
-    >
-      <Text style={styles.anniversaryDays}>{anniversaryDays}</Text>
-    </ImageBackground>
-  );
+  const { daysLeft, dateTitle, dateType } = props;
+  const image = imageMatching[dateType];
   return (
     <View style={styles.event}>
-      {roundedContent}
+      <Image style={styles.roundedImage} source={image} />
       <Text style={styles.dateTitle}>{dateTitle}</Text>
-      <Text style={styles.daysLeft}>{`${daysLeft} ngày`}</Text>
+      <Text style={styles.daysLeft}>{daysLeft}</Text>
     </View>
   );
 };
 
 const UpcomingEvents = (props) => {
+  const events = useUpcomingEvents();
   return (
     <View style={styles.upcomingEvents}>
-      <EventItem holidayTitle="Giáng Sinh" daysLeft={10} />
-      <EventItem daysLeft={20} anniversaryDays={100} />
-      <EventItem daysLeft={120} anniversaryDays={200} />
+      {events.length === 0 && (
+        <Text style={styles.noEventText}>
+          Không có kỉ niệm nào trong 30 ngày tới.
+        </Text>
+      )}
+      {events.map((event) => {
+        const { daysLeft, dateType, dateTitle } = event;
+        return (
+          <EventItem
+            daysLeft={daysLeft}
+            dateType={dateType}
+            dateTitle={dateTitle}
+          />
+        );
+      })}
     </View>
   );
 };
@@ -50,12 +53,10 @@ const UpcomingEvents = (props) => {
 const styles = StyleSheet.create({
   upcomingEvents: {},
   event: {
-    ...shadowDefault,
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 7.5,
-    backgroundColor: accentColor,
-    padding: 10,
+    marginVertical: 5,
+    paddingVertical: 10,
     borderRadius: 15,
   },
   roundedImage: {
@@ -67,13 +68,10 @@ const styles = StyleSheet.create({
     width: imageWidth,
     aspectRatio: 1,
     borderRadius: imageWidth / 2,
-    justifyContent: "center",
-    alignItems: "center",
     overflow: "hidden",
   },
   anniversaryDays: {
-    color: "white",
-    fontFamily: "nunito-bold",
+    fontFamily: "nunito-black",
   },
   dateTitle: {
     flex: 1,
@@ -83,6 +81,12 @@ const styles = StyleSheet.create({
   daysLeft: {
     fontFamily: "nunito-black",
     fontSize: 13,
+  },
+  noEventText: {
+    fontFamily: "nunito",
+    marginBottom: 15,
+    fontSize: 12,
+    color: commonTextColor,
   },
 });
 

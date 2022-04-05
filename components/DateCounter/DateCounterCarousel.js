@@ -38,7 +38,8 @@ const DateCounterCarousel = (props) => {
           dotsLength={carouselItems.length}
           activeDotIndex={currentCarouselIndex}
           containerStyle={styles.pagination}
-          inactiveDotOpacity={0.6}
+          inactiveDotScale={1}
+          inactiveDotOpacity={0.3}
           dotStyle={styles.dot}
         />
       </View>
@@ -48,26 +49,11 @@ const DateCounterCarousel = (props) => {
 
 const styles = StyleSheet.create({
   dateCounter: {},
-  pagination: {
-    backgroundColor: primaryColor,
-    width: 50,
-    paddingVertical: 7,
-    marginTop: 7.5,
-    borderRadius: 10,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
   dot: {
+    backgroundColor: primaryColor,
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "white",
   },
 });
 
