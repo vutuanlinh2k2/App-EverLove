@@ -40,6 +40,7 @@ const UpcomingEvents = (props) => {
         const { daysLeft, dateType, dateTitle } = event;
         return (
           <EventItem
+            key={dateTitle}
             daysLeft={daysLeft}
             dateType={dateType}
             dateTitle={dateTitle}

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 
-import MainNavigator from "./MainNavigator";
+import MainNavigator from "./RootNavigator";
 import AuthScreen from "../screens/AuthScreen";
 import StartUpScreen from "../screens/StartUpScreen";
 import GetBasicInfoScreen from "../screens/GetBasicInfoScreen";

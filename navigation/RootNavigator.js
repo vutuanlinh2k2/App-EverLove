@@ -1,6 +1,8 @@
 import React from "react";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 import { iconBottomSize } from "../constants/styles";
 import { primaryColor, backgroundColor } from "../constants/colors";
@@ -17,6 +19,8 @@ import MemoriesNavigator from "./Memories/MemoriesNavigator";
 import MenuScreen, {
   screenOptions as menuScreenOptions,
 } from "../screens/MenuScreen";
+
+const Placeholder = () => <View style={{ flex: 1, backgroundColor: "red" }} />;
 
 const MainBottomTabNavigator = createBottomTabNavigator();
 
@@ -46,9 +50,19 @@ const MainNavigator = () => {
         options={dateCounterScreenOptions}
       />
       <MainBottomTabNavigator.Screen
-        name="AddMemory"
-        component={AddMemoryScreen}
-        options={addMemoryScreenOptions}
+        name="AddMemoryMain"
+        component={Placeholder}
+        options={{
+          tabBarIcon: () => (
+            <Ionicons name="add-circle-sharp" size={45} color={primaryColor} />
+          ),
+        }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("AddMemory");
+          },
+        })}
       />
       <MainBottomTabNavigator.Screen
         name="Memories"
@@ -69,4 +83,28 @@ const MainNavigator = () => {
   );
 };
 
-export default MainNavigator;
+const RootStackNavigator = createStackNavigator();
+const RootNavigator = () => {
+  return (
+    <RootStackNavigator.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: "transparent" },
+      }}
+    >
+      <RootStackNavigator.Screen
+        name="main"
+        component={MainNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <RootStackNavigator.Screen
+        name="AddMemory"
+        component={AddMemoryScreen}
+        options={addMemoryScreenOptions}
+      />
+    </RootStackNavigator.Navigator>
+  );
+};
+
+export default RootNavigator;
