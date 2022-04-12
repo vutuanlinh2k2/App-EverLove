@@ -7,7 +7,7 @@ import ImagesInput from "./ImagesInput";
 import Modal from "../UI/Modal/Modal";
 
 const AddMemoryImages = (props) => {
-  const [images, setImages] = useState([]);
+  const { images, clearImages, updateImages } = props;
   const [modalActionsVisible, setModalActionsVisible] = useState(false);
   const [modalGetLibrary, setModalGetLibrary] = useState(false);
 
@@ -29,11 +29,7 @@ const AddMemoryImages = (props) => {
 
   const getImagesFromLibrary = (images) => {
     cancelModalGetLibrary(false);
-    setImages(images);
-  };
-
-  const clearImages = () => {
-    setImages([]);
+    updateImages(images);
   };
 
   const verifyPermissions = async () => {
@@ -59,9 +55,10 @@ const AddMemoryImages = (props) => {
       aspect: [1, 1],
       quality: 1,
     });
-
-    setImages([image.uri]);
-    cancelModalActionsVisible();
+    if (!image.cancelled) {
+      updateImages([image.uri]);
+      cancelModalActionsVisible();
+    }
   };
 
   const actionItems = [

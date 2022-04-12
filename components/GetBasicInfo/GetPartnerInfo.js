@@ -76,6 +76,7 @@ const GetPartnerInfo = (props) => {
             partnerGender: gender,
             partnerZodiac,
           };
+          console.log(partnerInfo);
           onSubmit(partnerInfo);
         }}
       >

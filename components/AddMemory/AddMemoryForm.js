@@ -1,98 +1,124 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
-import { Formik } from "formik";
-import * as yup from "yup";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import { Formik } from "formik";
+// import * as yup from "yup";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-import {
-  primaryColor,
-  commonTextColor,
-} from "../../constants/colors";
+import { primaryColor, commonTextColor } from "../../constants/colors";
 import { screenHeight, shadowDefault } from "../../constants/styles";
+import { getCurrentDate } from "../../utils/addMemory";
+import { convertDay } from "../../utils/general";
 
-const formValidationSchema = yup.object().shape({
-  title: yup
-    .string()
-    .min(3, ({ min }) => `Tựa đề phải có ít nhất ${min} kí tự.`)
-    .max(30, ({ max }) => `Tựa đề phải có ít hơn ${max + 1} kí tự.`)
-    .required("Hãy nhập tựa đề cho kỉ niệm bạn !"),
-  description: yup
-    .string()
-    .max(199, ({ max }) => `Phần mô tả phải có ít hơn ${max + 1} kí tự.`),
-});
+// const formValidationSchema = yup.object().shape({
+//   title: yup
+//     .string()
+//     .min(3, ({ min }) => `Tên kỉ niệm phải có ít nhất ${min} kí tự.`)
+//     .max(30, ({ max }) => `Tên kỉ niệm phải có ít hơn ${max + 1} kí tự.`)
+//     .required("Hãy nhập tên kỉ niệm bạn !"),
+//   description: yup
+//     .string()
+//     .max(199, ({ max }) => `Phần mô tả phải có ít hơn ${max + 1} kí tự.`),
+// });
 
 const AddMemoryForm = (props) => {
+  const {
+    title,
+    date,
+    description,
+    onChangeTitle,
+    onChangeDate,
+    onChangeDescription,
+  } = props;
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    onChangeDate(convertDay(date));
+    hideDatePicker();
+  };
+
   return (
     <View style={styles.screen}>
-      <Formik
-        validationSchema={formValidationSchema}
-        initialValues={{ title: "", description: "" }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-          touched,
-        }) => (
-          <>
-            <Text style={styles.inputName}>Kỉ niệm*</Text>
-            <View style={[styles.inputContainer]}>
-              <TextInput
-                name="title"
-                placeholder="abc"
-                selectionColor={primaryColor}
-                style={styles.textInput}
-                onChangeText={handleChange("title")}
-                onBlur={handleBlur("title")}
-                value={values.title}
-                keyboardType="default"
-              />
-            </View>
-            <Text style={styles.inputName}>Mô tả</Text>
-            <View style={[styles.inputContainer]}>
-              <TextInput
-                name="description"
-                placeholder="abc"
-                selectionColor={primaryColor}
-                style={styles.textInput}
-                onChangeText={handleChange("description")}
-                onBlur={handleBlur("description")}
-                value={values.description}
-                keyboardType="default"
-              />
-            </View>
-          </>
-        )}
-      </Formik>
+      <TextInput
+        style={styles.titleInput}
+        selectionColor={primaryColor}
+        placeholder="Tên kỷ niệm*"
+        multiline
+        numberOfLines={2}
+        maxLength={40}
+        value={title}
+        onChangeText={onChangeTitle}
+      />
+      <View style={styles.dateInputContainer}>
+        <FontAwesome5
+          style={styles.icon}
+          name="calendar-day"
+          size={24}
+          color={primaryColor}
+        />
+        <TextInput
+          style={styles.dateInput}
+          selectionColor={primaryColor}
+          placeholder="Chọn ngày*"
+          editable={false}
+          onPressOut={showDatePicker}
+          value={date}
+        />
+      </View>
+      <TextInput
+        selectionColor={primaryColor}
+        placeholder="Mô tả"
+        style={styles.description}
+        multiline
+        maxLength={200}
+        value={description}
+        onChangeText={onChangeDescription}
+      />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+        cancelTextIOS={"Huỷ"}
+        confirmTextIOS={"Chọn"}
+        buttonTextColorIOS={primaryColor}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {},
-  inputContainer: {
-    ...shadowDefault,
-    height: screenHeight / 15,
-    borderRadius: 15,
-    marginBottom: 15,
-    marginTop: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  inputName: {
-    color: primaryColor,
-    fontFamily: "nunito",
-  },
-  textInput: {
+  titleInput: {
+    fontFamily: "nunito-black",
+    fontSize: 20,
     color: commonTextColor,
-    flex: 1,
+  },
+  dateInputContainer: {
+    flexDirection: "row",
+    marginVertical: 10,
+    alignItems: "center",
+    color: commonTextColor,
+  },
+  icon: {
+    marginRight: 7.5,
+  },
+  dateInput: {
+    fontFamily: "nunito-bold",
+    color: commonTextColor,
+  },
+  description: {
+    fontFamily: "nunito",
+    color: commonTextColor,
   },
 });
 

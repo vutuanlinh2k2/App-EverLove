@@ -9,7 +9,7 @@ import {
 } from "../../constants/colors";
 import { availableWidth, shadowDefault, screenWidth } from "../../constants/styles";
 
-const ImagesSize = (availableWidth / 3) * 2;
+const imageSize = (availableWidth / 3) * 2;
 
 const renderItem = ({ item: image, _ }) => {
   return <Image source={{ uri: image }} style={styles.image} />;
@@ -37,7 +37,7 @@ const ImagesInput = (props) => {
           data={images}
           renderItem={renderItem}
           sliderWidth={screenWidth}
-          itemWidth={ImagesSize + 20}
+          itemWidth={imageSize + 20}
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
           //   useScrollView={true}
@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     ...shadowDefault,
     backgroundColor: greyColor,
-    width: ImagesSize,
+    width: imageSize,
     aspectRatio: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
   },
   actions: {
-    width: ImagesSize,
+    width: imageSize,
     flexDirection: "row",
-    marginTop: 20,
+    marginTop: 12.5,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     width: 30,
   },
   image: {
-    width: ImagesSize,
-    height: ImagesSize,
+    width: imageSize,
+    height: imageSize,
     borderRadius: 15,
   },
 });

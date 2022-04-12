@@ -9,7 +9,7 @@ export const getCurrentDateInfo = () => {
 export const getDate = (day, month, year) => {
   const currentYear = moment().format("l").split("/")[2];
   if (year === currentYear) {
-    return `${day}/${month}`;
+    return `${day}-${month}`;
   }
-  return `${day}/${month}/${year}`;
+  return `${day}-${month}-${year}`;
 };

@@ -60,7 +60,7 @@ const MainNavigator = () => {
         listeners={({ navigation }) => ({
           tabPress: (e) => {
             e.preventDefault();
-            navigation.navigate("AddMemory");
+            navigation.navigate("AddMemory", { isEmpty: true });
           },
         })}
       />
