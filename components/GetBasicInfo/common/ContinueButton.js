@@ -1,18 +1,21 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-import { screenHeight, shadowDefault } from "../../constants/styles";
-import { primaryColor } from "../../constants/colors";
+import {
+  screenHeight,
+  shadowDefault,
+} from "../../../constants/styles";
+import { primaryColor } from "../../../constants/colors";
 
-const ColorButton = (props) => {
-  const { text, onPress, style } = props;
+const ContinueButton = (props) => {
+  const { onPress, text } = props;
   return (
     <TouchableOpacity
       activeOpacity={0.6}
-      style={[styles.button, style]}
+      style={styles.button}
       onPress={onPress}
     >
-      <Text style={styles.buttonText}>{text}</Text>
+      <Text style={styles.buttonText}>{text ?? 'Tiếp tục'}</Text>
     </TouchableOpacity>
   );
 };
@@ -25,6 +28,8 @@ const styles = StyleSheet.create({
     height: screenHeight / 15,
     borderRadius: 15,
     backgroundColor: primaryColor,
+    // marginTop: 20,
+    // marginHorizontal: appPaddingHorizontal
   },
   buttonText: {
     color: "white",
@@ -32,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ColorButton;
+export default ContinueButton;

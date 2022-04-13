@@ -6,7 +6,7 @@ import { primaryColor, backgroundColor, greyColor } from "../constants/colors";
 import { appPaddingHorizontal, screenHeight } from "../constants/styles";
 import AuthHeader from "../components/Auth/AuthHeader";
 import AuthInputs from "../components/Auth/AuthInputs";
-import SocialAuthButton from "../components/Auth/SocialAuthButton";
+// import SocialAuthButton from "../components/Auth/SocialAuthButton";
 
 const AuthScreen = (props) => {
   const [isSignup, setIsSignup] = useState(true);

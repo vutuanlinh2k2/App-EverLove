@@ -5,15 +5,16 @@ import { useDispatch } from "react-redux";
 
 import { backgroundColor, primaryColor } from "../constants/colors";
 import { screenWidth } from "../constants/styles";
-import { setUserInfo } from "../store/actions/userInfo";
+import { createUserInfo } from "../store/actions/userInfo";
 import GetImages from "../components/GetBasicInfo/GetImages";
 import GetLoveDate from "../components/GetBasicInfo/GetLoveDate";
 import GetPartnerInfo from "../components/GetBasicInfo/GetPartnerInfo";
 import GetUserInfo from "../components/GetBasicInfo/GetUserInfo";
 import PlanChoices from "../components/GetBasicInfo/PlanChoices";
+import StartApp from "../components/GetBasicInfo/StartApp";
 
-const renderItem = ({ item, _ }) => {
-  return item.content;
+const renderItem = ({ item: component, _ }) => {
+  return component;
 };
 
 const initialSlide = 0;
@@ -57,41 +58,28 @@ const GetBasicInfoScreen = (props) => {
     goToNextItem();
   };
 
-  const startAppHandler = (isVIP) => {
+  const startAppHandler = () => {
     const userInfo = {
       ...userInfoRef.current,
       ...partnerInfoRef.current,
       ...imagesRef.current,
       ...loveDateRef.current,
-      isVIP,
+      noAds: false,
     };
-    dispatch(setUserInfo(userInfo));
+    dispatch(createUserInfo(userInfo));
   };
 
   const carouselItems = useMemo(
     () => [
-      { content: <GetUserInfo onSubmit={getUserInfoHandler} /> },
-      {
-        content: (
-          <GetPartnerInfo
-            onSubmit={getPartnerInfoHandler}
-            goBackItem={goBackItem}
-          />
-        ),
-      },
-      {
-        content: (
-          <GetImages onSubmit={getImagesHandler} goBackItem={goBackItem} />
-        ),
-      },
-      {
-        content: <GetLoveDate onSubmit={getLoveDate} goBackItem={goBackItem} />,
-      },
-      {
-        content: (
-          <PlanChoices goBackItem={goBackItem} onStartApp={startAppHandler} />
-        ),
-      },
+      <GetUserInfo onSubmit={getUserInfoHandler} />,
+      <GetPartnerInfo
+        onSubmit={getPartnerInfoHandler}
+        goBackItem={goBackItem}
+      />,
+      <GetImages onSubmit={getImagesHandler} goBackItem={goBackItem} />,
+      <GetLoveDate onSubmit={getLoveDate} goBackItem={goBackItem} />,
+      // <PlanChoices goBackItem={goBackItem} onStartApp={startAppHandler} />,
+      <StartApp goBackItem={goBackItem} onStartApp={startAppHandler} />
     ],
     [GetUserInfo, GetPartnerInfo, GetImages, GetLoveDate, PlanChoices]
   );

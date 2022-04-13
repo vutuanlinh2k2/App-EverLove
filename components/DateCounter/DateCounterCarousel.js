@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 
-import { screenWidth, appPaddingHorizontal } from "../../constants/styles";
+import { screenWidth } from "../../constants/styles";
 import { primaryColor } from "../../constants/colors";
 import DateCounter1 from "./DateCounter1";
 import DateCounter2 from "./DateCounter2";
@@ -25,8 +25,8 @@ const DateCounterCarousel = (props) => {
         layout={"default"}
         data={carouselItems}
         renderItem={renderItem}
-        sliderWidth={screenWidth - 2 * appPaddingHorizontal}
-        itemWidth={screenWidth - 2 * appPaddingHorizontal}
+        sliderWidth={screenWidth}
+        itemWidth={screenWidth}
         useScrollView={true}
         firstItem={0}
         onSnapToItem={(index) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import { screenWidth } from "../../constants/styles";
+import { screenWidth, appPaddingHorizontal } from "../../constants/styles";
 import DateItems from "../UI/DateItems";
 
 const DateCounter2 = (props) => {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal: appPaddingHorizontal,
     paddingVertical: 5,
   },
 });

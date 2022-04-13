@@ -13,9 +13,8 @@ import {
   availableWidth,
 } from "../../constants/styles";
 import { convertDay, getZodiac } from "../../utils/getBasicInfo";
-import ContinueButton from "./UI/ContinueButton";
+import ContinueButton from "./common/ContinueButton";
 import ScreenHeader from "./UI/ScreenHeader";
-import MoreInfoText from "./UI/MoreInfotext";
 
 const loginValidationSchema = yup.object().shape({
   name: yup
@@ -150,7 +149,7 @@ const GetUserInfo = (props) => {
                   <Text style={styles.inputName}>Sinh nhật*</Text>
                   <TextInput
                     name="birthday"
-                    placeholder="dd/mm/yyyy"
+                    placeholder="dd-mm-yyyy"
                     selectionColor={primaryColor}
                     style={styles.textInput}
                     onBlur={handleBlur("birthday")}
@@ -191,7 +190,6 @@ const GetUserInfo = (props) => {
                   </View>
                 </View>
               </View>
-              <MoreInfoText text="* Bạn có thể thay đổi các thông tin này sau." />
             </View>
             <ContinueButton
               onPress={

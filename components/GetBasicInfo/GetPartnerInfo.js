@@ -13,10 +13,9 @@ import {
   availableWidth,
 } from "../../constants/styles";
 import { convertDay, getZodiac } from "../../utils/getBasicInfo";
-import ContinueButton from "./UI/ContinueButton";
+import ContinueButton from "./common/ContinueButton";
 import ScreenHeader from "./UI/ScreenHeader";
-import MoreInfoText from "./UI/MoreInfotext";
-import GoBackButton from "./UI/GoBackButton";
+import GoBackIcon from "./common/GoBackIcon";
 
 const loginValidationSchema = yup.object().shape({
   partnerName: yup
@@ -60,6 +59,7 @@ const GetPartnerInfo = (props) => {
   return (
     <View style={styles.screen}>
       {/* <View style={styles.header}> */}
+      <GoBackIcon onPress={goBackItem} />
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ partnerName: "", partnerNickname: "" }}
@@ -76,7 +76,6 @@ const GetPartnerInfo = (props) => {
             partnerGender: gender,
             partnerZodiac,
           };
-          console.log(partnerInfo);
           onSubmit(partnerInfo);
         }}
       >
@@ -157,7 +156,7 @@ const GetPartnerInfo = (props) => {
                   <Text style={styles.inputName}>Sinh nhật*</Text>
                   <TextInput
                     name="birthday"
-                    placeholder="dd/mm/yyyy"
+                    placeholder="dd-mm-yyyy"
                     selectionColor={primaryColor}
                     style={styles.textInput}
                     onBlur={handleBlur("birthday")}
@@ -195,18 +194,15 @@ const GetPartnerInfo = (props) => {
                   </View>
                 </View>
               </View>
-              <MoreInfoText text="* Bạn có thể thay đổi các thông tin này sau." />
             </View>
-            <View>
-              <GoBackButton onPress={goBackItem} />
-              <ContinueButton
-                onPress={
-                  !isValid || !birthdayInput || !gender
-                    ? trySubmitHandler
-                    : handleSubmit
-                }
-              />
-            </View>
+
+            <ContinueButton
+              onPress={
+                !isValid || !birthdayInput || !gender
+                  ? trySubmitHandler
+                  : handleSubmit
+              }
+            />
           </View>
         )}
       </Formik>

@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "nunito",
-    fontSize: 10,
+    fontSize: 9,
+    marginLeft: 2.5
   },
 });
 

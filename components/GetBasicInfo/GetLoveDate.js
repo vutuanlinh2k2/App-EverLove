@@ -8,13 +8,11 @@ import {
   screenHeight,
   shadowDefault,
   appPaddingHorizontal,
-  availableWidth,
 } from "../../constants/styles";
 import { convertDay } from "../../utils/getBasicInfo";
-import ContinueButton from "./UI/ContinueButton";
+import ContinueButton from "./common/ContinueButton";
+import GoBackIcon from "./common/GoBackIcon";
 import ScreenHeader from "./UI/ScreenHeader";
-import MoreInfoText from "./UI/MoreInfotext";
-import GoBackButton from "./UI/GoBackButton";
 
 const GetLoveDate = (props) => {
   const { goBackItem, onSubmit } = props;
@@ -46,8 +44,7 @@ const GetLoveDate = (props) => {
 
   return (
     <View style={styles.screen}>
-      {/* <View style={styles.header}> */}
-
+      <GoBackIcon onPress={goBackItem} />
       <View style={styles.form}>
         <View style={styles.mainForm}>
           <View>
@@ -75,13 +72,9 @@ const GetLoveDate = (props) => {
                 editable={false}
               />
             </View>
-            <MoreInfoText text="* Bạn có thể thay đổi thông tin này sau." />
           </View>
         </View>
-        <View>
-          <GoBackButton onPress={goBackItem} />
-          <ContinueButton onPress={submitHandler} />
-        </View>
+        <ContinueButton onPress={submitHandler} />
       </View>
 
       <DateTimePickerModal

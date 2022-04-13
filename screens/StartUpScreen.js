@@ -18,7 +18,7 @@ const StartUpScreen = (props) => {
         dispatch(setDidTryAutoLogIn());
         return;
       }
-      const transformedId = JSON.parse(userId);
+      const transformedId = JSON.parse(userId).userId;
       if (!transformedId) {
         dispatch(setDidTryAutoLogIn());
         return;
@@ -29,7 +29,7 @@ const StartUpScreen = (props) => {
         dispatch(getUserInfo(transformedInfo));
       }
 
-      dispatch(authenticate(userId));
+      dispatch(authenticate(transformedId));
     };
     tryLogin();
   }, []);

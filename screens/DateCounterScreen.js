@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { navigatorHeaderDefaultOptions } from "../constants/navigation";
 import { dateCounterScreenTitle } from "../constants/screenTitles";
 import { screenHeight, iconBottomSize } from "../constants/styles";
+import { backgroundColor } from "../constants/colors";
 import BodyWrapper from "../components/UI/BodyWrapper";
 import HeaderButton from "../components/UI/HeaderButton";
 import DateCounterCarousel from "../components/DateCounter/DateCounterCarousel";
@@ -15,7 +16,7 @@ import CoupleInfo from "../components/DateCounter/CoupleInfo";
 const DateCounterScreen = (props) => {
   const tabBarHeight = useBottomTabBarHeight();
   return (
-    <BodyWrapper>
+    <View style={{ backgroundColor, flex: 1 }}>
       <View
         style={{
           justifyContent: "space-around",
@@ -25,7 +26,7 @@ const DateCounterScreen = (props) => {
         <DateCounterCarousel />
         <CoupleInfo />
       </View>
-    </BodyWrapper>
+    </View>
   );
 };
 

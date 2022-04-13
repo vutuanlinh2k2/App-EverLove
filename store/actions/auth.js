@@ -7,6 +7,7 @@ import {
 } from "../../utils/auth";
 import { firebaseSignUp, firebaseLogIn } from "../../firebase/auth";
 import { firebaseGetUserInfo } from "../../firebase/userInfo";
+import { setUserInfo, clearUserInfo } from "./userInfo";
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const SET_DID_TRY_AUTO_LOGIN = "SET_DID_TRY_AUTO_LOGIN";
@@ -26,10 +27,6 @@ export const authenticate = (userId) => {
 export const setDidTryAutoLogIn = () => {
   return { type: SET_DID_TRY_AUTO_LOGIN };
 };
-
-// export const setUserInfo = () => {
-//   return { type: SET_USER_INFO };
-// };
 
 export const signUp = (email, password) => {
   return async (dispatch) => {
@@ -59,6 +56,7 @@ export const logIn = (email, password) => {
       saveUserIdToStorage(userId);
       if (userDataExisted) {
         saveUserInfoToStorage(userInfo);
+        dispatch(setUserInfo(userInfo));
       }
       dispatch(authenticate(userId));
     } catch (error) {
@@ -75,9 +73,12 @@ export const logIn = (email, password) => {
 };
 
 export const logOut = () => {
-  AsyncStorage.removeItem("userId");
-  AsyncStorage.removeItem("userInfo");
-  return { type: LOGOUT };
+  return async (dispatch) => {
+    AsyncStorage.removeItem("userId");
+    AsyncStorage.removeItem("userInfo");
+    dispatch(clearUserInfo());
+    dispatch({ type: LOGOUT });
+  };
 };
 
 const saveUserIdToStorage = (userId) => {

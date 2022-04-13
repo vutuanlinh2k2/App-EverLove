@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
 import { accentColor, primaryColor, greyColor } from "../../constants/colors";
+import { appPaddingHorizontal } from "../../constants/styles";
 // import { useGetCoupleInfo } from "../../hooks/useDateCounter";
 import Zodiac from "./Zodiac";
 // import LoadingIndicator from "../UI/LoadingIndicator";
@@ -69,7 +70,7 @@ const CoupleInfo = (props) => {
         zodiac={zodiac}
       />
       <PersonInfo
-        name={partnerNickname === "" ? partnerName: partnerNickname}
+        name={partnerNickname === "" ? partnerName : partnerNickname}
         imageUrl={partnerImage}
         gender={partnerGender}
         zodiac={partnerZodiac}
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   coupleInfo: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
+    paddingHorizontal: appPaddingHorizontal,
   },
   image: {
     width: 125,
@@ -90,6 +91,10 @@ const styles = StyleSheet.create({
     borderRadius: 62.5,
     borderWidth: 5,
     borderColor: accentColor,
+  },
+  personInfo: {
+    flex: 1,
+    alignItems: 'center',
   },
   personName: {
     textAlign: "center",

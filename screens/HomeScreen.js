@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+// import { StyleSheet, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { navigatorHeaderDefaultOptions } from "../constants/navigation";
@@ -13,11 +13,11 @@ import HomeCarousel from "../components/Home/HomeCarousel";
 import MemoriesCarousel from "../components/Home/MemoriesCarousel";
 import UpcomingEvents from "../components/Home/UpcomingEvents";
 
-const AppLogo = () => {
-  return (
-    <Image style={styles.appLogo} source={require("../assets/app-logo.png")} />
-  );
-};
+// const AppLogo = () => {
+//   return (
+//     <Image style={styles.appLogo} source={require("../assets/app-logo.png")} />
+//   );
+// };
 
 const HomeScreen = (props) => {
   const { navigation } = props;
@@ -64,12 +64,12 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({
-  appLogo: {
-    height: 40,
-    aspectRatio: 1,
-    marginRight: 5,
-  },
-});
+// const styles = StyleSheet.create({
+//   appLogo: {
+//     height: 40,
+//     aspectRatio: 1,
+//     marginRight: 5,
+//   },
+// });
 
 export default HomeScreen;

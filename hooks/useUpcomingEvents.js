@@ -25,17 +25,17 @@ const useUpcomingEvents = () => {
     const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
 
     if (daysDifference % 50 === 0) {
-      dateEvent.push(`${daysDifference} ngày yêu`);
+      dateEvent = [`${daysDifference} ngày yêu`, ...dateEvent];
       dateType = "anniversary";
     }
 
     if (holidays[formattedDate]) {
-      dateEvent.push(holidays[formattedDate].dateTitle);
+      dateEvent = [holidays[formattedDate].dateTitle, ...dateEvent];
       dateType = holidays[formattedDate].dateType;
     }
 
     if (formattedDate === formattedPartnerBirthday) {
-      dateEvent.push(`Sinh nhật ${partnerName}`);
+      dateEvent = [`Sinh nhật ${partnerName}`, ...dateEvent];
       dateType = "birthday";
     }
 

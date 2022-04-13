@@ -5,10 +5,9 @@ import * as ImagePicker from "expo-image-picker";
 
 import { appPaddingHorizontal, screenWidth } from "../../constants/styles";
 import { primaryColor, accentColor } from "../../constants/colors";
-import ContinueButton from "./UI/ContinueButton";
-import GoBackButton from "./UI/GoBackButton";
+import ContinueButton from "./common/ContinueButton";
+import GoBackIcon from "./common/GoBackIcon";
 import ScreenHeader from "./UI/ScreenHeader";
-import MoreInfoText from "./UI/MoreInfotext";
 
 const imageSize = screenWidth / 3;
 
@@ -84,6 +83,7 @@ const GetImages = (props) => {
 
   return (
     <View style={styles.screen}>
+      <GoBackIcon onPress={goBackItem} />
       <View style={styles.body}>
         <View>
           <ScreenHeader title="Chọn ảnh" />
@@ -91,11 +91,9 @@ const GetImages = (props) => {
             <ImageItem title="Ảnh của bạn" onSelect={setUserImage} />
             <ImageItem title="Ảnh của người ấy" onSelect={setPartnerImage} />
           </View>
-          <MoreInfoText text="* Bạn có thể bỏ qua phần này hoặc chỉnh lúc sau." />
         </View>
       </View>
       <View>
-        <GoBackButton onPress={goBackItem} />
         <ContinueButton onPress={onSubmitImages} />
       </View>
     </View>
