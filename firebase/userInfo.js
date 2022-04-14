@@ -4,16 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const firebaseCreateUserInfo = async (userInfo) => {
   const userId = await AsyncStorage.getItem("userId");
   const transformedId = JSON.parse(userId).userId;
-  await db
-    .collection("users")
-    .doc(transformedId)
-    .set(userInfo)
-    .then(() => {
-      console.log("Document successfully written!");
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+  await db.collection("users").doc(transformedId).set(userInfo);
 };
 
 export const firebaseGetUserInfo = async (userId) => {

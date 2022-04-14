@@ -2,9 +2,11 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Text, View, StyleSheet, Keyboard, Alert } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useDispatch } from "react-redux";
 
 import { primaryColor, backgroundColor } from "../constants/colors";
 import { appPaddingHorizontal } from "../constants/styles";
+import { addMemory } from "../store/actions/memories";
 import HeaderButton from "../components/UI/HeaderButton";
 import Divider from "../components/UI/Divider";
 import AddMemoryForm from "../components/AddMemory/AddMemoryForm";
@@ -12,6 +14,7 @@ import AddMemoryImages from "../components/AddMemory/AddMemoryImages";
 
 const AddMemoryScreen = (props) => {
   const { navigation } = props;
+  const dispatch = useDispatch();
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
@@ -61,12 +64,21 @@ const AddMemoryScreen = (props) => {
       return;
     }
 
-    console.log({
-      title,
-      description,
-      images,
-    });
-  }, [title, images, description]);
+    const [day, month, year] = date.split("-");
+
+    dispatch(
+      addMemory({
+        title,
+        description,
+        images,
+        day,
+        month,
+        year,
+      })
+    );
+
+    navigation.goBack();
+  }, [title, images, description, date]);
 
   useEffect(() => {
     navigation.setParams({ submitFunction: submitHandler });

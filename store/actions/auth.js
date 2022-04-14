@@ -8,18 +8,17 @@ import {
 import { firebaseSignUp, firebaseLogIn } from "../../firebase/auth";
 import { firebaseGetUserInfo } from "../../firebase/userInfo";
 import { setUserInfo, clearUserInfo } from "./userInfo";
+import { saveUserIdToStorage } from "../../utils/asyncStorage";
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const SET_DID_TRY_AUTO_LOGIN = "SET_DID_TRY_AUTO_LOGIN";
 export const LOGOUT = "LOGOUT";
-// export const SET_USER_INFO = "SET_USER_INFO";
 
 export const authenticate = (userId) => {
   return async (dispatch) => {
     dispatch({
       type: AUTHENTICATE,
       userId,
-      // userInfoExisted,
     });
   };
 };
@@ -33,7 +32,7 @@ export const signUp = (email, password) => {
     try {
       const userId = await firebaseSignUp(email, password);
       dispatch(authenticate(userId));
-      saveUserIdToStorage(userId);
+      await saveUserIdToStorage(userId);
     } catch (error) {
       const errorMessage = error.message;
       const shownMessage = convertSignUpErrorMessage(errorMessage);
@@ -53,9 +52,8 @@ export const logIn = (email, password) => {
       const userId = await firebaseLogIn(email, password);
       const userInfo = await firebaseGetUserInfo(userId);
       const userDataExisted = !!userInfo;
-      saveUserIdToStorage(userId);
+      await saveUserIdToStorage(userId);
       if (userDataExisted) {
-        saveUserInfoToStorage(userInfo);
         dispatch(setUserInfo(userInfo));
       }
       dispatch(authenticate(userId));
@@ -74,25 +72,18 @@ export const logIn = (email, password) => {
 
 export const logOut = () => {
   return async (dispatch) => {
-    AsyncStorage.removeItem("userId");
-    AsyncStorage.removeItem("userInfo");
-    dispatch(clearUserInfo());
-    dispatch({ type: LOGOUT });
+    try {
+      AsyncStorage.removeItem("userId");
+      AsyncStorage.removeItem("userInfo");
+      dispatch(clearUserInfo());
+      dispatch({ type: LOGOUT });
+    } catch (e) {
+      Alert.alert("Lỗi", "Không thể đăng xuất", [
+        {
+          text: "OK",
+          style: "cancel",
+        },
+      ]);
+    }
   };
-};
-
-const saveUserIdToStorage = (userId) => {
-  try {
-    AsyncStorage.setItem("userId", JSON.stringify({ userId }));
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const saveUserInfoToStorage = (userInfo) => {
-  try {
-    AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
-  } catch (err) {
-    console.log(err);
-  }
 };

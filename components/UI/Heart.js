@@ -1,47 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { useSelector } from "react-redux";
 
 // import { useDateCounterHeart } from "../../hooks/useDateCounter";
 import { getLoveDateCount } from "../../utils/dateCounter";
-// import LoadingIndicator from "./LoadingIndicator";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Heart = (props) => {
   const { fontSize } = props;
+  const [isLoading, setIsLoading] = useState(false);
   const loveDate = useSelector((state) => state.userInfo.loveDate);
   const dateCounter = getLoveDateCount(loveDate);
   const textStyles = getDynamicStyles(fontSize).text;
-
-  // if (!dateCounter) {
-  //   return (
-  //     <ImageBackground
-  //       style={styles.image}
-  //       source={require("../../assets/heart-2.png")}
-  //     >
-  //       <LoadingIndicator white />
-  //     </ImageBackground>
-  //   );
-  // }
 
   return (
     <>
       <ImageBackground
         style={styles.image}
         source={require("../../assets/heart-2.png")}
+        onLoadStart={() => {
+          setIsLoading(true);
+        }}
+        onLoad={() => {
+          setIsLoading(false);
+        }}
       >
-        <View style={styles.textContainer}>
-          <Text style={textStyles}>{dateCounter}</Text>
-          <Text style={textStyles}>ngày yêu</Text>
-        </View>
+        {!isLoading ? (
+          <View style={styles.textContainer}>
+            <Text style={textStyles}>{dateCounter}</Text>
+            <Text style={textStyles}>ngày yêu</Text>
+          </View>
+        ) : (
+          <LoadingIndicator />
+        )}
       </ImageBackground>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  textContainer: {
-    // position: "absolute",
-  },
   text: {
     fontFamily: "nunito-black",
     textAlign: "center",
@@ -53,6 +50,9 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  loadingContainer: {
+    flex: 1,
   },
 });
 

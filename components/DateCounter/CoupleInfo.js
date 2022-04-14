@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   personInfo: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   personName: {
     textAlign: "center",
