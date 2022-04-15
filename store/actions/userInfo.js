@@ -22,7 +22,7 @@ export const createUserInfo = (userInfo) => {
       await firebaseCreateUserInfo(newInfo);
       dispatch(setUserInfo(newInfo));
     } catch (e) {
-      Alert.alert("Lỗi", "Không thể lưu thông tin của bạn và người đó", [
+      Alert.alert("Lỗi", "Không thể lưu thông tin người dùng vào server", [
         {
           text: "OK",
           style: "cancel",

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
@@ -11,16 +11,25 @@ import Zodiac from "./Zodiac";
 
 const PersonInfo = (props) => {
   const { name, imageUrl, gender, zodiac } = props;
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const imageDefault =
     gender === "male"
       ? require("../../assets/boy.png")
       : require("../../assets/girl.png");
   return (
     <View style={styles.personInfo}>
-      <Image
+      <ImageBackground
         style={styles.image}
         source={imageUrl ? { uri: imageUrl } : imageDefault}
-      />
+        onLoadStart={() => {
+          setIsImageLoading(true);
+        }}
+        onLoadEnd={() => {
+          setIsImageLoading(false);
+        }}
+      >
+        {isImageLoading && <View style={styles.imagePlaceholder} />}
+      </ImageBackground>
       <Text style={styles.personName}>{name}</Text>
       <View style={styles.extraInfo}>
         <View style={styles.personGender}>
@@ -91,6 +100,11 @@ const styles = StyleSheet.create({
     borderRadius: 62.5,
     borderWidth: 5,
     borderColor: accentColor,
+    overflow: "hidden",
+  },
+  imagePlaceholder: {
+    flex: 1,
+    backgroundColor: greyColor,
   },
   personInfo: {
     flex: 1,

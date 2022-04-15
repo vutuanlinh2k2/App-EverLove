@@ -1,25 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import { Formik } from "formik";
-// import * as yup from "yup";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import { primaryColor, commonTextColor } from "../../constants/colors";
-import { screenHeight, shadowDefault } from "../../constants/styles";
-import { getCurrentDate } from "../../utils/addMemory";
+import { currentDateObj } from "../../utils/general";
 import { convertDay } from "../../utils/general";
-
-// const formValidationSchema = yup.object().shape({
-//   title: yup
-//     .string()
-//     .min(3, ({ min }) => `Tên kỉ niệm phải có ít nhất ${min} kí tự.`)
-//     .max(30, ({ max }) => `Tên kỉ niệm phải có ít hơn ${max + 1} kí tự.`)
-//     .required("Hãy nhập tên kỉ niệm bạn !"),
-//   description: yup
-//     .string()
-//     .max(199, ({ max }) => `Phần mô tả phải có ít hơn ${max + 1} kí tự.`),
-// });
 
 const AddMemoryForm = (props) => {
   const {
@@ -91,6 +77,7 @@ const AddMemoryForm = (props) => {
         cancelTextIOS={"Huỷ"}
         confirmTextIOS={"Chọn"}
         buttonTextColorIOS={primaryColor}
+        maximumDate={currentDateObj()}
       />
     </View>
   );

@@ -13,6 +13,7 @@ import {
   availableWidth,
 } from "../../constants/styles";
 import { convertDay, getZodiac } from "../../utils/getBasicInfo";
+import { currentDateObj } from "../../utils/general";
 import ContinueButton from "./common/ContinueButton";
 import ScreenHeader from "./UI/ScreenHeader";
 
@@ -210,6 +211,7 @@ const GetUserInfo = (props) => {
         cancelTextIOS={"Huỷ"}
         confirmTextIOS={"Chọn"}
         buttonTextColorIOS={primaryColor}
+        maximumDate={currentDateObj()}
       />
     </View>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -10,6 +10,7 @@ import {
   appPaddingHorizontal,
 } from "../../constants/styles";
 import { convertDay } from "../../utils/getBasicInfo";
+import { currentDateObj } from "../../utils/general";
 import ContinueButton from "./common/ContinueButton";
 import GoBackIcon from "./common/GoBackIcon";
 import ScreenHeader from "./UI/ScreenHeader";
@@ -85,6 +86,7 @@ const GetLoveDate = (props) => {
         cancelTextIOS={"Huỷ"}
         confirmTextIOS={"Chọn"}
         buttonTextColorIOS={primaryColor}
+        maximumDate={currentDateObj()}
       />
     </View>
   );
