@@ -2,19 +2,19 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Text, View, StyleSheet, Keyboard, Alert } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useDispatch } from "react-redux";
 
 import { primaryColor, backgroundColor } from "../constants/colors";
 import { appPaddingHorizontal } from "../constants/styles";
-import { addMemory } from "../store/actions/memories";
+import { useAddMemory } from "../hooks/useAddMemory";
 import HeaderButton from "../components/UI/HeaderButton";
 import Divider from "../components/UI/Divider";
 import AddMemoryForm from "../components/AddMemory/AddMemoryForm";
 import AddMemoryImages from "../components/AddMemory/AddMemoryImages";
+import AddMemoryModal from "../components/AddMemory/AddMemoryModal";
 
 const AddMemoryScreen = (props) => {
   const { navigation } = props;
-  const dispatch = useDispatch();
+  const { upLoadMemory, isUploading } = useAddMemory();
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
@@ -66,16 +66,14 @@ const AddMemoryScreen = (props) => {
 
     const [day, month, year] = date.split("-");
 
-    dispatch(
-      addMemory({
-        title,
-        description,
-        images,
-        day,
-        month,
-        year,
-      })
-    );
+    upLoadMemory({
+      title,
+      description,
+      images,
+      day,
+      month,
+      year,
+    });
 
     navigation.goBack();
   }, [title, images, description, date]);
@@ -85,24 +83,27 @@ const AddMemoryScreen = (props) => {
   }, [submitHandler]);
 
   return (
-    <KeyboardAwareScrollView style={styles.screen}>
-      <AddMemoryImages
-        images={images}
-        clearImages={clearImages}
-        updateImages={updateImages}
-      />
-      <View style={{ paddingHorizontal: appPaddingHorizontal }}>
-        <Divider />
-        <AddMemoryForm
-          title={title}
-          date={date}
-          description={description}
-          onChangeTitle={changeTitle}
-          onChangeDate={changeDate}
-          onChangeDescription={changeDescription}
+    <>
+      <KeyboardAwareScrollView style={styles.screen}>
+        <AddMemoryImages
+          images={images}
+          clearImages={clearImages}
+          updateImages={updateImages}
         />
-      </View>
-    </KeyboardAwareScrollView>
+        <View style={{ paddingHorizontal: appPaddingHorizontal }}>
+          <Divider />
+          <AddMemoryForm
+            title={title}
+            date={date}
+            description={description}
+            onChangeTitle={changeTitle}
+            onChangeDate={changeDate}
+            onChangeDescription={changeDescription}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+      <AddMemoryModal isVisible={isUploading} />
+    </>
   );
 };
 

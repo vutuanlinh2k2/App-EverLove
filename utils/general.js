@@ -8,9 +8,6 @@ export const convertDay = (date) => {
 };
 
 export const currentDateObj = () => {
-  const dateObj = new Date();
-  const month = dateObj.getUTCMonth();
-  const day = dateObj.getUTCDate();
-  const year = dateObj.getUTCFullYear();
+  const [year, month, day] = new Date().toISOString().slice(0, 10).split("-");
   return new Date(year, month, day);
 };

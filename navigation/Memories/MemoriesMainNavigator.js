@@ -2,7 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { primaryColor, backgroundColor, greyColor } from "../../constants/colors";
-import MemoriesItems from '../../screens/Memories/MemoriesItemsScreen';
+import MemoriesItems from '../../screens/Memories/MemoriesAllScreen';
 import MemoriesDayScreen from "../../screens/Memories/MemoriesDayScreen";
 import MemoriesMonthScreen from "../../screens/Memories/MemoriesMonthScreen";
 import MemoriesYearScreen from "../../screens/Memories/MemoriesYearScreen";

@@ -9,12 +9,10 @@ import ReduxThunk from "redux-thunk";
 import AppNavigator from "./navigation/AppNavigator";
 import authReducer from "./store/reducers/auth";
 import userInfoReducer from "./store/reducers/userInfo";
-import memoriesReducer from "./store/reducers/memories";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   userInfo: userInfoReducer,
-  memories: memoriesReducer,
 });
 
 LogBox.ignoreLogs([

@@ -8,6 +8,11 @@ const limitedCharacter = 100;
 const MemoryItemDescription = (props) => {
   const [isSeeMore, setIsSeeMore] = useState(false);
   const { description } = props;
+
+  if (description === "") {
+    return <View style={{ height: 5 }} />;
+  }
+
   if (description.length < limitedCharacter) {
     return (
       <View style={styles.screen}>
@@ -21,7 +26,7 @@ const MemoryItemDescription = (props) => {
     <View style={styles.screen}>
       <Text style={styles.memoryDescription}>
         {!isSeeMore ? shortenDescription : description}
-        {!isSeeMore && <Text style={{color: primaryColor}}>...</Text>}
+        {!isSeeMore && <Text style={{ color: primaryColor }}>...</Text>}
       </Text>
       {!isSeeMore ? (
         <Text

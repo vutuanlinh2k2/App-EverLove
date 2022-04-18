@@ -53,7 +53,7 @@ const AddMemoryImages = (props) => {
     const image = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
+      quality: 0.5,
     });
     if (!image.cancelled) {
       updateImages([image.uri]);

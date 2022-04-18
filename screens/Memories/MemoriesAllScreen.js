@@ -4,12 +4,13 @@ import { StyleSheet, FlatList } from "react-native";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryItem from "../../components/Memories/MemoryItem/MemoryItem";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
-import { useMemoriesItem } from "../../hooks/useMemoriesItem";
+import useAllMemories from "../../hooks/Memories/useAllMemories";
 
-const MemoriesItems = (props) => {
-  const memoriesList = useMemoriesItem();
+const MemoriesAllScreen = (props) => {
+  const { memoriesData, isLoading, isRefreshing, retrieveMore } =
+    useAllMemories();
 
-  if (!memoriesList) {
+  if (isLoading) {
     return (
       <BodyWrapper>
         <LoadingIndicator />
@@ -33,11 +34,14 @@ const MemoriesItems = (props) => {
   return (
     <BodyWrapper>
       <FlatList
-        data={memoriesList}
+        data={memoriesData}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.list}
+        refreshing={isRefreshing}
+        onEndReachedThreshold={0}
+        onEndReached={retrieveMore}
       />
     </BodyWrapper>
   );
@@ -49,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemoriesItems;
+export default MemoriesAllScreen;

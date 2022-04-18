@@ -57,6 +57,13 @@ const widgetStyles = {
   },
 };
 
+// const widgetResize = {
+//   // width: 300,
+//   // compress: 0.5,
+//   // base64: false,
+//   // saveTo: 'png',
+// };
+
 const SelectImagesModal = (props) => {
   const { isVisible, onCancel, onSelectImages } = props;
 
@@ -92,6 +99,7 @@ const SelectImagesModal = (props) => {
               Errors={widgetErrors}
               Styles={widgetStyles}
               Navigator={widgetNavigator}
+              // Resize={widgetResize}
             />
           </SafeAreaView>
         </TouchableWithoutFeedback>
