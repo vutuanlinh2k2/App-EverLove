@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import ImageLibraryModal from "./ImageLibraryModal";
 import ImagesInput from "./ImagesInput";
-import Modal from "../UI/Modal/Modal";
+import ActionModal from "../UI/ActionModal/ActionModal";
 
 const AddMemoryImages = (props) => {
   const { images, clearImages, updateImages } = props;
@@ -84,7 +84,7 @@ const AddMemoryImages = (props) => {
         onClear={clearImages}
         onEdit={openModalActionsVisible}
       />
-      <Modal
+      <ActionModal
         isVisible={modalActionsVisible}
         onCancel={cancelModalActionsVisible}
         actionItems={actionItems}

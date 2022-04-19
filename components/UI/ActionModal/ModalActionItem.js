@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
-import { greyColor } from "../../../constants/colors";
+import { greyColor, primaryColor } from "../../../constants/colors";
 
 const ModalActionItem = (props) => {
   const { IconComponent, iconName, action, title } = props;
@@ -24,18 +24,14 @@ const ModalActionItem = (props) => {
   );
 };
 
-const itemModalDefaultStyles = {
-  backgroundColor: greyColor,
-  paddingVertical: 15,
-  borderRadius: 15,
-  flexDirection: "row",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
 const styles = StyleSheet.create({
   mainAction: {
-    ...itemModalDefaultStyles,
+    backgroundColor: greyColor,
+    paddingVertical: 15,
+    borderRadius: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 10,
   },
   actionText: {

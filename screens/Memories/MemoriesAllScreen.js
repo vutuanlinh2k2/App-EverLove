@@ -3,25 +3,35 @@ import { StyleSheet, FlatList } from "react-native";
 
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryItem from "../../components/Memories/MemoryItem/MemoryItem";
-import LoadingIndicator from "../../components/UI/LoadingIndicator";
+import MemoryLoading from "../../components/Memories/MemoryLoading";
+import NoMemory from "../../components/Memories/NoMemory";
 import useAllMemories from "../../hooks/Memories/useAllMemories";
 
 const MemoriesAllScreen = (props) => {
+  const { navigation } = props;
   const { memoriesData, isLoading, isRefreshing, retrieveMore } =
     useAllMemories();
 
   if (isLoading) {
+    return <MemoryLoading />;
+  }
+
+  if (memoriesData.length === 0) {
     return (
-      <BodyWrapper>
-        <LoadingIndicator />
-      </BodyWrapper>
+      <NoMemory
+        onAddMemory={() => {
+          navigation.navigate("AddMemory", { isEmpty: true });
+        }}
+      />
     );
   }
 
   const renderItem = ({ item }) => {
     const { images, description, title, day, month, year } = item.data;
+    const id = item.id;
     return (
       <MemoryItem
+        id={id}
         imageUrls={images}
         description={description}
         title={title}

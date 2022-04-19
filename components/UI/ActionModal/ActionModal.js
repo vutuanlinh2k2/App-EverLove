@@ -9,7 +9,7 @@ import {
 import ModalActionItem from "./ModalActionItem";
 import ModalCancelItem from "./ModalCancelItem";
 
-const CustomModal = (props) => {
+const ActionModal = (props) => {
   const { isVisible, onCancel, actionItems } = props;
   return (
     <Modal animationType="fade" transparent={true} visible={isVisible}>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomModal;
+export default ActionModal;

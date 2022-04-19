@@ -10,3 +10,14 @@ export const firebaseAddMemories = async (memoryInfo) => {
     .then(() => {});
   return unSubscriber;
 };
+
+export const firebaseDeleteMemories = async (id) => {
+  const userId = await AsyncStorage.getItem("userId");
+  const transformedId = JSON.parse(userId).userId;
+  const unSubscriber = db
+    .collection(`users/${transformedId}/memories`)
+    .doc(id)
+    .delete()
+    .then(() => {});
+  return unSubscriber;
+};

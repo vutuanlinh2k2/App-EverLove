@@ -14,3 +14,14 @@ export const firebaseUploadImage = async (uri) => {
   const url = await snapshot.ref.getDownloadURL();
   return url;
 };
+
+export const firebaseDeleteImage = async (url) => {
+  const ref = storage.refFromURL(url);
+  const unSubscriber = ref
+    .delete()
+    .then(() => {})
+    .catch((error) => {
+      console.log("error :", error);
+    });
+  return unSubscriber;
+};
