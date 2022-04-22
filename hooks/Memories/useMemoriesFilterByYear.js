@@ -1,46 +1,36 @@
 import { useState, useEffect } from "react";
 import { Alert } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
 
 import { db } from "../../firebase";
-import { checkItemSameId } from "../../utils/memories";
 
-const MEMORIES_LIMIT = 5;
+const MEMORIES_MONTH_LIMIT = 5;
 
-const useAllMemories = () => {
+const useMemoriesFilterByYear = (year) => {
+
   const [memoriesData, setMemoriesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [lastVisibleItem, setLastVisibleItem] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const userId = useSelector((state) => state.auth.userId);
+
   useEffect(() => {
     retrieveData();
   }, []);
-
-  useEffect(() => {
-    if (checkItemSameId(memoriesData)) {
-      retrieveData();
-    }
-  }, [memoriesData, setMemoriesData])
 
   const retrieveData = () => {
     try {
       const getInitialData = async () => {
         setIsLoading(true);
-        const userId = await AsyncStorage.getItem("userId");
-        const transformedId = JSON.parse(userId).userId;
         const unSubscriber = await db
-          .collection(`users/${transformedId}/memories`)
-          .orderBy("year", "desc")
+          .collection(`users/${userId}/memoriesMonth`)
+          .where("year", "==", year)
           .orderBy("month", "desc")
-          .orderBy("day", "desc")
-          .limit(MEMORIES_LIMIT)
+          .limit(MEMORIES_MONTH_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return {
-                id: doc.id,
-                data: doc.data(),
-              };
+              return doc.data();
             });
             const lastVisible =
               querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -52,9 +42,9 @@ const useAllMemories = () => {
       };
       getInitialData();
     } catch (e) {
-      Alert.alert("Lỗi", "Không thể load được kỉ niểm.", [
+      Alert.alert("Lỗi", "Không thể load được kỷ niệm.", [
         {
-          text: "Xem lại",
+          text: "Đã hiểu",
           style: "cancel",
         },
       ]);
@@ -67,15 +57,12 @@ const useAllMemories = () => {
     }
     try {
       const getMore = async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        const transformedId = JSON.parse(userId).userId;
         const unSubscriber = await db
-          .collection(`users/${transformedId}/memories`)
-          .orderBy("year", "desc")
+          .collection(`users/${userId}/memoriesMonth`)
+          .where("year", "==", year)
           .orderBy("month", "desc")
-          .orderBy("day", "desc")
           .startAfter(lastVisibleItem)
-          .limit(MEMORIES_LIMIT)
+          .limit(MEMORIES_MONTH_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
               return {
@@ -105,9 +92,9 @@ const useAllMemories = () => {
   return {
     memoriesData,
     isLoading,
-    isRefreshing,
     retrieveMore,
+    isRefreshing,
   };
 };
 
-export default useAllMemories;
+export default useMemoriesFilterByYear;

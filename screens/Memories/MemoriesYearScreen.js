@@ -1,20 +1,29 @@
 import React from "react";
 import { FlatList } from "react-native";
 
-import { useYearMemoriesItem } from "../../hooks/useMemoriesItem";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryNavigateItem from "../../components/Memories/MemoryNavigateItem";
-import LoadingIndicator from "../../components/UI/LoadingIndicator";
+import useMemoriesYear from "../../hooks/Memories/useMemoriesYear";
+import MemoryLoading from "../../components/Memories/MemoryLoading";
+import NoMemory from "../../components/Memories/NoMemory";
+import { getRandomItem } from "../../utils/general";
 
 const MemoriesYearScreen = (props) => {
   const { navigation } = props;
-  const yearMemoriesList = useYearMemoriesItem();
 
-  if (!yearMemoriesList) {
+  const { memoriesData, isLoading } = useMemoriesYear();
+
+  if (isLoading) {
+    return <MemoryLoading />;
+  }
+
+  if (memoriesData.length === 0) {
     return (
-      <BodyWrapper>
-        <LoadingIndicator />
-      </BodyWrapper>
+      <NoMemory
+        onAddMemory={() => {
+          navigation.navigate("AddMemory", { isEmpty: true });
+        }}
+      />
     );
   }
 
@@ -22,14 +31,15 @@ const MemoriesYearScreen = (props) => {
     const onGoToMonth = (year) => {
       navigation.navigate("MemoriesFilterYear", { year });
     };
+    const { year, images, numOfPosts, numOfImages } = item;
     return (
       <MemoryNavigateItem
-        title={item.year}
-        imageUrl={item.image}
-        numOfPosts={item.numOfPosts}
-        numOfImages={item.numOfImages}
+        title={year}
+        imageUrl={getRandomItem(images)}
+        numOfPosts={numOfPosts}
+        numOfImages={numOfImages}
         onPress={() => {
-          onGoToMonth(item.year);
+          onGoToMonth(year);
         }}
       />
     );
@@ -37,7 +47,7 @@ const MemoriesYearScreen = (props) => {
   return (
     <BodyWrapper>
       <FlatList
-        data={yearMemoriesList}
+        data={memoriesData}
         keyExtractor={(item) => item.year}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}

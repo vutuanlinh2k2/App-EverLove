@@ -27,16 +27,16 @@ const useEditMemory = () => {
         const sameImages = arrayEqual(newImages, oldImages);
 
         if (!sameImages) {
-          const newUrls = await Promise.all(
-            newImages.map(async (image) => {
-              const imageUrl = await firebaseUploadImage(image);
+          await Promise.all(
+            oldImages.map(async (image) => {
+              const imageUrl = await firebaseDeleteImage(image);
               return imageUrl;
             })
           );
 
-          await Promise.all(
-            oldImages.map(async (image) => {
-              const imageUrl = await firebaseDeleteImage(image);
+          const newUrls = await Promise.all(
+            newImages.map(async (image) => {
+              const imageUrl = await firebaseUploadImage(image);
               return imageUrl;
             })
           );

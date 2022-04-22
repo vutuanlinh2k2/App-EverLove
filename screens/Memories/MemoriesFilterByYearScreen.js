@@ -5,30 +5,42 @@ import { useMemoriesItemByYear } from "../../hooks/useMemoriesItem";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryNavigateItem from "../../components/Memories/MemoryNavigateItem";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
+import useMemoriesFilterByYear from "../../hooks/Memories/useMemoriesFilterByYear";
+import MemoryLoading from "../../components/Memories/MemoryLoading";
+import NoMemory from "../../components/Memories/NoMemory";
+import { getRandomItem } from "../../utils/general";
 
 const MemoriesFilterByYearScreen = (props) => {
   const { route } = props;
   const year = route.params.year;
-  const monthMemoriesList = useMemoriesItemByYear(year);
+  // const monthMemoriesList = useMemoriesItemByYear(year);
+  const { memoriesData, isLoading, retrieveMore, isRefreshing } =
+    useMemoriesFilterByYear(year);
 
-  if (!monthMemoriesList) {
-    return (
-      <BodyWrapper>
-        <LoadingIndicator />
-      </BodyWrapper>
-    );
-  }
+    if (isLoading) {
+      return <MemoryLoading />;
+    }
+  
+    if (memoriesData.length === 0) {
+      return (
+        <NoMemory
+          onAddMemory={() => {
+            navigation.navigate("AddMemory", { isEmpty: true });
+          }}
+        />
+      );
+    }
 
   const renderItem = ({ item }) => {
+    const { month, year, images, numOfPosts, numOfImages } = item;
     return (
       <MemoryNavigateItem
-        title={item.month}
-        imageUrl={item.image}
-        numOfPosts={item.numOfPosts}
-        numOfImages={item.numOfImages}
+        title={`${month}-${year}`}
+        imageUrl={getRandomItem(images)}
+        numOfImages={numOfImages}
+        numOfPosts={numOfPosts}
         onPress={() => {
-          const year = item.month.split("/")[1];
-          onGoToDay(item.month, year);
+          onGoToDay(month, year);
         }}
       />
     );
@@ -36,10 +48,13 @@ const MemoriesFilterByYearScreen = (props) => {
   return (
     <BodyWrapper>
       <FlatList
-        data={monthMemoriesList}
+        data={memoriesData}
         keyExtractor={(item) => item.month}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        refreshing={isRefreshing}
+        onEndReachedThreshold={0}
+        onEndReached={retrieveMore}
       />
     </BodyWrapper>
   );
