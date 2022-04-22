@@ -10,7 +10,7 @@ import HeaderButton from "../components/UI/HeaderButton";
 import Divider from "../components/UI/Divider";
 import AddMemoryForm from "../components/AddMemory/AddMemoryForm";
 import AddMemoryImages from "../components/AddMemory/AddMemoryImages";
-import AddMemoryModal from "../components/AddMemory/AddMemoryModal";
+import LoadingModal from "../components/UI/LoadingModal";
 
 const AddMemoryScreen = (props) => {
   const { navigation } = props;
@@ -102,7 +102,7 @@ const AddMemoryScreen = (props) => {
           />
         </View>
       </KeyboardAwareScrollView>
-      <AddMemoryModal isVisible={isUploading} />
+      <LoadingModal isVisible={isUploading} />
     </>
   );
 };
@@ -113,8 +113,8 @@ export const screenOptions = (navData) => {
   const submitFunction = params.submitFunction;
 
   return {
-    presentation: "modal",
     title: "Lưu kỷ niệm",
+    presentation: "modal",
     gestureEnabled: false,
     headerStyle: {
       backgroundColor: backgroundColor,

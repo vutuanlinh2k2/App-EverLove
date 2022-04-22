@@ -13,3 +13,14 @@ export const getDate = (day, month, year) => {
   }
   return `${day}-${month}-${year}`;
 };
+
+export const checkItemSameId = (memories) => {
+  const map = {};
+  for (let i = 0; i < memories.length; i++) {
+    if (map[memories[i].id]) {
+      return true;
+    }
+    map[memories[i].id] = true;
+  }
+  return false;
+};

@@ -21,3 +21,14 @@ export const firebaseDeleteMemories = async (id) => {
     .then(() => {});
   return unSubscriber;
 };
+
+export const firebaseUpdateMemories = async (id, newInfo) => {
+  const userId = await AsyncStorage.getItem("userId");
+  const transformedId = JSON.parse(userId).userId;
+  const unSubscriber = db
+    .collection(`users/${transformedId}/memories`)
+    .doc(id)
+    .update(newInfo)
+    .then(() => {});
+  return unSubscriber;
+};

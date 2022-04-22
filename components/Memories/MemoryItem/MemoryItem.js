@@ -13,7 +13,7 @@ import useMemoriesItem from "../../../hooks/Memories/useMemoryItem";
 
 const MemoryItem = (props) => {
   const [isOpenActions, setIsOpenActions] = useState(false);
-  const { id, imageUrls, description, title, day, month, year } = props;
+  const { id, imageUrls, description, title, day, month, year, onEdit } = props;
 
   const { isLoading, deleteMemory } = useMemoriesItem();
 
@@ -27,8 +27,19 @@ const MemoryItem = (props) => {
     setIsOpenActions(false);
   };
 
-  // const shareMemoryHandler = () => {};
-  const editMemoryHandler = () => {};
+  const openEditingHandler = () => {
+    setIsOpenActions(false);
+    onEdit({
+      id,
+      title,
+      description,
+      day,
+      month,
+      year,
+      images: imageUrls,
+    });
+  };
+
   const deleteMemoryHandler = () => {
     Alert.alert("Xoá kỷ niệm", "Bạn có chắc chắn muốn xoá viết kỷ niệm này?", [
       { text: "Không" },
@@ -44,7 +55,7 @@ const MemoryItem = (props) => {
 
   const actionItems = [
     {
-      action: editMemoryHandler,
+      action: openEditingHandler,
       iconComponent: FontAwesome5,
       iconName: "edit",
       title: "Chỉnh sửa",

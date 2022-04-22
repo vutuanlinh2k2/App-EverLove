@@ -64,7 +64,7 @@ const widgetStyles = {
 //   // saveTo: 'png',
 // };
 
-const SelectImagesModal = (props) => {
+const ImageLibraryModal = (props) => {
   const { isVisible, onCancel, onSelectImages } = props;
 
   const onSuccess = (data) => {
@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SelectImagesModal;
+export default ImageLibraryModal;

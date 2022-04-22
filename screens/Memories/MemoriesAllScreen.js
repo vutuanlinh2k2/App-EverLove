@@ -26,6 +26,12 @@ const MemoriesAllScreen = (props) => {
     );
   }
 
+  const editMemory = (memoryData) => {
+    navigation.navigate("EditMemory", {
+      memoryData,
+    });
+  };
+
   const renderItem = ({ item }) => {
     const { images, description, title, day, month, year } = item.data;
     const id = item.id;
@@ -38,6 +44,7 @@ const MemoriesAllScreen = (props) => {
         day={day}
         month={month}
         year={year}
+        onEdit={editMemory}
       />
     );
   };

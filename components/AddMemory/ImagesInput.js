@@ -40,11 +40,7 @@ const ImagesInput = (props) => {
           itemWidth={imageSize + 20}
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
-          //   useScrollView={true}
           firstItem={0}
-          //   onSnapToItem={(index) => {
-          //     setCurrentCarouselIndex(index);
-          //   }}
         />
       )}
       {images.length > 0 && (

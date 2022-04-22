@@ -15,6 +15,9 @@ import DateCounterScreen, {
 import AddMemoryScreen, {
   screenOptions as addMemoryScreenOptions,
 } from "../screens/AddMemoryScreen";
+import EditMemoryScreen, {
+  screenOptions as editMemoryScreenOptions,
+} from "../screens/EditMemoryScreen";
 import MemoriesNavigator from "./Memories/MemoriesNavigator";
 import MenuScreen, {
   screenOptions as menuScreenOptions,
@@ -102,6 +105,11 @@ const RootNavigator = () => {
         name="AddMemory"
         component={AddMemoryScreen}
         options={addMemoryScreenOptions}
+      />
+      <RootStackNavigator.Screen
+        name="EditMemory"
+        component={EditMemoryScreen}
+        options={editMemoryScreenOptions}
       />
     </RootStackNavigator.Navigator>
   );

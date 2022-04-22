@@ -3,18 +3,28 @@ import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { db } from "../../firebase";
+import { checkItemSameId } from "../../utils/memories";
 
 const MEMORIES_LIMIT = 5;
 
 const useAllMemories = () => {
+  const [state, setState] = useState(0);
   const [memoriesData, setMemoriesData] = useState([]);
   const [lastVisibleItem, setLastVisibleItem] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const forceUpdate = () => setState(state + 1);
+
   useEffect(() => {
     retrieveData();
   }, []);
+
+  useEffect(() => {
+    if (checkItemSameId(memoriesData)) {
+      retrieveData();
+    }
+  }, [memoriesData, setMemoriesData])
 
   const retrieveData = () => {
     try {
@@ -60,7 +70,6 @@ const useAllMemories = () => {
     }
     try {
       const getMore = async () => {
-        setIsRefreshing(true);
         const userId = await AsyncStorage.getItem("userId");
         const transformedId = JSON.parse(userId).userId;
         const unSubscriber = await db

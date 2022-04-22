@@ -9,5 +9,12 @@ export const convertDay = (date) => {
 
 export const currentDateObj = () => {
   const [year, month, day] = new Date().toISOString().slice(0, 10).split("-");
-  return new Date(year, month, day);
+  return new Date(year, month, day, 12);
+};
+
+export const arrayEqual = (arr1, arr2) => {
+  return (
+    arr1.length === arr2.length &&
+    arr1.every((value, index) => value === arr2[index])
+  );
 };
