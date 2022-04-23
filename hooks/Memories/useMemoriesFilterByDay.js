@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 import { db } from "../../firebase";
 
-const MEMORIES_MONTH_LIMIT = 5;
+const MEMORIES_LIMIT = 5;
 
-const useMemoriesFilterByYear = (year) => {
+const useMemoriesFilterByDay = (day, month, year) => {
   const [memoriesData, setMemoriesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [lastVisibleItem, setLastVisibleItem] = useState(null);
@@ -23,13 +23,17 @@ const useMemoriesFilterByYear = (year) => {
       const getInitialData = async () => {
         setIsLoading(true);
         const unSubscriber = await db
-          .collection(`users/${userId}/memoriesMonth`)
+          .collection(`users/${userId}/memories`)
           .where("year", "==", year)
-          .orderBy("month", "desc")
-          .limit(MEMORIES_MONTH_LIMIT)
+          .where("month", "==", month)
+          .where("day", "==", day)
+          .limit(MEMORIES_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return doc.data();
+              return {
+                id: doc.id,
+                data: doc.data(),
+              };
             });
             const lastVisible =
               querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -57,14 +61,18 @@ const useMemoriesFilterByYear = (year) => {
     try {
       const getMore = async () => {
         const unSubscriber = await db
-          .collection(`users/${userId}/memoriesMonth`)
+          .collection(`users/${userId}/memories`)
           .where("year", "==", year)
-          .orderBy("month", "desc")
+          .where("month", "==", month)
+          .where("day", "==", day)
           .startAfter(lastVisibleItem)
-          .limit(MEMORIES_MONTH_LIMIT)
+          .limit(MEMORIES_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return doc.data();
+              return {
+                id: doc.id,
+                data: doc.data(),
+              };
             });
             const lastVisible =
               querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -93,4 +101,4 @@ const useMemoriesFilterByYear = (year) => {
   };
 };
 
-export default useMemoriesFilterByYear;
+export default useMemoriesFilterByDay;

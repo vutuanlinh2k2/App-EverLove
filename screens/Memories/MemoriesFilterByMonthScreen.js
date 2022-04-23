@@ -1,47 +1,49 @@
 import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { useMemoriesItemByMonth } from "../../hooks/useMemoriesItem";
 import BodyWrapper from "../../components/UI/BodyWrapper";
-import MemoryItem from "../../components/Memories/MemoryItem/MemoryItem";
-import LoadingIndicator from "../../components/UI/LoadingIndicator";
-import Divider from "../../components/UI/Divider";
+import MemoryNavigateItem from "../../components/Memories/MemoryNavigateItem";
+import useMemoriesFilterByMonth from "../../hooks/Memories/useMemoriesFIlterByMonth";
+import MemoryLoading from "../../components/Memories/MemoryLoading";
+import { getRandomItem } from "../../utils/general";
 
 const MemoriesFilterByMonthScreen = (props) => {
-  const { route } = props;
+  const { route, navigation } = props;
   const { month, year } = route.params;
-  const memoriesList = useMemoriesItemByMonth(month, year);
 
-  if (!memoriesList) {
-    return (
-      <BodyWrapper>
-        <LoadingIndicator />
-      </BodyWrapper>
-    );
+  const { memoriesData, isLoading, retrieveMore, isRefreshing } =
+    useMemoriesFilterByMonth(month, year);
+
+  if (isLoading) {
+    return <MemoryLoading />;
   }
 
   const renderItem = ({ item }) => {
-    const { images, description, title, day, month, year } = item.data;
+    const { images, day, month, year, numOfPosts, numOfImages } = item;
     return (
-      <MemoryItem
-        imageUrls={images}
-        description={description}
-        title={title}
-        day={day}
-        month={month}
-        year={year}
+      <MemoryNavigateItem
+        title={`${day}-${month}-${year}`}
+        imageUrl={getRandomItem(images)}
+        numOfImages={numOfImages}
+        numOfPosts={numOfPosts}
+        onPress={() => {
+          navigation.navigate("MemoriesFilterDay", { day, month, year });
+        }}
       />
     );
   };
   return (
     <BodyWrapper>
       <FlatList
-        ListHeaderComponent={<Divider />}
-        data={memoriesList}
-        keyExtractor={(item) => item.id}
+        // ListHeaderComponent={<Divider />}
+        data={memoriesData}
+        keyExtractor={(item) => item.day}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.list}
+        refreshing={isRefreshing}
+        onEndReachedThreshold={0}
+        onEndReached={retrieveMore}
       />
     </BodyWrapper>
   );

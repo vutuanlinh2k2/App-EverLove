@@ -1,23 +1,20 @@
 import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { useMemoriesItemByDay } from "../../hooks/useMemoriesItem";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryItem from "../../components/Memories/MemoryItem/MemoryItem";
-import LoadingIndicator from "../../components/UI/LoadingIndicator";
-import Divider from "../../components/UI/Divider";
+import MemoryLoading from "../../components/Memories/MemoryLoading";
+import useMemoriesFilterByDay from "../../hooks/Memories/useMemoriesFilterByDay";
 
 const MemoriesFilterByDayScreen = (props) => {
   const { route } = props;
-  const { day, year, month } = route.params;
-  const memoriesList = useMemoriesItemByDay(day, month, year);
+  const { day, month, year } = route.params;
 
-  if (!memoriesList) {
-    return (
-      <BodyWrapper>
-        <LoadingIndicator />
-      </BodyWrapper>
-    );
+  const { memoriesData, isLoading, retrieveMore, isRefreshing } =
+    useMemoriesFilterByDay(day, month, year);
+
+  if (isLoading) {
+    return <MemoryLoading />;
   }
 
   const renderItem = ({ item }) => {
@@ -36,12 +33,14 @@ const MemoriesFilterByDayScreen = (props) => {
   return (
     <BodyWrapper>
       <FlatList
-        ListHeaderComponent={<Divider />}
-        data={memoriesList}
+        data={memoriesData}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.list}
+        refreshing={isRefreshing}
+        onEndReachedThreshold={0}
+        onEndReached={retrieveMore}
       />
     </BodyWrapper>
   );

@@ -1,35 +1,21 @@
 import React from "react";
 import { FlatList } from "react-native";
 
-import { useMemoriesItemByYear } from "../../hooks/useMemoriesItem";
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryNavigateItem from "../../components/Memories/MemoryNavigateItem";
-import LoadingIndicator from "../../components/UI/LoadingIndicator";
 import useMemoriesFilterByYear from "../../hooks/Memories/useMemoriesFilterByYear";
 import MemoryLoading from "../../components/Memories/MemoryLoading";
-import NoMemory from "../../components/Memories/NoMemory";
 import { getRandomItem } from "../../utils/general";
 
 const MemoriesFilterByYearScreen = (props) => {
-  const { route } = props;
+  const { route, navigation } = props;
   const year = route.params.year;
-  // const monthMemoriesList = useMemoriesItemByYear(year);
   const { memoriesData, isLoading, retrieveMore, isRefreshing } =
     useMemoriesFilterByYear(year);
 
-    if (isLoading) {
-      return <MemoryLoading />;
-    }
-  
-    if (memoriesData.length === 0) {
-      return (
-        <NoMemory
-          onAddMemory={() => {
-            navigation.navigate("AddMemory", { isEmpty: true });
-          }}
-        />
-      );
-    }
+  if (isLoading) {
+    return <MemoryLoading />;
+  }
 
   const renderItem = ({ item }) => {
     const { month, year, images, numOfPosts, numOfImages } = item;
@@ -40,7 +26,7 @@ const MemoriesFilterByYearScreen = (props) => {
         numOfImages={numOfImages}
         numOfPosts={numOfPosts}
         onPress={() => {
-          onGoToDay(month, year);
+          navigation.navigate("MemoriesFilterMonth", { month, year });
         }}
       />
     );

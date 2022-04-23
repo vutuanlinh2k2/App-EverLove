@@ -3,19 +3,28 @@ import { FlatList } from "react-native";
 
 import BodyWrapper from "../../components/UI/BodyWrapper";
 import MemoryNavigateItem from "../../components/Memories/MemoryNavigateItem";
-import { useDayMemoriesItem } from "../../hooks/useMemoriesItem";
-import LoadingIndicator from "../../components/UI/LoadingIndicator";
+import useMemoriesDay from "../../hooks/Memories/useMemoriesDay";
+import MemoryLoading from "../../components/Memories/MemoryLoading";
+import NoMemory from "../../components/Memories/NoMemory";
+import { getRandomItem } from "../../utils/general";
 
 const MemoriesDayScreen = (props) => {
   const { navigation } = props;
 
-  const dayMemoriesList = useDayMemoriesItem();
+  const { memoriesData, isLoading, retrieveMore, isRefreshing } =
+    useMemoriesDay();
 
-  if (!dayMemoriesList) {
+  if (isLoading) {
+    return <MemoryLoading />;
+  }
+
+  if (memoriesData.length === 0) {
     return (
-      <BodyWrapper>
-        <LoadingIndicator />
-      </BodyWrapper>
+      <NoMemory
+        onAddMemory={() => {
+          navigation.navigate("AddMemory", { isEmpty: true });
+        }}
+      />
     );
   }
 
@@ -24,17 +33,16 @@ const MemoriesDayScreen = (props) => {
   };
 
   const renderItem = ({ item }) => {
-    const { day, image, numOfPosts, numOfImages } = item;
-    const [ itemDay, itemMonth, itemYear ] = day.split("/");
+    const { day, month, year, images, numOfPosts, numOfImages } = item;
     return (
       <MemoryNavigateItem
         isDayItem
-        title={day}
-        imageUrl={image}
+        title={`${day}-${month}-${year}`}
+        imageUrl={getRandomItem(images)}
         numOfPosts={numOfPosts}
         numOfImages={numOfImages}
         onPress={() => {
-          navigateScreen(itemDay, itemMonth, itemYear);
+          navigateScreen(day, month, year);
         }}
       />
     );
@@ -42,10 +50,13 @@ const MemoriesDayScreen = (props) => {
   return (
     <BodyWrapper>
       <FlatList
-        data={dayMemoriesList}
+        data={memoriesData}
         keyExtractor={(item) => item.day}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        refreshing={isRefreshing}
+        onEndReachedThreshold={0}
+        onEndReached={retrieveMore}
       />
     </BodyWrapper>
   );

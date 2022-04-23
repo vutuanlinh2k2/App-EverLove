@@ -23,6 +23,9 @@ const MemoriesNavigator = () => {
       screenOptions={{
         ...navigatorHeaderDefaultOptions,
         title: memoryScreenTitle,
+        headerBackTitleStyle: {
+          fontFamily: 'nunito'
+        }
       }}
     >
       <MemoriesStackNavigator.Screen
