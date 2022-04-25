@@ -32,13 +32,13 @@ const MemoriesMonthScreen = (props) => {
     navigation.navigate("MemoriesFilterMonth", { month, year });
   };
   const renderItem = ({ item }) => {
-    const { month, year, images, numOfPosts, numOfImages } = item;
+    const { month, year, images, numOfPosts } = item;
     return (
       <MemoryNavigateItem
         title={`${month}-${year}`}
         imageUrl={getRandomItem(images)}
         numOfPosts={numOfPosts}
-        numOfImages={numOfImages}
+        numOfImages={images.length}
         onPress={() => {
           onGoToDay(month, year);
         }}

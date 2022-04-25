@@ -66,10 +66,7 @@ const useMemoriesDay = () => {
           .limit(MEMORIES_DAY_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return {
-                id: doc.id,
-                data: doc.data(),
-              };
+              return doc.data();
             });
             const lastVisible =
               querySnapshot.docs[querySnapshot.docs.length - 1];

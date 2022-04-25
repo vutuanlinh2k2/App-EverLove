@@ -33,14 +33,14 @@ const MemoriesDayScreen = (props) => {
   };
 
   const renderItem = ({ item }) => {
-    const { day, month, year, images, numOfPosts, numOfImages } = item;
+    const { day, month, year, images, numOfPosts } = item;
     return (
       <MemoryNavigateItem
         isDayItem
         title={`${day}-${month}-${year}`}
         imageUrl={getRandomItem(images)}
         numOfPosts={numOfPosts}
-        numOfImages={numOfImages}
+        numOfImages={images.length}
         onPress={() => {
           navigateScreen(day, month, year);
         }}

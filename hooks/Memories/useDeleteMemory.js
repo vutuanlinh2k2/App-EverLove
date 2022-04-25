@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Alert } from "react-native";
+import { useSelector } from "react-redux";
 
 import { firebaseDeleteMemories } from "../../firebase/memories";
 import { firebaseDeleteImage } from "../../firebase/imagesStorage";
 
-const useMemoriesItem = () => {
+const useDeleteMemory = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const userId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
     return () => {
@@ -17,7 +20,7 @@ const useMemoriesItem = () => {
     try {
       const removeMemory = async () => {
         setIsLoading(true);
-        await firebaseDeleteMemories(memoryId);
+        await firebaseDeleteMemories(userId, memoryId);
         await Promise.all(
           imageUrls.map(async (image) => {
             const imageUrl = await firebaseDeleteImage(image);
@@ -46,4 +49,4 @@ const useMemoriesItem = () => {
   return { isLoading, deleteMemory };
 };
 
-export default useMemoriesItem;
+export default useDeleteMemory;

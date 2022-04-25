@@ -9,13 +9,13 @@ import MemoryItemImages from "./MemoryItemImages";
 import Divider from "../../UI/Divider";
 import ActionModal from "../../UI/ActionModal/ActionModal";
 import LoadingModal from "../../UI/LoadingModal";
-import useMemoriesItem from "../../../hooks/Memories/useMemoryItem";
+import useDeleteMemory from "../../../hooks/Memories/useDeleteMemory";
 
 const MemoryItem = (props) => {
   const [isOpenActions, setIsOpenActions] = useState(false);
   const { id, imageUrls, description, title, day, month, year, onEdit } = props;
 
-  const { isLoading, deleteMemory } = useMemoriesItem();
+  const { isLoading, deleteMemory } = useDeleteMemory();
 
   const date = getDate(day, month, year);
 

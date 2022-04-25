@@ -1,4 +1,5 @@
 import { Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { firebaseCreateUserInfo } from "../../firebase/userInfo";
 import { firebaseUploadImage } from "../../firebase/imagesStorage";
@@ -10,12 +11,14 @@ export const CLEAR_USER_INFO = "CLEAR_USER_INFO";
 
 export const createUserInfo = (userInfo) => {
   return async (dispatch) => {
+    const userId = await AsyncStorage.getItem("userId");
+    const transformedId = JSON.parse(userId).userId;
     try {
       const image = userInfo.image
-        ? await firebaseUploadImage(userInfo.image)
+        ? await firebaseUploadImage(transformedId, userInfo.image)
         : null;
       const partnerImage = userInfo.partnerImage
-        ? await firebaseUploadImage(userInfo.partnerImage)
+        ? await firebaseUploadImage(transformedId, userInfo.partnerImage)
         : null;
 
       const newInfo = { ...userInfo, image, partnerImage };

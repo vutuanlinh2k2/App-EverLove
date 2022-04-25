@@ -7,7 +7,7 @@ import MemoryLoading from "../../components/Memories/MemoryLoading";
 import useMemoriesFilterByDay from "../../hooks/Memories/useMemoriesFilterByDay";
 
 const MemoriesFilterByDayScreen = (props) => {
-  const { route } = props;
+  const { route, navigation } = props;
   const { day, month, year } = route.params;
 
   const { memoriesData, isLoading, retrieveMore, isRefreshing } =
@@ -17,16 +17,25 @@ const MemoriesFilterByDayScreen = (props) => {
     return <MemoryLoading />;
   }
 
+  const editMemory = (memoryData) => {
+    navigation.navigate("EditMemory", {
+      memoryData,
+    });
+  };
+
   const renderItem = ({ item }) => {
     const { images, description, title, day, month, year } = item.data;
+    const id = item.id;
     return (
       <MemoryItem
+        id={id}
         imageUrls={images}
         description={description}
         title={title}
         day={day}
         month={month}
         year={year}
+        onEdit={editMemory}
       />
     );
   };

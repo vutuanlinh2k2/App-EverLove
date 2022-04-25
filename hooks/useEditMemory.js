@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Alert } from "react-native";
+import { useSelector } from "react-redux";
 
 import {
   firebaseUploadImage,
@@ -10,6 +11,8 @@ import { arrayEqual } from "../utils/general";
 
 const useEditMemory = () => {
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const userId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
     return () => {
@@ -36,7 +39,7 @@ const useEditMemory = () => {
 
           const newUrls = await Promise.all(
             newImages.map(async (image) => {
-              const imageUrl = await firebaseUploadImage(image);
+              const imageUrl = await firebaseUploadImage(userId, image);
               return imageUrl;
             })
           );
