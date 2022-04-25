@@ -67,16 +67,6 @@ const useEditMemory = () => {
           oldImages
         );
 
-        // if (day !== oldDay || month !== oldMonth || year !== oldYear) {
-        //   await firebaseUpdateMemoriesInfo(
-        //     userId,
-        //     { oldDay, oldMonth, oldYear },
-        //     { day, month, year },
-        //     oldImages,
-        //     imageUrls
-        //   );
-        // }
-
         setIsUpdating(false);
         Alert.alert("Sửa thành công", "Đã sửa kỉ niệm của bạn thành công", [
           {

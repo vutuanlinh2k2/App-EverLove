@@ -11,7 +11,13 @@ const useMemoriesYear = () => {
   const userId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
-    retrieveData();
+    let isMounted = true;
+    if (isMounted) {
+      retrieveData();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const retrieveData = () => {

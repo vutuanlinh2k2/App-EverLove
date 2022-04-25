@@ -35,7 +35,7 @@ const MemoriesFilterByYearScreen = (props) => {
     <BodyWrapper>
       <FlatList
         data={memoriesData}
-        keyExtractor={(item) => item.month}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         refreshing={isRefreshing}

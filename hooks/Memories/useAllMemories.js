@@ -14,14 +14,20 @@ const useAllMemories = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
-    retrieveData();
+    let isMounted = true;
+    if (isMounted) {
+      retrieveData();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
     if (checkItemSameId(memoriesData)) {
       retrieveData();
     }
-  }, [memoriesData, setMemoriesData])
+  }, [memoriesData, setMemoriesData]);
 
   const retrieveData = () => {
     try {

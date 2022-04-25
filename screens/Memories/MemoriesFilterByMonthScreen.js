@@ -37,7 +37,7 @@ const MemoriesFilterByMonthScreen = (props) => {
       <FlatList
         // ListHeaderComponent={<Divider />}
         data={memoriesData}
-        keyExtractor={(item) => item.day}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.list}

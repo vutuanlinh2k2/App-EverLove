@@ -48,7 +48,7 @@ const MemoriesYearScreen = (props) => {
     <BodyWrapper>
       <FlatList
         data={memoriesData}
-        keyExtractor={(item) => item.year}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />

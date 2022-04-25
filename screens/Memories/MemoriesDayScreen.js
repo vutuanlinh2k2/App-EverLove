@@ -51,7 +51,7 @@ const MemoriesDayScreen = (props) => {
     <BodyWrapper>
       <FlatList
         data={memoriesData}
-        keyExtractor={(item) => item.day}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         refreshing={isRefreshing}
