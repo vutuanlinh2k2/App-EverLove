@@ -16,11 +16,19 @@ const useDeleteMemory = () => {
     };
   }, []);
 
-  const deleteMemory = (memoryId, imageUrls) => {
+  const deleteMemory = (memoryId, memoryData) => {
+    const { imageUrls, day, month, year } = memoryData;
     try {
       const removeMemory = async () => {
         setIsLoading(true);
-        await firebaseDeleteMemories(userId, memoryId);
+        await firebaseDeleteMemories(
+          userId,
+          memoryId,
+          imageUrls,
+          day,
+          month,
+          year
+        );
         await Promise.all(
           imageUrls.map(async (image) => {
             const imageUrl = await firebaseDeleteImage(image);

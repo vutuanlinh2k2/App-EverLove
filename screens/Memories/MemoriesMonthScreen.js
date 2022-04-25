@@ -32,7 +32,7 @@ const MemoriesMonthScreen = (props) => {
     navigation.navigate("MemoriesFilterMonth", { month, year });
   };
   const renderItem = ({ item }) => {
-    const { month, year, images, numOfPosts } = item;
+    const { month, year, images, numOfPosts } = item.data;
     return (
       <MemoryNavigateItem
         title={`${month}-${year}`}

@@ -41,12 +41,17 @@ const MemoryItem = (props) => {
   };
 
   const deleteMemoryHandler = () => {
-    Alert.alert("Xoá kỷ niệm", "Bạn có chắc chắn muốn xoá viết kỷ niệm này?", [
+    Alert.alert("Xoá kỷ niệm", "Bạn có chắc chắn muốn xoá kỷ niệm này?", [
       { text: "Không" },
       {
         text: "Xoá",
         onPress: () => {
-          deleteMemory(id, imageUrls);
+          deleteMemory(id, {
+            imageUrls,
+            day,
+            month,
+            year,
+          });
         },
         style: "cancel",
       },

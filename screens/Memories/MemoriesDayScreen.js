@@ -33,7 +33,7 @@ const MemoriesDayScreen = (props) => {
   };
 
   const renderItem = ({ item }) => {
-    const { day, month, year, images, numOfPosts } = item;
+    const { day, month, year, images, numOfPosts } = item.data;
     return (
       <MemoryNavigateItem
         isDayItem

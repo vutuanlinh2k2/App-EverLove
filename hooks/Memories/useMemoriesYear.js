@@ -23,7 +23,10 @@ const useMemoriesYear = () => {
           .orderBy("year", "desc")
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return doc.data();
+              return {
+                id: doc.id,
+                data: doc.data(),
+              };
             });
             setMemoriesData(data);
             setIsLoading(false);

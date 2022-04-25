@@ -20,14 +20,21 @@ const useEditMemory = () => {
     };
   }, []);
 
-  const editMemory = (memoryId, newInfo, oldImages) => {
+  const editMemory = (
+    memoryId,
+    newInfo,
+    oldDay,
+    oldMonth,
+    oldYear,
+    oldImages
+  ) => {
     try {
       const updateMemory = async () => {
         setIsUpdating(true);
 
-        const newImages = newInfo.images;
+        const { images } = newInfo;
         let imageUrls = oldImages;
-        const sameImages = arrayEqual(newImages, oldImages);
+        const sameImages = arrayEqual(images, oldImages);
 
         if (!sameImages) {
           await Promise.all(
@@ -38,7 +45,7 @@ const useEditMemory = () => {
           );
 
           const newUrls = await Promise.all(
-            newImages.map(async (image) => {
+            images.map(async (image) => {
               const imageUrl = await firebaseUploadImage(userId, image);
               return imageUrl;
             })
@@ -47,10 +54,28 @@ const useEditMemory = () => {
           imageUrls = newUrls;
         }
 
-        const unSubscriber = await firebaseUpdateMemories(memoryId, {
-          ...newInfo,
-          images: imageUrls,
-        });
+        const unSubscriber = await firebaseUpdateMemories(
+          userId,
+          memoryId,
+          {
+            ...newInfo,
+            images: imageUrls,
+          },
+          oldDay,
+          oldMonth,
+          oldYear,
+          oldImages
+        );
+
+        // if (day !== oldDay || month !== oldMonth || year !== oldYear) {
+        //   await firebaseUpdateMemoriesInfo(
+        //     userId,
+        //     { oldDay, oldMonth, oldYear },
+        //     { day, month, year },
+        //     oldImages,
+        //     imageUrls
+        //   );
+        // }
 
         setIsUpdating(false);
         Alert.alert("Sửa thành công", "Đã sửa kỉ niệm của bạn thành công", [
@@ -59,6 +84,7 @@ const useEditMemory = () => {
             style: "cancel",
           },
         ]);
+
         return unSubscriber;
       };
       updateMemory();

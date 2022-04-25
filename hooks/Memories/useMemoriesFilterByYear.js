@@ -29,7 +29,10 @@ const useMemoriesFilterByYear = (year) => {
           .limit(MEMORIES_MONTH_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return doc.data();
+              return {
+                id: doc.id,
+                data: doc.data(),
+              };
             });
             const lastVisible =
               querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -64,7 +67,10 @@ const useMemoriesFilterByYear = (year) => {
           .limit(MEMORIES_MONTH_LIMIT)
           .onSnapshot((querySnapshot) => {
             const data = querySnapshot.docs.map((doc) => {
-              return doc.data();
+              return {
+                id: doc.id,
+                data: doc.data(),
+              };
             });
             const lastVisible =
               querySnapshot.docs[querySnapshot.docs.length - 1];

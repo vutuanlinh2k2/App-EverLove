@@ -69,7 +69,7 @@ const EditMemoryScreen = (props) => {
       year: memoryYear,
     };
 
-    editMemory(id, updatedMemory, images);
+    editMemory(id, updatedMemory, day, month, year, images);
 
     navigation.goBack();
   }, [memoryTitle, memoryImages, memoryDescription, memoryDate]);
