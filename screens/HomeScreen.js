@@ -1,5 +1,4 @@
 import React from "react";
-// import { StyleSheet, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { navigatorHeaderDefaultOptions } from "../constants/navigation";
