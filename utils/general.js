@@ -2,6 +2,10 @@ export const getRandomItem = (items) => {
   return items[Math.floor(Math.random() * items.length)];
 };
 
+export const getRandomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export const convertDay = (date) => {
   const [year, month, day] = date.toISOString().substring(0, 10).split("-");
   return `${day}-${month}-${year}`;

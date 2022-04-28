@@ -1,13 +1,14 @@
 import { db, firestore } from "../firebase";
 
-const getMemoryId = async (userId) => {
+export const getMemoriesInfo = async (userId) => {
   const data = await db
     .collection(`users/${userId}/memoriesInfo`)
     .doc("info")
     .get();
   const infoExisted = data.exists;
-  const memoryId = infoExisted ? data.data().currentId + 1 : 1;
-  return { memoryId, infoExisted };
+  const currentId = infoExisted ? data.data().currentId : 0;
+  const numOfPosts = infoExisted ? data.data().numOfPosts : 0;
+  return { infoExisted, numOfPosts, currentId };
 };
 
 export const firebaseAddMemories = async (userId, memoryInfo) => {
@@ -17,7 +18,8 @@ export const firebaseAddMemories = async (userId, memoryInfo) => {
 
   const { day, month, year } = memoryInfo;
 
-  const { memoryId, infoExisted } = await getMemoryId(userId);
+  const { infoExisted, currentId } = await getMemoriesInfo(userId);
+  const memoryId = currentId + 1;
 
   const memoriesInfoRef = db
     .collection(`users/${userId}/memoriesInfo`)

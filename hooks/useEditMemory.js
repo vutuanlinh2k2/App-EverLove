@@ -79,7 +79,6 @@ const useEditMemory = () => {
       };
       updateMemory();
     } catch (e) {
-      console.log("e :", e);
       Alert.alert("Lỗi", "Không thể sửa kỉ niệm lúc này", [
         {
           text: "Đã hiểu",

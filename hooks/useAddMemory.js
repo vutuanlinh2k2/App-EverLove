@@ -42,7 +42,6 @@ export const useAddMemory = () => {
       };
       addMemory();
     } catch (e) {
-      console.log("e :", e);
       Alert.alert("Lỗi", "Không thể lưu kỉ niệm lúc này", [
         {
           text: "Đã hiểu",

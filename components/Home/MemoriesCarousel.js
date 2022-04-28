@@ -1,55 +1,58 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
 import { availableWidth, appCarouselItemWidth } from "../../constants/styles";
 import { accentColor } from "../../constants/colors";
+import MemoriesCarouselItem from "./MemoriesCarouselItem";
+import LoadingIndicator from "../UI/LoadingIndicator";
+import useMemoriesCarousel from "../../hooks/useMemoriesCarousel";
 
 const itemWidth = availableWidth / 2 - 5;
 
-const carouselItems = [
-  {
-    imageUrl1:
-      "https://images.unsplash.com/photo-1631208446303-40facec6e391?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1127&q=80",
-    date1: "1 năm trước",
-    imageUrl2:
-      "https://images.unsplash.com/photo-1465188035480-cf3a60801ea5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
-    date2: "5/6",
-  },
-  {
-    imageUrl1:
-      "https://images.unsplash.com/photo-1608153488161-803b502750fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
-    date1: "Valentines",
-    imageUrl2:
-      "https://images.unsplash.com/photo-1600879227354-f2809c06f145?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1137&q=80",
-    date2: "10/12",
-  },
-];
-
 const renderItem = ({ item }) => {
+  const { memoryLeft, memoryRight } = item;
   return (
     <View style={styles.imagesContainer}>
-      <ImageBackground source={{ uri: item.imageUrl1 }} style={styles.image}>
-        <Text style={styles.date}>{item.date1}</Text>
-      </ImageBackground>
-      <ImageBackground source={{ uri: item.imageUrl2 }} style={styles.image}>
-        <Text style={styles.date}>{item.date2}</Text>
-      </ImageBackground>
+      <MemoriesCarouselItem
+        day={memoryLeft.data.day}
+        month={memoryLeft.data.month}
+        year={memoryLeft.data.year}
+        images={memoryLeft.data.images}
+        onPress={() => {}}
+      />
+      {memoryRight && <MemoriesCarouselItem
+        day={memoryRight.data.day}
+        month={memoryRight.data.month}
+        year={memoryRight.data.year}
+        images={memoryRight.data.images}
+        onPress={() => {}}
+      />}
     </View>
   );
 };
 
 const MemoriesCarousel = (props) => {
+  const { memoriesData, isLoading } = useMemoriesCarousel();
+
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <LoadingIndicator />
+      </View>
+    );
+  }
+
+  if (memoriesData.length === 0) {
+    
+  }
+
   return (
     <View style={styles.carouselContainer}>
       <Carousel
         layout={"default"}
-        data={carouselItems}
+        data={memoriesData}
         renderItem={renderItem}
         sliderWidth={availableWidth}
         itemWidth={appCarouselItemWidth}
@@ -91,6 +94,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 10,
     fontSize: 15,
+  },
+  loadingContainer: {
+    height: itemWidth,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
