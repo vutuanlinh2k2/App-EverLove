@@ -12,7 +12,6 @@ import HomeCarousel from "../components/Home/HomeCarousel";
 import MemoriesCarousel from "../components/Home/MemoriesCarousel";
 import UpcomingEvents from "../components/Home/UpcomingEvents";
 
-
 const HomeScreen = (props) => {
   const { navigation } = props;
 
@@ -21,6 +20,18 @@ const HomeScreen = (props) => {
       screen: "MemoriesMain",
       params: {
         screen: "MemoriesAll",
+      },
+    });
+  };
+
+  const navigateDayMemoriesScreen = (day, month, year) => {
+    navigation.navigate("Memories", {
+      screen: "MemoriesFilterDay",
+      initial: false,
+      params: {
+        day,
+        month,
+        year,
       },
     });
   };
@@ -40,7 +51,7 @@ const HomeScreen = (props) => {
         actionText={"Xem tất cả"}
         action={navigateMemoriesScreen}
       />
-      <MemoriesCarousel onNavigateMemoriesScreen={navigateMemoriesScreen} />
+      <MemoriesCarousel onNavigateMemory={navigateDayMemoriesScreen} />
       <Divider />
       <HeadingText headerText={"Sự kiện sắp tới"} />
       <UpcomingEvents />
@@ -57,6 +68,5 @@ export const screenOptions = (navData) => {
     ),
   };
 };
-
 
 export default HomeScreen;

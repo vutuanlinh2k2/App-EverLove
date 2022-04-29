@@ -37,7 +37,7 @@ const AddMemoryForm = (props) => {
       <TextInput
         style={styles.titleInput}
         selectionColor={primaryColor}
-        placeholder="Tên kỷ niệm*"
+        placeholder="Tên kỉ niệm*"
         multiline
         numberOfLines={2}
         maxLength={40}

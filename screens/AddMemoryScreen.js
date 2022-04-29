@@ -58,7 +58,7 @@ const AddMemoryScreen = (props) => {
     if (title === "" || date === "" || images.length === 0) {
       Alert.alert(
         "Thiếu thông tin",
-        "Bạn có thể quên nhập tên kỷ niệm, ngày kỉ niệm hoặc chưa chọn ảnh.",
+        "Bạn có thể quên nhập tên kỉ niệm, ngày kỉ niệm hoặc chưa chọn ảnh.",
         [{ text: "Đã hiểu", style: "cancel" }]
       );
       return;
@@ -113,7 +113,7 @@ export const screenOptions = (navData) => {
   const submitFunction = params.submitFunction;
 
   return {
-    title: "Lưu kỷ niệm",
+    title: "Lưu kỉ niệm",
     presentation: "modal",
     gestureEnabled: false,
     headerStyle: {
@@ -131,7 +131,7 @@ export const screenOptions = (navData) => {
           onPress={() => {
             isEmpty || isEmpty === undefined
               ? navData.navigation.goBack()
-              : Alert.alert("Bỏ kỷ niệm", "Bạn có muốn bỏ viết kỷ niệm này?", [
+              : Alert.alert("Bỏ kỉ niệm", "Bạn có muốn bỏ viết kỉ niệm này?", [
                   { text: "Không" },
                   {
                     text: "Bỏ",

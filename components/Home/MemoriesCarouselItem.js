@@ -13,13 +13,15 @@ import { getDate } from "../../utils/memories";
 const itemWidth = availableWidth / 2 - 5;
 
 const MemoriesCarouselItem = (props) => {
-  const { day, month, year, images, onPress } = props;
+  const { day, month, year, images, onNavigateMemory } = props;
 
   const date = getDate(day, month, year);
   return (
     <TouchableOpacity
       activeOpacity={0.6}
-      onPress={onPress}
+      onPress={() => {
+        onNavigateMemory(day, month, year);
+      }}
       style={styles.container}
     >
       <ImageBackground

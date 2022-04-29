@@ -42,7 +42,7 @@ const EditMemoryScreen = (props) => {
     if (memoryTitle === "" || memoryDate === "" || memoryImages.length === 0) {
       Alert.alert(
         "Thiếu thông tin",
-        "Bạn đang điền thiếu tên kỷ niệm, ngày kỉ niệm hoặc chưa chọn ảnh.",
+        "Bạn đang điền thiếu tên kỉ niệm, ngày kỉ niệm hoặc chưa chọn ảnh.",
         [{ text: "Đã hiểu", style: "cancel" }]
       );
       return;
@@ -118,7 +118,7 @@ export const screenOptions = (navData) => {
   const submitFunction = params.submitFunction;
 
   return {
-    title: "Sửa kỷ niệm",
+    title: "Sửa kỉ niệm",
     presentation: "modal",
     gestureEnabled: false,
     headerStyle: {
@@ -138,7 +138,7 @@ export const screenOptions = (navData) => {
               ? navData.navigation.goBack()
               : Alert.alert(
                   "Huỷ chỉnh sửa",
-                  "Bạn không muốn sửa kỷ niệm này?",
+                  "Bạn không muốn sửa kỉ niệm này?",
                   [
                     { text: "Đúng" },
                     {

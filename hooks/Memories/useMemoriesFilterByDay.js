@@ -51,7 +51,7 @@ const useMemoriesFilterByDay = (day, month, year) => {
       };
       getInitialData();
     } catch (e) {
-      Alert.alert("Lỗi", "Không thể load được kỷ niệm.", [
+      Alert.alert("Lỗi", "Không thể load được kỉ niệm.", [
         {
           text: "Đã hiểu",
           style: "cancel",

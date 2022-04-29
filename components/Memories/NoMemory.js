@@ -7,7 +7,7 @@ const NoMemory = (props) => {
   const { onAddMemory } = props;
   return (
     <View style={styles.noMemory}>
-      <Text style={styles.text}>Chưa có kỷ niệm nào hiện tại</Text>
+      <Text style={styles.text}>Chưa có kỉ niệm nào hiện tại</Text>
       <Text style={styles.actionText} onPress={onAddMemory}>
         Tạo ngay
       </Text>

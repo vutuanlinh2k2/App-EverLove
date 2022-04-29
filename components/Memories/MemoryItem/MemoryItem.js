@@ -41,7 +41,7 @@ const MemoryItem = (props) => {
   };
 
   const deleteMemoryHandler = () => {
-    Alert.alert("Xoá kỷ niệm", "Bạn có chắc chắn muốn xoá kỷ niệm này?", [
+    Alert.alert("Xoá kỉ niệm", "Bạn có chắc chắn muốn xoá kỉ niệm này?", [
       { text: "Không" },
       {
         text: "Xoá",

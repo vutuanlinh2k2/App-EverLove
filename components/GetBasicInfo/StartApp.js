@@ -22,7 +22,7 @@ const StartApp = (props) => {
           <Text style={styles.appName}>EverLove</Text>
         </View>
         <Text style={styles.description}>
-          Tạo, lưu giữ và nhận thông báo kỷ niệm của bạn và người ấy
+          Tạo, lưu giữ và nhận thông báo kỉ niệm của bạn và người ấy
         </Text>
         <ContinueButton text="Bắt đầu" onPress={onStartApp} />
       </View>

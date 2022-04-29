@@ -1,5 +1,7 @@
 import { db, firestore } from "../firebase";
 
+import { arrayEqual } from "../utils/general";
+
 export const getMemoriesInfo = async (userId) => {
   const data = await db
     .collection(`users/${userId}/memoriesInfo`)
@@ -201,6 +203,38 @@ export const firebaseUpdateMemories = async (
   const memoryRef = db.collection(`users/${userId}/memories`).doc(id);
   batch.update(memoryRef, newInfo);
 
+  const updateAllMemoriesInfo = async () => {
+    const memoriesDayRef = db
+      .collection(`users/${userId}/memoriesDay`)
+      .doc(`${newDay}-${newMonth}-${newYear}`);
+    batch.update(memoriesDayRef, {
+      images: imagesRemove,
+    });
+    batch.update(memoriesDayRef, {
+      images: imagesUnion,
+    });
+
+    const memoriesMonthRef = db
+      .collection(`users/${userId}/memoriesMonth`)
+      .doc(`${newMonth}-${newYear}`);
+    batch.update(memoriesMonthRef, {
+      images: imagesRemove,
+    });
+    batch.update(memoriesMonthRef, {
+      images: imagesUnion,
+    });
+
+    const memoriesYearRef = db
+      .collection(`users/${userId}/memoriesYear`)
+      .doc(`${newYear}`);
+    batch.update(memoriesYearRef, {
+      images: imagesRemove,
+    });
+    batch.update(memoriesYearRef, {
+      images: imagesUnion,
+    });
+  };
+
   const updateDayInfo = async () => {
     const memoriesOldDayRef = db
       .collection(`users/${userId}/memoriesDay`)
@@ -306,7 +340,14 @@ export const firebaseUpdateMemories = async (
     });
   };
 
-  if (newYear !== oldYear) {
+  if (
+    newYear === oldYear &&
+    newMonth === oldMonth &&
+    newDay === oldDay &&
+    !arrayEqual(newImages, oldImages)
+  ) {
+    await updateAllMemoriesInfo();
+  } else if (newYear !== oldYear) {
     await updateDayInfo();
     await updateMonthInfo();
     await updateYearInfo();
