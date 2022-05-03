@@ -8,6 +8,7 @@ import { saveUserInfoToStorage } from "../../utils/asyncStorage";
 export const SET_USER_INFO = "SET_USER_INFO";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const CLEAR_USER_INFO = "CLEAR_USER_INFO";
+export const CHANGE_LOVE_DATE = "CHANGE_LOVE_DATE";
 
 export const createUserInfo = (userInfo) => {
   return async (dispatch) => {
@@ -58,6 +59,15 @@ export const getUserInfo = (userInfo) => {
   return {
     type: GET_USER_INFO,
     userInfo,
+  };
+};
+
+export const changeLoveDate = (day, month, year) => {
+  return {
+    type: CHANGE_LOVE_DATE,
+    day,
+    month,
+    year,
   };
 };
 

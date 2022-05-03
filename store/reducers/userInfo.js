@@ -2,6 +2,7 @@ import {
   SET_USER_INFO,
   GET_USER_INFO,
   CLEAR_USER_INFO,
+  CHANGE_LOVE_DATE,
 } from "../actions/userInfo";
 
 const initialState = {
@@ -35,6 +36,15 @@ export default (state = initialState, action) => {
       };
     case CLEAR_USER_INFO:
       return initialState;
+    case CHANGE_LOVE_DATE:
+      return {
+        ...state,
+        loveDate: {
+          day: action.day,
+          month: action.month,
+          year: action.year,
+        },
+      };
     default:
       return state;
   }

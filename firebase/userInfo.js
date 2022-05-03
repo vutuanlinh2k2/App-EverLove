@@ -22,3 +22,10 @@ export const firebaseGetUserInfo = async (userId) => {
     });
   return unsubscribe;
 };
+
+export const firebaseUpdateLoveDate = async (userId, day, month, year) => {
+  const unSubscriber = await db.collection(`users`).doc(userId).update({
+    loveDate: { day, month, year },
+  });
+  return unSubscriber;
+};

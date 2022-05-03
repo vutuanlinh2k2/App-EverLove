@@ -132,7 +132,7 @@ export const screenOptions = (navData) => {
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Close"
-          iconName="close"
+          iconName="x"
           onPress={() => {
             noChange
               ? navData.navigation.goBack()

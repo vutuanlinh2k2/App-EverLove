@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
 import { availableWidth, appCarouselItemWidth } from "../../constants/styles";
+import { commonTextColor } from "../../constants/colors";
 import MemoriesCarouselItem from "./MemoriesCarouselItem";
 import LoadingIndicator from "../UI/LoadingIndicator";
 import useMemoriesCarousel from "../../hooks/useMemoriesCarousel";
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
   },
   noMemory: {
     fontFamily: "nunito",
+    color: commonTextColor,
   },
 });
 

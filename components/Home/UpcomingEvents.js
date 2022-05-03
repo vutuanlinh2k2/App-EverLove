@@ -33,7 +33,7 @@ const UpcomingEvents = (props) => {
     <View style={styles.upcomingEvents}>
       {events.length === 0 && (
         <Text style={styles.noEventText}>
-          Không có kỉ niệm nào trong 30 ngày tới.
+          Không có sự kiện nào trong 30 ngày tới.
         </Text>
       )}
       {events.map((event) => {

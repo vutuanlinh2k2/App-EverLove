@@ -1,89 +1,54 @@
-import { useState, useEffect } from "react";
-import { db } from "../firebase";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Alert } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { getLoveDateCount, getZodiac, getDetailLoveDate } from "../utils/dateCounter";
+import { changeLoveDate } from "../store/actions/userInfo";
+import { firebaseUpdateLoveDate } from "../firebase/userInfo";
 
-export const useDateCounterHeart = () => {
-  const [dateCounter, setDateCounter] = useState();
+const useDateCounter = () => {
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.userId);
 
-  useEffect(() => {
-    const unSubscriber = db
-      .collection(`users`)
-      .doc(userId)
-      .onSnapshot((querySnapshot) => {
-        const { day, month, year } = querySnapshot.data().loveDate;
-        const dateLove = getLoveDateCount(day, month, year);
-        setDateCounter(dateLove);
-      });
-    return unSubscriber;
-  }, []);
+  const updateLoveDate = (day, month, year) => {
+    try {
+      const updateInfo = async () => {
+        setIsUpdating(true);
+        await firebaseUpdateLoveDate(userId, day, month, year);
+        const newLoveDate = {
+          loveDate: {
+            day,
+            month,
+            year,
+          },
+        };
+        await AsyncStorage.mergeItem("userInfo", JSON.stringify(newLoveDate));
+        dispatch(changeLoveDate(day, month, year));
+        setIsUpdating(false);
+        Alert.alert("Sửa thành công", "Đã sửa ngày yêu thành công", [
+          {
+            text: "OK",
+            style: "cancel",
+          },
+        ]);
+      };
+      updateInfo();
+    } catch (e) {
+      Alert.alert("Lỗi", "Sửa ngày yêu không thành công", [
+        {
+          text: "OK",
+          style: "cancel",
+        },
+      ]);
+    }
+  };
 
-  return dateCounter;
+  return {
+    updateLoveDate,
+    isUpdating,
+  };
 };
 
-export const useDateCounterDetail = () => {
-  const [dateCounter, setDateCounter] = useState();
-  const userId = useSelector((state) => state.auth.userId);
-
-  useEffect(() => {
-    const unSubscriber = db
-      .collection(`users`)
-      .doc(userId)
-      .onSnapshot((querySnapshot) => {
-        const { day, month, year } = querySnapshot.data().loveDate;
-        const dateLove = getDetailLoveDate(day, month, year);
-        setDateCounter(dateLove);
-      });
-    return unSubscriber;
-  }, []);
-
-  return dateCounter;
-};
-
-export const useGetCoupleInfo = () => {
-  const [coupleInfo, setCoupleInfo] = useState();
-  const userId = useSelector((state) => state.auth.userId);
-
-  useEffect(() => {
-    const unSubscriber = db
-      .collection(`users`)
-      .doc(userId)
-      .onSnapshot((querySnapshot) => {
-        const {
-          birthDay,
-          gender,
-          image,
-          name,
-          nickname,
-          partnerBirthday,
-          partnerGender,
-          partnerImage,
-          partnerName,
-          partnerNickname,
-        } = querySnapshot.data();
-
-        const { day, month } = birthDay;
-        const { day: partnerDay, month: partnerMonth } = partnerBirthday;
-        const zodiac = getZodiac(parseInt(day), parseInt(month));
-        const partnerZodiac = getZodiac(
-          parseInt(partnerDay),
-          parseInt(partnerMonth)
-        );
-
-        setCoupleInfo({
-          gender,
-          image,
-          name: nickname ?? name,
-          zodiac,
-          partnerGender,
-          partnerImage,
-          partnerName: partnerNickname ?? partnerName,
-          partnerZodiac,
-        });
-      });
-    return unSubscriber;
-  }, []);
-  return coupleInfo;
-};
+export default useDateCounter;

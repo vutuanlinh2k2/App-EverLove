@@ -127,7 +127,7 @@ export const screenOptions = (navData) => {
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Share"
-          iconName="close"
+          iconName="x"
           onPress={() => {
             isEmpty || isEmpty === undefined
               ? navData.navigation.goBack()
