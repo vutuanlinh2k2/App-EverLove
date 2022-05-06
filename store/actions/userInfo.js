@@ -9,6 +9,7 @@ export const SET_USER_INFO = "SET_USER_INFO";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const CLEAR_USER_INFO = "CLEAR_USER_INFO";
 export const CHANGE_LOVE_DATE = "CHANGE_LOVE_DATE";
+export const CHANGE_BASIC_INFO = "CHANGE_BASIC_INFO";
 
 export const createUserInfo = (userInfo) => {
   return async (dispatch) => {
@@ -68,6 +69,13 @@ export const changeLoveDate = (day, month, year) => {
     day,
     month,
     year,
+  };
+};
+
+export const changeBasicInfo = (updatedInfo) => {
+  return {
+    type: CHANGE_BASIC_INFO,
+    updatedInfo,
   };
 };
 

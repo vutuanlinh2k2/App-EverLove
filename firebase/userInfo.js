@@ -29,3 +29,11 @@ export const firebaseUpdateLoveDate = async (userId, day, month, year) => {
   });
   return unSubscriber;
 };
+
+export const firebaseUpdateBasicInfo = async (userId, updateInfo) => {
+  const unSubscriber = await db
+    .collection(`users`)
+    .doc(userId)
+    .update(updateInfo);
+  return unSubscriber;
+};

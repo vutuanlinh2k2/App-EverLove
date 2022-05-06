@@ -22,6 +22,9 @@ import MemoriesNavigator from "./Memories/MemoriesNavigator";
 import MenuScreen, {
   screenOptions as menuScreenOptions,
 } from "../screens/MenuScreen";
+import ChangeBasicInfoScreen, {
+  screenOptions as changeBasicInfoScreenOptions,
+} from "../screens/ChangeBasicInfoScreen";
 
 const Placeholder = () => <View style={{ flex: 1, backgroundColor: "red" }} />;
 
@@ -110,6 +113,11 @@ const RootNavigator = () => {
         name="EditMemory"
         component={EditMemoryScreen}
         options={editMemoryScreenOptions}
+      />
+      <RootStackNavigator.Screen
+        name="ChangeBasicInfo"
+        component={ChangeBasicInfoScreen}
+        options={changeBasicInfoScreenOptions}
       />
     </RootStackNavigator.Navigator>
   );

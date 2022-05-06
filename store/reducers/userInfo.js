@@ -3,13 +3,14 @@ import {
   GET_USER_INFO,
   CLEAR_USER_INFO,
   CHANGE_LOVE_DATE,
+  CHANGE_BASIC_INFO,
 } from "../actions/userInfo";
 
 const initialState = {
   name: null,
   nickname: null,
   gender: null,
-  birthDay: null,
+  birthday: null,
   image: null,
   zodiac: null,
   partnerName: null,
@@ -44,6 +45,11 @@ export default (state = initialState, action) => {
           month: action.month,
           year: action.year,
         },
+      };
+    case CHANGE_BASIC_INFO:
+      return {
+        ...state,
+        ...action.updatedInfo,
       };
     default:
       return state;

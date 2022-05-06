@@ -58,25 +58,31 @@ const DateCounterScreen = (props) => {
 
   const actionItems = [
     {
-      action: () => {},
+      action: () => {
+        closeChangeInfo();
+        navigation.navigate("ChangeBasicInfo", { isPartner: false });
+      },
       iconComponent: MaterialCommunityIcons,
-      iconName: 'account',
+      iconName: "account",
       title: "Sửa thông tin bạn",
     },
     {
-      action: () => {},
+      action: () => {
+        closeChangeInfo();
+        navigation.navigate("ChangeBasicInfo", { isPartner: true });
+      },
       iconComponent: MaterialCommunityIcons,
-      iconName: 'account-heart',
+      iconName: "account-heart",
       title: "Sửa thông tin người đó",
     },
     {
       action: openDatePicker,
       iconComponent: MaterialCommunityIcons,
-      iconName: 'calendar-heart',
+      iconName: "calendar-heart",
       title: "Sửa ngày yêu",
     },
   ];
-  
+
   return (
     <View style={{ backgroundColor, flex: 1 }}>
       <View
