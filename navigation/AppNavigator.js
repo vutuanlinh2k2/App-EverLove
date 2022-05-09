@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import MainNavigator from "./RootNavigator";
 import AuthScreen from "../screens/AuthScreen";
+import AuthNavigator from "./AuthNavigator";
 import StartUpScreen from "../screens/StartUpScreen";
 import GetBasicInfoScreen from "../screens/GetBasicInfoScreen";
 
@@ -15,7 +16,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       {!isAuth && !didTryAutoLogin && <StartUpScreen />}
-      {!isAuth && didTryAutoLogin && <AuthScreen />}
+      {!isAuth && didTryAutoLogin && <AuthNavigator />}
       {isAuth && !userInfoExisted && <GetBasicInfoScreen />}
       {isAuth && userInfoExisted && <MainNavigator />}
     </NavigationContainer>

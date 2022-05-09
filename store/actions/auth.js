@@ -5,7 +5,11 @@ import {
   convertSignUpErrorMessage,
   convertLogInErrorMessage,
 } from "../../utils/auth";
-import { firebaseSignUp, firebaseLogIn } from "../../firebase/auth";
+import {
+  firebaseSignUp,
+  firebaseLogIn,
+  firebaseForgotPassword,
+} from "../../firebase/auth";
 import { firebaseGetUserInfo } from "../../firebase/userInfo";
 import { setUserInfo, clearUserInfo } from "./userInfo";
 import { saveUserIdToStorage } from "../../utils/asyncStorage";
@@ -13,6 +17,7 @@ import { saveUserIdToStorage } from "../../utils/asyncStorage";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const SET_DID_TRY_AUTO_LOGIN = "SET_DID_TRY_AUTO_LOGIN";
 export const LOGOUT = "LOGOUT";
+export const FORGOT_PASSWORD = "FORGOT_PASSWORD";
 
 export const authenticate = (userId) => {
   return async (dispatch) => {
@@ -79,6 +84,29 @@ export const logOut = () => {
       dispatch({ type: LOGOUT });
     } catch (e) {
       Alert.alert("Lỗi", "Không thể đăng xuất", [
+        {
+          text: "OK",
+          style: "cancel",
+        },
+      ]);
+    }
+  };
+};
+
+export const forgotPassword = (email) => {
+  return async (dispatch) => {
+    try {
+      await firebaseForgotPassword(email);
+      Alert.alert("Đã gửi email", "Email được gửi đi thành công", [
+        {
+          text: "OK",
+        },
+      ]);
+      dispatch({
+        type: FORGOT_PASSWORD,
+      });
+    } catch (e) {
+      Alert.alert("Lỗi", "Địa chỉ email không hợp lệ", [
         {
           text: "OK",
           style: "cancel",

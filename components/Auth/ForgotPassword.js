@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import { Feather } from "@expo/vector-icons";
@@ -13,32 +8,26 @@ import * as yup from "yup";
 import { primaryColor } from "../../constants/colors";
 import { screenHeight, shadowDefault } from "../../constants/styles";
 import InputWithIcon from "../UI/InputWithIcon";
-import { signUp, logIn } from "../../store/actions/auth";
+import { forgotPassword } from "../../store/actions/auth";
 
 const loginValidationSchema = yup.object().shape({
   email: yup
     .string()
     .email("Hãy điền email hợp lệ.")
     .required("Hãy nhập email của bạn."),
-  password: yup
-    .string()
-    .min(8, ({ min }) => `Mật khẩu phải có ít nhất ${min} kí tự.`)
-    .required("Hãy nhập mật khẩu cho tài khoản của bạn."),
 });
 
 const AuthInputs = (props) => {
-  const { isSignup } = props;
   const dispatch = useDispatch();
+
   return (
     <View style={styles.inputsContainer}>
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: "", password: "" }}
-        onSubmit={
-          isSignup
-            ? (values) => dispatch(signUp(values.email, values.password))
-            : (values) => dispatch(logIn(values.email, values.password))
-        }
+        onSubmit={(values) => {
+          dispatch(forgotPassword(values.email));
+        }}
       >
         {({
           handleChange,
@@ -65,29 +54,12 @@ const AuthInputs = (props) => {
             {errors.email && touched.email && (
               <Text style={styles.errorText}>{errors.email}</Text>
             )}
-            <InputWithIcon
-              IconComponent={Feather}
-              iconName="lock"
-              name="password"
-              placeholder="Mật khẩu"
-              selectionColor={primaryColor}
-              style={styles.textInput}
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-              value={values.password}
-              secureTextEntry
-            />
-            {errors.password && touched.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
-            )}
             <TouchableOpacity
               style={styles.button}
               activeOpacity={0.6}
               onPress={!isValid ? () => {} : handleSubmit}
             >
-              <Text style={styles.buttonText}>
-                {!isSignup ? "Đăng nhập" : "Đăng ký"}
-              </Text>
+              <Text style={styles.buttonText}>Gửi email</Text>
             </TouchableOpacity>
           </>
         )}

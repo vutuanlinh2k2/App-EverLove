@@ -2,6 +2,7 @@ import {
   AUTHENTICATE,
   SET_DID_TRY_AUTO_LOGIN,
   LOGOUT,
+  FORGOT_PASSWORD,
 } from "../actions/auth";
 
 const initialState = {
@@ -26,6 +27,8 @@ export default (state = initialState, action) => {
         ...initialState,
         didTryAutoLogin: true,
       };
+    case FORGOT_PASSWORD:
+      return state;
     default:
       return state;
   }

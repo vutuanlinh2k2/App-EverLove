@@ -9,7 +9,14 @@ import AuthInputs from "../components/Auth/AuthInputs";
 // import SocialAuthButton from "../components/Auth/SocialAuthButton";
 
 const AuthScreen = (props) => {
+  const { navigation } = props;
+
   const [isSignup, setIsSignup] = useState(true);
+
+  const forgotPassword = () => {
+    navigation.navigate("ForgotPassword");
+  };
+
   return (
     <KeyboardAwareScrollView
       style={{
@@ -19,10 +26,14 @@ const AuthScreen = (props) => {
       }}
     >
       <View style={styles.screen}>
-        <View style={{width: '100%'}}>
+        <View style={{ width: "100%" }}>
           <AuthHeader />
           <AuthInputs isSignup={isSignup} />
-          {!isSignup && <Text style={styles.forgotPassword}>Quên mật khẩu?</Text>}
+          {!isSignup && (
+            <Text style={styles.forgotPassword} onPress={forgotPassword}>
+              Quên mật khẩu?
+            </Text>
+          )}
           {/* <View style={styles.lineText}>
             <View style={styles.line} />
             <Text style={styles.text}>hoặc</Text>
@@ -43,27 +54,31 @@ const AuthScreen = (props) => {
             onPress={() => {}}
           /> */}
 
-          {!isSignup ? <Text style={styles.signupText}>
-            Chưa có tài khoản?{" "}
-            <Text
-              style={{ color: primaryColor }}
-              onPress={() => {
-                setIsSignup(true);
-              }}
-            >
-              Đăng kí
+          {!isSignup ? (
+            <Text style={styles.signupText}>
+              Chưa có tài khoản?{" "}
+              <Text
+                style={{ color: primaryColor }}
+                onPress={() => {
+                  setIsSignup(true);
+                }}
+              >
+                Đăng kí
+              </Text>
             </Text>
-          </Text> : <Text style={styles.signupText}>
-            Đã có tài khoản?{" "}
-            <Text
-              style={{ color: primaryColor }}
-              onPress={() => {
-                setIsSignup(false);
-              }}
-            >
-              Đăng nhập
+          ) : (
+            <Text style={styles.signupText}>
+              Đã có tài khoản?{" "}
+              <Text
+                style={{ color: primaryColor }}
+                onPress={() => {
+                  setIsSignup(false);
+                }}
+              >
+                Đăng nhập
+              </Text>
             </Text>
-          </Text>}
+          )}
         </View>
       </View>
     </KeyboardAwareScrollView>
