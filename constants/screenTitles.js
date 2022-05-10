@@ -1,4 +1,4 @@
 export const homeScreenTitle = "EverLove";
 export const dateCounterScreenTitle = "EverLove";
 export const memoryScreenTitle = "Kỷ niệm";
-export const menuScreenTitle = "Tài khoản";
+export const menuScreenTitle = "Cài đặt";

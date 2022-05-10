@@ -19,9 +19,9 @@ import EditMemoryScreen, {
   screenOptions as editMemoryScreenOptions,
 } from "../screens/EditMemoryScreen";
 import MemoriesNavigator from "./Memories/MemoriesNavigator";
-import MenuScreen, {
-  screenOptions as menuScreenOptions,
-} from "../screens/MenuScreen";
+import SettingScreen, {
+  screenOptions as settingScreenOptions,
+} from "../screens/SettingScreen";
 import ChangeBasicInfoScreen, {
   screenOptions as changeBasicInfoScreenOptions,
 } from "../screens/ChangeBasicInfoScreen";
@@ -82,8 +82,8 @@ const MainNavigator = () => {
       />
       <MainBottomTabNavigator.Screen
         name="Setting"
-        component={MenuScreen}
-        options={menuScreenOptions}
+        component={SettingScreen}
+        options={settingScreenOptions}
       />
     </MainBottomTabNavigator.Navigator>
   );
