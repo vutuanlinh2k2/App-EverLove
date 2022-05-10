@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useSelector } from "react-redux";
+import * as Sharing from "expo-sharing";
+import { captureScreen } from "react-native-view-shot";
 
 import { navigatorHeaderDefaultOptions } from "../constants/navigation";
 import { dateCounterScreenTitle } from "../constants/screenTitles";
@@ -16,6 +18,8 @@ import ActionModal from "../components/UI/ActionModal/ActionModal";
 import DateCounterCarousel from "../components/DateCounter/DateCounterCarousel";
 import CoupleInfo from "../components/DateCounter/CoupleInfo";
 import LoadingModal from "../components/UI/LoadingModal";
+
+const PIXEL_COUNT = 1080;
 
 const DateCounterScreen = (props) => {
   const { navigation } = props;
@@ -52,8 +56,29 @@ const DateCounterScreen = (props) => {
     hideDatePicker();
   };
 
+  const shareScreenshot = async () => {
+    try {
+      captureScreen({
+        format: "png",
+        quality: 1,
+      }).then((uri) => {
+        Sharing.shareAsync("file://" + uri);
+      });
+    } catch (e) {
+      Alert.alert("Lỗi", "Không thể chia sẻ ảnh.", [
+        {
+          text: "Đã hiểu",
+        },
+      ]);
+    }
+  };
+
   useEffect(() => {
     navigation.setParams({ changeBasicInfoFunc: openChangeInfo });
+  }, []);
+
+  useEffect(() => {
+    navigation.setParams({ shareScreenshotFunc: shareScreenshot });
   }, []);
 
   const actionItems = [
@@ -120,6 +145,7 @@ const DateCounterScreen = (props) => {
 export const screenOptions = (navData) => {
   const params = navData.route.params;
   const changeBasicInfoFunc = params ? params.changeBasicInfoFunc : () => {};
+  const shareScreenshotFunc = params ? params.shareScreenshotFunc : () => {};
 
   return {
     ...navigatorHeaderDefaultOptions,
@@ -135,7 +161,11 @@ export const screenOptions = (navData) => {
       return (
         <View style={styles.leftIcons}>
           <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item title="Share" iconName="share" onPress={() => {}} />
+            <Item
+              title="Share"
+              iconName="share"
+              onPress={shareScreenshotFunc}
+            />
           </HeaderButtons>
           <HeaderButtons HeaderButtonComponent={HeaderButton}>
             <Item
