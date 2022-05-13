@@ -7,13 +7,13 @@ import { backgroundColor, primaryColor } from "../constants/colors";
 import { screenWidth } from "../constants/styles";
 import { setDidTryAutoLogIn, authenticate } from "../store/actions/auth";
 import { getUserInfo } from "../store/actions/userInfo";
+import { getAppPassword } from "../store/actions/lock";
 
 const StartUpScreen = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const tryLogin = async () => {
       const userId = await AsyncStorage.getItem("userId");
-      const userInfo = await AsyncStorage.getItem("userInfo");
       if (!userId) {
         dispatch(setDidTryAutoLogIn());
         return;
@@ -23,6 +23,7 @@ const StartUpScreen = (props) => {
         dispatch(setDidTryAutoLogIn());
         return;
       }
+      const userInfo = await AsyncStorage.getItem("userInfo");
 
       const transformedInfo = JSON.parse(userInfo);
       if (transformedInfo) {
@@ -30,6 +31,14 @@ const StartUpScreen = (props) => {
       }
 
       dispatch(authenticate(transformedId));
+
+      const appPassword = await AsyncStorage.getItem("appPassword");
+      if (!appPassword) {
+        return;
+      }
+
+      const transformedPassword = JSON.parse(appPassword).password;
+      dispatch(getAppPassword(transformedPassword));
     };
     tryLogin();
   }, []);

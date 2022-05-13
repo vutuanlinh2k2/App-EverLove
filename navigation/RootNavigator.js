@@ -25,6 +25,15 @@ import SettingScreen, {
 import ChangeBasicInfoScreen, {
   screenOptions as changeBasicInfoScreenOptions,
 } from "../screens/ChangeBasicInfoScreen";
+import AddAppPasswordScreen, {
+  screenOptions as addAppPasswordScreenOptions,
+} from "../screens/Lock/AddAppPasswordScreen";
+import RemoveAppPasswordScreen, {
+  screenOptions as removeAppPasswordScreenOptions,
+} from "../screens/Lock/RemoveAppPasswordScreen";
+import ChangeAppPasswordScreen, {
+  screenOptions as changeAppPasswordScreenOptions,
+} from "../screens/Lock/ChangeAppPasswordScreen";
 
 const Placeholder = () => <View style={{ flex: 1, backgroundColor: "red" }} />;
 
@@ -118,6 +127,21 @@ const RootNavigator = () => {
         name="ChangeBasicInfo"
         component={ChangeBasicInfoScreen}
         options={changeBasicInfoScreenOptions}
+      />
+      <RootStackNavigator.Screen
+        name="AddAppPassword"
+        component={AddAppPasswordScreen}
+        options={addAppPasswordScreenOptions}
+      />
+      <RootStackNavigator.Screen
+        name="RemoveAppPassword"
+        component={RemoveAppPasswordScreen}
+        options={removeAppPasswordScreenOptions}
+      />
+      <RootStackNavigator.Screen
+        name="ChangeAppPassword"
+        component={ChangeAppPasswordScreen}
+        options={changeAppPasswordScreenOptions}
       />
     </RootStackNavigator.Navigator>
   );

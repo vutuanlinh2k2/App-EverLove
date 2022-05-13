@@ -9,16 +9,18 @@ import ReduxThunk from "redux-thunk";
 import AppNavigator from "./navigation/AppNavigator";
 import authReducer from "./store/reducers/auth";
 import userInfoReducer from "./store/reducers/userInfo";
+import lockReducer from "./store/reducers/lock";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   userInfo: userInfoReducer,
+  lock: lockReducer,
 });
 
 LogBox.ignoreLogs([
   "AsyncStorage has been extracted from react-native core and will be removed in a future release.",
-  'Non-serializable values were found in the navigation state',
-  'Encountered two children with the same key'
+  "Non-serializable values were found in the navigation state",
+  "Encountered two children with the same key",
 ]);
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

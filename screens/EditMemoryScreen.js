@@ -138,15 +138,17 @@ export const screenOptions = (navData) => {
               ? navData.navigation.goBack()
               : Alert.alert(
                   "Huỷ chỉnh sửa",
-                  "Bạn không muốn sửa kỉ niệm này?",
+                  "Bạn không muốn tiếp tục sửa kỉ niệm này?",
                   [
-                    { text: "Đúng" },
                     {
-                      text: "Không",
+                      text: "Huỷ",
                       onPress: () => {
                         navData.navigation.goBack();
                       },
                       style: "cancel",
+                    },
+                    {
+                      text: "Tiếp tục",
                     },
                   ]
                 );

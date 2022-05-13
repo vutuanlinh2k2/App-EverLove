@@ -8,3 +8,10 @@ export const saveUserInfoToStorage = async (userInfo) => {
   await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
 };
 
+export const saveAppPasswordToStorage = async (password) => {
+  await AsyncStorage.setItem("appPassword", JSON.stringify({ password }));
+};
+
+export const removeAppPasswordFromStorage = async () => {
+  await AsyncStorage.removeItem("appPassword");
+};

@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Switch } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Switch,
+  Pressable,
+  Alert,
+} from "react-native";
 import { useDispatch } from "react-redux";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -7,7 +15,12 @@ import { useSelector } from "react-redux";
 import { logOut } from "../store/actions/auth";
 import { navigatorHeaderDefaultOptions } from "../constants/navigation";
 import { iconBottomSize, appPaddingHorizontal } from "../constants/styles";
-import { backgroundColor, greyColor, commonTextColor } from "../constants/colors";
+import {
+  backgroundColor,
+  greyColor,
+  commonTextColor,
+  primaryColor,
+} from "../constants/colors";
 import { menuScreenTitle } from "../constants/screenTitles";
 import HeaderTitle from "../components/UI/HeaderTitle";
 import SettingItem from "../components/Setting/SettingItem";
@@ -23,14 +36,41 @@ const InfoText = (props) => {
   const { text } = props;
   let shownText = text;
   if (shownText.length > 23) {
-    shownText = shownText.substring(0, 23) + '...'
+    shownText = shownText.substring(0, 23) + "...";
   }
   return <Text style={styles.infoText}>{shownText}</Text>;
 };
 
 const SettingScreen = (props) => {
+  const { navigation } = props;
   const dispatch = useDispatch();
   const { name, email } = useSelector((state) => state.userInfo);
+  const password = useSelector((state) => state.lock.password);
+  const hasPassword = !!password;
+
+  const setPassword = () => {
+    if (!hasPassword) {
+      navigation.navigate("AddAppPassword");
+      return;
+    }
+    navigation.navigate("RemoveAppPassword", {
+      currentPassword: password,
+    });
+  };
+
+  const changePassword = () => {
+    if (!hasPassword) {
+      Alert.alert("Chưa tạo mã khoá", "Xin vui lòng tạo mã hoá.", [
+        {
+          text: "Đã hiểu",
+        },
+      ]);
+      return;
+    }
+    navigation.navigate("ChangeAppPassword", {
+      currentPassword: password,
+    });
+  };
 
   return (
     <ScrollView style={styles.screen}>
@@ -55,14 +95,22 @@ const SettingScreen = (props) => {
           title="Bật mã khoá"
           IconComponent={Feather}
           iconName="lock"
-          rightContent={<Switch />}
+          rightContent={
+            <Pressable onPress={setPassword}>
+              <Switch
+                value={hasPassword}
+                disabled={true}
+                trackColor={{ true: primaryColor }}
+              />
+            </Pressable>
+          }
           onPress={() => {}}
         />
         <SettingItem
           title="Đổi mã khoá"
           IconComponent={Feather}
           iconName="unlock"
-          onPress={() => {}}
+          onPress={changePassword}
         />
         <Divider />
         <SettingItem
