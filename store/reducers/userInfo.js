@@ -7,6 +7,7 @@ import {
 } from "../actions/userInfo";
 
 const initialState = {
+  email: null,
   name: null,
   nickname: null,
   gender: null,

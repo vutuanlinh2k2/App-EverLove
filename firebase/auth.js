@@ -19,3 +19,8 @@ export const firebaseForgotPassword = async (email) => {
   const unSubscriber = await auth.sendPasswordResetEmail(email);
   return unSubscriber;
 };
+
+export const firebaseGetUserEmail = () => {
+  const email = auth.currentUser.email;
+  return email;
+};

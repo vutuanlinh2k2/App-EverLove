@@ -1,15 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Switch } from "react-native";
 import { useDispatch } from "react-redux";
-import { Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import { logOut } from "../store/actions/auth";
 import { navigatorHeaderDefaultOptions } from "../constants/navigation";
 import { iconBottomSize, appPaddingHorizontal } from "../constants/styles";
-import { backgroundColor, greyColor } from "../constants/colors";
+import { backgroundColor, greyColor, commonTextColor } from "../constants/colors";
 import { menuScreenTitle } from "../constants/screenTitles";
 import HeaderTitle from "../components/UI/HeaderTitle";
-import BodyWrapper from "../components/UI/BodyWrapper";
 import SettingItem from "../components/Setting/SettingItem";
 import SettingAction from "../components/Setting/SettingAction";
 import SettingSpace from "../components/Setting/SettingSpace";
@@ -19,12 +19,18 @@ const Divider = () => {
   return <View style={styles.divider} />;
 };
 
+const InfoText = (props) => {
+  const { text } = props;
+  let shownText = text;
+  if (shownText.length > 23) {
+    shownText = shownText.substring(0, 23) + '...'
+  }
+  return <Text style={styles.infoText}>{shownText}</Text>;
+};
+
 const SettingScreen = (props) => {
   const dispatch = useDispatch();
-
-  const logOut = () => {
-    dispatch(logOut());
-  };
+  const { name, email } = useSelector((state) => state.userInfo);
 
   return (
     <ScrollView style={styles.screen}>
@@ -35,18 +41,21 @@ const SettingScreen = (props) => {
           IconComponent={Feather}
           iconName="user"
           onPress={() => {}}
+          rightContent={<InfoText text={name} />}
         />
         <SettingItem
           title="Email"
           IconComponent={Feather}
           iconName="mail"
           onPress={() => {}}
+          rightContent={<InfoText text={email} />}
         />
         <Divider />
         <SettingItem
           title="Bật mã khoá"
           IconComponent={Feather}
           iconName="lock"
+          rightContent={<Switch />}
           onPress={() => {}}
         />
         <SettingItem
@@ -70,13 +79,15 @@ const SettingScreen = (props) => {
         />
       </View>
       <SettingSpace />
-      <SettingAction text="Đăng xuất" color="red" onPress={logOut} />
-      <SettingSpace />
       <SettingAction
-        text="Xoá tài khoản"
+        text="Đăng xuất"
         color="red"
-        onPress={() => {}}
+        onPress={() => {
+          dispatch(logOut());
+        }}
       />
+      <SettingSpace />
+      <SettingAction text="Xoá tài khoản" color="red" onPress={() => {}} />
       <SettingText text="EverLove v1.0" style={styles.footer} />
     </ScrollView>
   );
@@ -108,6 +119,11 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: greyColor,
     marginVertical: 5,
+  },
+  infoText: {
+    fontFamily: "nunito",
+    color: commonTextColor,
+    fontSize: 12.5,
   },
 });
 

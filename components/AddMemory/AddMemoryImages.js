@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import ImageLibraryModal from "../UI/ImageLibraryModal";
@@ -34,7 +34,7 @@ const AddMemoryImages = (props) => {
   };
 
   const verifyPermissions = async () => {
-    const result = await ImagePicker.getCameraPermissionsAsync();
+    const result = await ImagePicker.requestCameraPermissionsAsync();
     if (result.status !== "granted") {
       Alert.alert(
         "Không có quyền truy cập",

@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
-import { commonTextColor, greyColor } from "../../constants/colors";
-import { shadowDefault, screenHeight } from "../../constants/styles";
+import { greyColor } from "../../constants/colors";
 
 const SettingAction = (props) => {
   const { text, color, isBold, onPress } = props;
@@ -18,6 +17,7 @@ const SettingAction = (props) => {
         borderColor: greyColor,
         paddingVertical: 10,
       }}
+      onPress={onPress}
     >
       <Text
         style={{

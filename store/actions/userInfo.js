@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { firebaseCreateUserInfo } from "../../firebase/userInfo";
 import { firebaseUploadImage } from "../../firebase/imagesStorage";
+import { firebaseGetUserEmail } from "../../firebase/auth";
 import { saveUserInfoToStorage } from "../../utils/asyncStorage";
 
 export const SET_USER_INFO = "SET_USER_INFO";
@@ -16,6 +17,7 @@ export const createUserInfo = (userInfo) => {
     const userId = await AsyncStorage.getItem("userId");
     const transformedId = JSON.parse(userId).userId;
     try {
+      const email = firebaseGetUserEmail();
       const image = userInfo.image
         ? await firebaseUploadImage(transformedId, userInfo.image)
         : null;
@@ -23,7 +25,7 @@ export const createUserInfo = (userInfo) => {
         ? await firebaseUploadImage(transformedId, userInfo.partnerImage)
         : null;
 
-      const newInfo = { ...userInfo, image, partnerImage };
+      const newInfo = { ...userInfo, email, image, partnerImage };
       await firebaseCreateUserInfo(newInfo);
       dispatch(setUserInfo(newInfo));
     } catch (e) {
